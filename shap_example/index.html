@@ -1125,13 +1125,13 @@ Licensed under the Apache License, Version 2.0.
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div  class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
         
         
         <div class="CodeMirror cm-s-jupyter">
@@ -1153,7 +1153,6 @@ Licensed under the Apache License, Version 2.0.
 <span class="n">translation</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/translation.tsv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">pathways</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;../data/pathways.tsv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="c1"># Create the model</span>
 <span class="n">network</span> <span class="o">=</span> <span class="n">Network</span><span class="p">(</span>
     <span class="n">input_data</span><span class="o">=</span><span class="n">input_data</span><span class="p">,</span>
     <span class="n">pathways</span><span class="o">=</span><span class="n">pathways</span><span class="p">,</span>
@@ -1175,7 +1174,6 @@ input_data = pd.read_csv("../data/test_qm.csv")
 translation = pd.read_csv("../data/translation.tsv", sep="\t")
 pathways = pd.read_csv("../data/pathways.tsv", sep="\t")
 
-# Create the model
 network = Network(
     input_data=input_data,
     pathways=pathways,
@@ -1194,6 +1192,28 @@ binn = BINN(
     </div>
 
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>/home/erikh/BINN/BINN/test-venv/lib/python3.9/site-packages/tqdm/auto.py:22: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -1215,7 +1235,7 @@ binn = BINN(
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
         
         
         <div class="CodeMirror cm-s-jupyter">
@@ -1292,7 +1312,6 @@ IPU available: False, using: 0 IPUs
 HPU available: False, using: 0 HPUs
 GPU available but not used. Set `accelerator` and `devices` using `Trainer(accelerator=&#39;gpu&#39;, devices=1)`.
 You defined a `validation_step` but have no `val_dataloader`. Skipping val loop.
-Missing logger folder: /home/erikh/BINN/BINN/docs/lightning_logs
 
   | Name   | Type             | Params
 --------------------------------------------
@@ -1313,7 +1332,7 @@ The number of training batches (25) is smaller than the logging interval Trainer
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Epoch 4: 100%|██████████| 25/25 [00:00&lt;00:00, 47.75it/s, loss=0.639, v_num=0, train_loss=0.640, train_acc=0.680]</pre>
+<pre>Epoch 4: 100%|██████████| 25/25 [00:00&lt;00:00, 49.27it/s, loss=0.637, v_num=1, train_loss=0.635, train_acc=0.761]</pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
@@ -1332,7 +1351,7 @@ The number of training batches (25) is smaller than the logging interval Trainer
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Epoch 4: 100%|██████████| 25/25 [00:00&lt;00:00, 43.39it/s, loss=0.639, v_num=0, train_loss=0.640, train_acc=0.680]
+<pre>Epoch 4: 100%|██████████| 25/25 [00:00&lt;00:00, 45.14it/s, loss=0.637, v_num=1, train_loss=0.635, train_acc=0.761]
 </pre>
 </div>
 </div>
@@ -1360,7 +1379,7 @@ The number of training batches (25) is smaller than the logging interval Trainer
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
         
         
         <div class="CodeMirror cm-s-jupyter">
@@ -1377,15 +1396,9 @@ The number of training batches (25) is smaller than the logging interval Trainer
             </div>
             <div class="highlight-ipynb hl-python "><pre><span></span><span class="kn">from</span> <span class="nn">binn</span> <span class="kn">import</span> <span class="n">BINNExplainer</span>
 
-<span class="n">test_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">background_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-
 <span class="n">explainer</span> <span class="o">=</span> <span class="n">BINNExplainer</span><span class="p">(</span><span class="n">binn</span><span class="p">)</span>
 </pre></div>
 <div id="cell-3" class="clipboard-copy-txt">from binn import BINNExplainer
-
-test_data = torch.Tensor(X)
-background_data = torch.Tensor(X)
 
 explainer = BINNExplainer(binn)</div>
         
@@ -1414,7 +1427,7 @@ explainer = BINNExplainer(binn)</div>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
         
         
         <div class="CodeMirror cm-s-jupyter">
@@ -1429,10 +1442,16 @@ explainer = BINNExplainer(binn)</div>
                     </div>
                 </clipboard-copy>
             </div>
-            <div class="highlight-ipynb hl-python "><pre><span></span><span class="n">importance_df</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">background_data</span><span class="p">)</span>
+            <div class="highlight-ipynb hl-python "><pre><span></span><span class="n">test_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">background_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">importance_df</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">background_data</span><span class="p">)</span>
 <span class="n">importance_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
-<div id="cell-4" class="clipboard-copy-txt">importance_df = explainer.explain(test_data, background_data)
+<div id="cell-4" class="clipboard-copy-txt">test_data = torch.Tensor(X)
+background_data = torch.Tensor(X)
+
+importance_df = explainer.explain(test_data, background_data)
 importance_df.head()</div>
         
         </div>
@@ -1459,7 +1478,7 @@ importance_df.head()</div>
 </div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
 
 
 
@@ -1495,7 +1514,7 @@ importance_df.head()</div>
       <th>0</th>
       <td>A0M8Q6_0</td>
       <td>R-HSA-166663_1</td>
-      <td>0.000525</td>
+      <td>0.001106</td>
       <td>0</td>
       <td>0</td>
       <td>1</td>
@@ -1504,7 +1523,7 @@ importance_df.head()</div>
       <th>1</th>
       <td>A0M8Q6_0</td>
       <td>R-HSA-166663_1</td>
-      <td>0.001632</td>
+      <td>0.001248</td>
       <td>1</td>
       <td>0</td>
       <td>1</td>
@@ -1513,7 +1532,7 @@ importance_df.head()</div>
       <th>2</th>
       <td>A0M8Q6_0</td>
       <td>R-HSA-977606_1</td>
-      <td>0.000525</td>
+      <td>0.001106</td>
       <td>0</td>
       <td>0</td>
       <td>1</td>
@@ -1522,7 +1541,7 @@ importance_df.head()</div>
       <th>3</th>
       <td>A0M8Q6_0</td>
       <td>R-HSA-977606_1</td>
-      <td>0.001632</td>
+      <td>0.001248</td>
       <td>1</td>
       <td>0</td>
       <td>1</td>
@@ -1531,7 +1550,7 @@ importance_df.head()</div>
       <th>4</th>
       <td>A0M8Q6_0</td>
       <td>R-HSA-2029481_1</td>
-      <td>0.000525</td>
+      <td>0.001106</td>
       <td>0</td>
       <td>0</td>
       <td>1</td>
@@ -1541,6 +1560,364 @@ importance_df.head()</div>
 </div>
 </div>
 
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+<div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The importance df can be used to create an importance network.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div  class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+        
+        
+        <div class="CodeMirror cm-s-jupyter">
+            <div class="zeroclipboard-container">
+                <clipboard-copy for="cell-5">
+                <div>
+                    <span class="notice" hidden>Copied!</span>
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 16 16" version="1.1"  data-view-component="true" class="clipboard-copy-icon">
+                        <path fill="currentColor" fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path>
+                        <path fill="currentColor" fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path>
+                    </svg>
+                    </div>
+                </clipboard-copy>
+            </div>
+            <div class="highlight-ipynb hl-python "><pre><span></span><span class="kn">from</span> <span class="nn">binn</span> <span class="kn">import</span> <span class="n">ImportanceNetwork</span>
+
+<span class="n">IG</span> <span class="o">=</span> <span class="n">ImportanceNetwork</span><span class="p">(</span><span class="n">importance_df</span><span class="p">)</span>
+</pre></div>
+<div id="cell-5" class="clipboard-copy-txt">from binn import ImportanceNetwork
+
+IG = ImportanceNetwork(importance_df)</div>
+        
+        </div>
+    </div>
+
+</div>
+</div>
+
+</div>
+</div>
+<div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The importance network can then be used to generate plots. Here we generate an upstream Sankey plot originating from the node 'P02766'.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+        
+        
+        <div class="CodeMirror cm-s-jupyter">
+            <div class="zeroclipboard-container">
+                <clipboard-copy for="cell-6">
+                <div>
+                    <span class="notice" hidden>Copied!</span>
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 16 16" version="1.1"  data-view-component="true" class="clipboard-copy-icon">
+                        <path fill="currentColor" fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path>
+                        <path fill="currentColor" fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path>
+                    </svg>
+                    </div>
+                </clipboard-copy>
+            </div>
+            <div class="highlight-ipynb hl-python "><pre><span></span><span class="n">query_node</span> <span class="o">=</span> <span class="s1">&#39;P02766&#39;</span>
+
+<span class="n">IG</span><span class="o">.</span><span class="n">generate_sankey</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">upstream</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">savename</span><span class="o">=</span><span class="s1">&#39;img/sankey.png&#39;</span><span class="p">)</span>
+</pre></div>
+<div id="cell-6" class="clipboard-copy-txt">query_node = 'P02766'
+
+IG.generate_sankey(query_node, upstream=False, savename='img/sankey.png')</div>
+        
+        </div>
+    </div>
+
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+<div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><img src="/img/sankey.png" alt="sankey" /></p>
+
+</div>
+</div>
+</div>
+</div>
+<div  class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>We can also run the explainer for several iterations and compute the average importance.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div  class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+        
+        
+        <div class="CodeMirror cm-s-jupyter">
+            <div class="zeroclipboard-container">
+                <clipboard-copy for="cell-7">
+                <div>
+                    <span class="notice" hidden>Copied!</span>
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 16 16" version="1.1"  data-view-component="true" class="clipboard-copy-icon">
+                        <path fill="currentColor" fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path>
+                        <path fill="currentColor" fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path>
+                    </svg>
+                    </div>
+                </clipboard-copy>
+            </div>
+            <div class="highlight-ipynb hl-python "><pre><span></span><span class="n">average_importance_df</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">explain_average</span><span class="p">(</span><span class="n">test_data</span> <span class="o">=</span> <span class="n">test_data</span><span class="p">,</span> 
+                                                  <span class="n">background_data</span> <span class="o">=</span> <span class="n">background_data</span><span class="p">,</span> 
+                                                  <span class="n">nr_iterations</span><span class="o">=</span> <span class="mi">10</span><span class="p">,</span> 
+                                                  <span class="n">trainer</span><span class="o">=</span><span class="n">trainer</span><span class="p">,</span>
+                                                  <span class="n">dataloader</span><span class="o">=</span> <span class="n">dataloader</span><span class="p">)</span>
+<span class="n">average_importance_df</span>
+</pre></div>
+<div id="cell-7" class="clipboard-copy-txt">average_importance_df = explainer.explain_average(test_data = test_data, 
+                                                  background_data = background_data, 
+                                                  nr_iterations= 10, 
+                                                  trainer=trainer,
+                                                  dataloader= dataloader)
+average_importance_df</div>
+        
+        </div>
+    </div>
+
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>/home/erikh/BINN/BINN/test-venv/lib/python3.9/site-packages/pytorch_lightning/trainer/configuration_validator.py:107: PossibleUserWarning:
+
+You defined a `validation_step` but have no `val_dataloader`. Skipping val loop.
+
+/home/erikh/BINN/BINN/test-venv/lib/python3.9/site-packages/pytorch_lightning/callbacks/model_checkpoint.py:616: UserWarning:
+
+Checkpoint directory /home/erikh/BINN/BINN/docs/lightning_logs/version_1/checkpoints exists and is not empty.
+
+
+  | Name   | Type             | Params
+--------------------------------------------
+0 | layers | Sequential       | 365 K 
+1 | loss   | CrossEntropyLoss | 0     
+--------------------------------------------
+365 K     Trainable params
+0         Non-trainable params
+365 K     Total params
+1.464     Total estimated model params size (MB)
+`Trainer.fit` stopped: `max_epochs=5` reached.
+/home/erikh/BINN/BINN/test-venv/lib/python3.9/site-packages/torch/nn/modules/module.py:1053: UserWarning:
+
+Using a non-full backward hook when the forward contains multiple autograd Nodes is deprecated and will be removed in future versions. This hook will be missing some grad_input. Please use register_full_backward_hook to get the documented behavior.
+
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">KeyboardInterrupt</span>                         Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">/home/erikh/BINN/BINN/docs/shap_example.ipynb Cell 15</span> in <span class="ansi-cyan-fg">1
+</span><span class="ansi-green-fg">----&gt; &lt;a href=&#39;vscode-notebook-cell://wsl%2Bubuntu-18.04/home/erikh/BINN/BINN/docs/shap_example.ipynb#X13sdnNjb2RlLXJlbW90ZQ%3D%3D?line=0&#39;&gt;1&lt;/a&gt;</span> average_importance_df = explainer.explain_average(test_data = test_data, 
+<span class="ansi-green-intense-fg ansi-bold">      &lt;a href=&#39;vscode-notebook-cell://wsl%2Bubuntu-18.04/home/erikh/BINN/BINN/docs/shap_example.ipynb#X13sdnNjb2RlLXJlbW90ZQ%3D%3D?line=1&#39;&gt;2&lt;/a&gt;</span>                                                   background_data = background_data, 
+<span class="ansi-green-intense-fg ansi-bold">      &lt;a href=&#39;vscode-notebook-cell://wsl%2Bubuntu-18.04/home/erikh/BINN/BINN/docs/shap_example.ipynb#X13sdnNjb2RlLXJlbW90ZQ%3D%3D?line=2&#39;&gt;3&lt;/a&gt;</span>                                                   nr_iterations= 10, 
+<span class="ansi-green-intense-fg ansi-bold">      &lt;a href=&#39;vscode-notebook-cell://wsl%2Bubuntu-18.04/home/erikh/BINN/BINN/docs/shap_example.ipynb#X13sdnNjb2RlLXJlbW90ZQ%3D%3D?line=3&#39;&gt;4&lt;/a&gt;</span>                                                   trainer=trainer,
+<span class="ansi-green-intense-fg ansi-bold">      &lt;a href=&#39;vscode-notebook-cell://wsl%2Bubuntu-18.04/home/erikh/BINN/BINN/docs/shap_example.ipynb#X13sdnNjb2RlLXJlbW90ZQ%3D%3D?line=4&#39;&gt;5&lt;/a&gt;</span>                                                   dataloader= dataloader)
+<span class="ansi-green-intense-fg ansi-bold">      &lt;a href=&#39;vscode-notebook-cell://wsl%2Bubuntu-18.04/home/erikh/BINN/BINN/docs/shap_example.ipynb#X13sdnNjb2RlLXJlbW90ZQ%3D%3D?line=5&#39;&gt;6&lt;/a&gt;</span> average_importance_df
+
+File <span class="ansi-green-fg">~/BINN/BINN/binn/explainer.py:100</span>, in <span class="ansi-cyan-fg">BINNExplainer.explain_average</span><span class="ansi-blue-fg">(self, test_data, background_data, nr_iterations, trainer, dataloader)</span>
+<span class="ansi-green-intense-fg ansi-bold">     98</span>     self.model.init_weights()
+<span class="ansi-green-intense-fg ansi-bold">     99</span>     trainer.fit(self.model, dataloader)
+<span class="ansi-green-fg">--&gt; 100</span>     df = self.explain(test_data, background_data)
+<span class="ansi-green-intense-fg ansi-bold">    101</span>     dfs[iteration] = df
+<span class="ansi-green-intense-fg ansi-bold">    103</span> col_names = [f&#39;value_{n}&#39; for n in range(len(list(dfs.keys())))]
+
+File <span class="ansi-green-fg">~/BINN/BINN/binn/explainer.py:32</span>, in <span class="ansi-cyan-fg">BINNExplainer.explain</span><span class="ansi-blue-fg">(self, test_data, background_data)</span>
+<span class="ansi-green-intense-fg ansi-bold">     20</span> def explain(self, test_data: torch.Tensor, background_data: torch.Tensor):
+<span class="ansi-green-intense-fg ansi-bold">     21</span>     &#34;&#34;&#34;
+<span class="ansi-green-intense-fg ansi-bold">     22</span>     Generates SHAP explanations for a given test_data by computing the Shapley values for each feature using
+<span class="ansi-green-intense-fg ansi-bold">     23</span>     the provided background_data. The feature importances are then aggregated and returned in a pandas dataframe.
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-intense-fg ansi-bold">     30</span>         pd.DataFrame: A dataframe containing the aggregated SHAP feature importances.
+<span class="ansi-green-intense-fg ansi-bold">     31</span>     &#34;&#34;&#34;
+<span class="ansi-green-fg">---&gt; 32</span>     shap_dict = self._explain_layers(background_data, test_data)
+<span class="ansi-green-intense-fg ansi-bold">     34</span>     feature_dict = {
+<span class="ansi-green-intense-fg ansi-bold">     35</span>         &#34;source&#34;: [],
+<span class="ansi-green-intense-fg ansi-bold">     36</span>         &#34;target&#34;: [],
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-intense-fg ansi-bold">     40</span>         &#34;target layer&#34;: [],
+<span class="ansi-green-intense-fg ansi-bold">     41</span>     }
+<span class="ansi-green-intense-fg ansi-bold">     42</span>     connectivity_matrices = self.model.get_connectivity_matrices()
+
+File <span class="ansi-green-fg">~/BINN/BINN/binn/explainer.py:167</span>, in <span class="ansi-cyan-fg">BINNExplainer._explain_layers</span><span class="ansi-blue-fg">(self, background_data, test_data)</span>
+<span class="ansi-green-intense-fg ansi-bold">    162</span> if isinstance(layer, torch.nn.Linear) and (
+<span class="ansi-green-intense-fg ansi-bold">    163</span>     not &#34;Residual&#34; in name or &#34;final&#34; in name
+<span class="ansi-green-intense-fg ansi-bold">    164</span> ):
+<span class="ansi-green-intense-fg ansi-bold">    165</span>     explainer = shap.DeepExplainer(
+<span class="ansi-green-intense-fg ansi-bold">    166</span>         (self.model, layer), background_data)
+<span class="ansi-green-fg">--&gt; 167</span>     shap_values = explainer.shap_values(test_data)
+<span class="ansi-green-intense-fg ansi-bold">    168</span>     shap_dict[&#34;features&#34;].append(
+<span class="ansi-green-intense-fg ansi-bold">    169</span>         self.model.layer_names[feature_index])
+<span class="ansi-green-intense-fg ansi-bold">    170</span>     shap_dict[&#34;shap_values&#34;].append(shap_values)
+
+File <span class="ansi-green-fg">~/BINN/BINN/test-venv/lib/python3.9/site-packages/shap/explainers/_deep/__init__.py:124</span>, in <span class="ansi-cyan-fg">Deep.shap_values</span><span class="ansi-blue-fg">(self, X, ranked_outputs, output_rank_order, check_additivity)</span>
+<span class="ansi-green-intense-fg ansi-bold">     90</span> def shap_values(self, X, ranked_outputs=None, output_rank_order=&#39;max&#39;, check_additivity=True):
+<span class="ansi-green-intense-fg ansi-bold">     91</span>     &#34;&#34;&#34; Return approximate SHAP values for the model applied to the data given by X.
+<span class="ansi-green-intense-fg ansi-bold">     92</span> 
+<span class="ansi-green-intense-fg ansi-bold">     93</span>     Parameters
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-intense-fg ansi-bold">    122</span>         were chosen as &#34;top&#34;.
+<span class="ansi-green-intense-fg ansi-bold">    123</span>     &#34;&#34;&#34;
+<span class="ansi-green-fg">--&gt; 124</span>     return self.explainer.shap_values(X, ranked_outputs, output_rank_order, check_additivity=check_additivity)
+
+File <span class="ansi-green-fg">~/BINN/BINN/test-venv/lib/python3.9/site-packages/shap/explainers/_deep/deep_pytorch.py:185</span>, in <span class="ansi-cyan-fg">PyTorchDeep.shap_values</span><span class="ansi-blue-fg">(self, X, ranked_outputs, output_rank_order, check_additivity)</span>
+<span class="ansi-green-intense-fg ansi-bold">    183</span> # run attribution computation graph
+<span class="ansi-green-intense-fg ansi-bold">    184</span> feature_ind = model_output_ranks[j, i]
+<span class="ansi-green-fg">--&gt; 185</span> sample_phis = self.gradient(feature_ind, joint_x)
+<span class="ansi-green-intense-fg ansi-bold">    186</span> # assign the attributions to the right part of the output arrays
+<span class="ansi-green-intense-fg ansi-bold">    187</span> if self.interim:
+
+File <span class="ansi-green-fg">~/BINN/BINN/test-venv/lib/python3.9/site-packages/shap/explainers/_deep/deep_pytorch.py:103</span>, in <span class="ansi-cyan-fg">PyTorchDeep.gradient</span><span class="ansi-blue-fg">(self, idx, inputs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    101</span> self.model.zero_grad()
+<span class="ansi-green-intense-fg ansi-bold">    102</span> X = [x.requires_grad_() for x in inputs]
+<span class="ansi-green-fg">--&gt; 103</span> outputs = self.model(*X)
+<span class="ansi-green-intense-fg ansi-bold">    104</span> selected = [val for val in outputs[:, idx]]
+<span class="ansi-green-intense-fg ansi-bold">    105</span> grads = []
+
+File <span class="ansi-green-fg">~/BINN/BINN/test-venv/lib/python3.9/site-packages/torch/nn/modules/module.py:1130</span>, in <span class="ansi-cyan-fg">Module._call_impl</span><span class="ansi-blue-fg">(self, *input, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1126</span> # If we don&#39;t have any hooks, we want to skip the rest of the logic in
+<span class="ansi-green-intense-fg ansi-bold">   1127</span> # this function, and just call forward.
+<span class="ansi-green-intense-fg ansi-bold">   1128</span> if not (self._backward_hooks or self._forward_hooks or self._forward_pre_hooks or _global_backward_hooks
+<span class="ansi-green-intense-fg ansi-bold">   1129</span>         or _global_forward_hooks or _global_forward_pre_hooks):
+<span class="ansi-green-fg">-&gt; 1130</span>     return forward_call(*input, **kwargs)
+<span class="ansi-green-intense-fg ansi-bold">   1131</span> # Do not call functions when jit is used
+<span class="ansi-green-intense-fg ansi-bold">   1132</span> full_backward_hooks, non_full_backward_hooks = [], []
+
+File <span class="ansi-green-fg">~/BINN/BINN/binn/binn.py:117</span>, in <span class="ansi-cyan-fg">BINN.forward</span><span class="ansi-blue-fg">(self, x)</span>
+<span class="ansi-green-intense-fg ansi-bold">    107</span> &#34;&#34;&#34;
+<span class="ansi-green-intense-fg ansi-bold">    108</span> Performs a forward pass through the BINN.
+<span class="ansi-green-intense-fg ansi-bold">    109</span> 
+<span class="ansi-green-fg">   (...)</span>
+<span class="ansi-green-intense-fg ansi-bold">    114</span>     torch.Tensor: The output tensor of the BINN.
+<span class="ansi-green-intense-fg ansi-bold">    115</span> &#34;&#34;&#34;
+<span class="ansi-green-intense-fg ansi-bold">    116</span> if self.residual:
+<span class="ansi-green-fg">--&gt; 117</span>     return _forward_residual(self.layers, x)
+<span class="ansi-green-intense-fg ansi-bold">    118</span> else:
+<span class="ansi-green-intense-fg ansi-bold">    119</span>     return self.layers(x)
+
+File <span class="ansi-green-fg">~/BINN/BINN/binn/binn.py:386</span>, in <span class="ansi-cyan-fg">_forward_residual</span><span class="ansi-blue-fg">(model, x)</span>
+<span class="ansi-green-intense-fg ansi-bold">    384</span>             residual_counter = residual_counter + 1
+<span class="ansi-green-intense-fg ansi-bold">    385</span>     else:
+<span class="ansi-green-fg">--&gt; 386</span>         x = layer(x)
+<span class="ansi-green-intense-fg ansi-bold">    387</span> x_final = x_final / (residual_counter)
+<span class="ansi-green-intense-fg ansi-bold">    389</span> return x_final
+
+File <span class="ansi-green-fg">~/BINN/BINN/test-venv/lib/python3.9/site-packages/torch/nn/modules/module.py:1148</span>, in <span class="ansi-cyan-fg">Module._call_impl</span><span class="ansi-blue-fg">(self, *input, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1145</span>     bw_hook = hooks.BackwardHook(self, full_backward_hooks)
+<span class="ansi-green-intense-fg ansi-bold">   1146</span>     input = bw_hook.setup_input_hook(input)
+<span class="ansi-green-fg">-&gt; 1148</span> result = forward_call(*input, **kwargs)
+<span class="ansi-green-intense-fg ansi-bold">   1149</span> if _global_forward_hooks or self._forward_hooks:
+<span class="ansi-green-intense-fg ansi-bold">   1150</span>     for hook in (*_global_forward_hooks.values(), *self._forward_hooks.values()):
+
+File <span class="ansi-green-fg">~/BINN/BINN/test-venv/lib/python3.9/site-packages/torch/nn/modules/linear.py:114</span>, in <span class="ansi-cyan-fg">Linear.forward</span><span class="ansi-blue-fg">(self, input)</span>
+<span class="ansi-green-intense-fg ansi-bold">    113</span> def forward(self, input: Tensor) -&gt; Tensor:
+<span class="ansi-green-fg">--&gt; 114</span>     return F.linear(input, self.weight, self.bias)
+
+<span class="ansi-red-fg">KeyboardInterrupt</span>: </pre>
+</div>
 </div>
 
 </div>
