@@ -30,9 +30,7 @@
 <li class="divider"></li>
 <li class="chapter" data-path="">
 <a href="..">Welcome to the BINN documentation</a>
-<li class="chapter active" data-path="reference/">
-<a href="./">API Reference</a>
-<li class="header">Examples</li>
+<li class="header">Examples & tutorials</li>
 
 <li>
 <a href="../binn_example/" class="">BINN - Biologically Informed Neural Network</a>
@@ -40,6 +38,12 @@
 
 <li>
 <a href="../shap_example/" class="">Interpretation and plotting</a>
+</li>
+
+<li class="header">Reference</li>
+
+<li>
+<a href="./" class="active">API Reference</a>
 </li>
 
 <li class="divider"></li>
@@ -79,9 +83,8 @@ Theme by GitBook
 
 
 <h1 id="api-reference">API Reference</h1>
-<p>For usage examples, see <a href="../binn_example">Examples</a></p>
+<p>This is the API reference for the BINN-package. For usage examples, see <a href="../binn_example">Examples</a>. Note that the API is still stabilizing and may undergo changes.</p>
 <hr />
-<h2 id="binn">BINN</h2>
 
 
 <div class="doc doc-object doc-module">
@@ -117,7 +120,221 @@ Theme by GitBook
         Bases: <code><span title="pytorch_lightning.LightningModule">LightningModule</span></code></p>
 
   
-      <p>The core BINN module. This inherits from the PyTorch Lightning LightningModule.</p>
+      <p>Implements a Biologically Informed Neural Network (BINN).</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>pathways</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="binn.network.Network" href="#binn.network.Network">Network</a></code>
+          </td>
+          <td><p>A Network object that defines the network topology.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>activation</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>Activation function to use. Defaults to "tanh".</p></td>
+          <td>
+                <code>&#39;tanh&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>weight</code></td>
+          <td>
+                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+          </td>
+          <td><p>Weights for loss function. Defaults to torch.Tensor([1, 1]).</p></td>
+          <td>
+                <code>torch.Tensor([1, 1])</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>learning_rate</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>Learning rate for optimizer. Defaults to 1e-4.</p></td>
+          <td>
+                <code>0.0001</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>n_layers</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>Number of layers in the network. Defaults to 4.</p></td>
+          <td>
+                <code>4</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>scheduler</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>Learning rate scheduler to use. Defaults to "plateau".</p></td>
+          <td>
+                <code>&#39;plateau&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>optimizer</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>Optimizer to use. Defaults to "adam".</p></td>
+          <td>
+                <code>&#39;adam&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>validate</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Whether to use validation data during training. Defaults to False.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>n_outputs</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>Number of output nodes. Defaults to 2.</p></td>
+          <td>
+                <code>2</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>dropout</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>Dropout probability. Defaults to 0.</p></td>
+          <td>
+                <code>0</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>residual</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Whether to use residual connections. Defaults to False.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>residual</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Whether to use residual connections.</p></td>
+        </tr>
+        <tr>
+          <td><code>pathways</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="binn.network.Network" href="#binn.network.Network">Network</a></code>
+          </td>
+          <td><p>A Network object that defines the network topology.</p></td>
+        </tr>
+        <tr>
+          <td><code>n_layers</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>Number of layers in the network.</p></td>
+        </tr>
+        <tr>
+          <td><code>layer_names</code></td>
+          <td>
+                <code>List[str]</code>
+          </td>
+          <td><p>List of layer names.</p></td>
+        </tr>
+        <tr>
+          <td><code>features</code></td>
+          <td>
+                <code>Index</code>
+          </td>
+          <td><p>A pandas Index object containing the input features.</p></td>
+        </tr>
+        <tr>
+          <td><code>layers</code></td>
+          <td>
+                <code><span title="torch.nn">nn</span>.<span title="torch.nn.Module">Module</span></code>
+          </td>
+          <td><p>The layers of the BINN.</p></td>
+        </tr>
+        <tr>
+          <td><code>loss</code></td>
+          <td>
+                <code><span title="torch.nn">nn</span>.<span title="torch.nn.Module">Module</span></code>
+          </td>
+          <td><p>The loss function used during training.</p></td>
+        </tr>
+        <tr>
+          <td><code>learning_rate</code></td>
+          <td>
+                <code>float</code>
+          </td>
+          <td><p>Learning rate for optimizer.</p></td>
+        </tr>
+        <tr>
+          <td><code>scheduler</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>Learning rate scheduler used.</p></td>
+        </tr>
+        <tr>
+          <td><code>optimizer</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>Optimizer used.</p></td>
+        </tr>
+        <tr>
+          <td><code>validate</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Whether to use validation data during training.</p></td>
+        </tr>
+    </tbody>
+  </table>
 
 
         <details class="quote">
@@ -285,9 +502,105 @@ Theme by GitBook
 <span class="normal">171</span>
 <span class="normal">172</span>
 <span class="normal">173</span>
-<span class="normal">174</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">BINN</span><span class="p">(</span><span class="n">LightningModule</span><span class="p">):</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">BINN</span><span class="p">(</span><span class="n">LightningModule</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The core BINN module. This inherits from the PyTorch Lightning LightningModule.</span>
+<span class="sd">    Implements a Biologically Informed Neural Network (BINN).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        pathways (Network): A Network object that defines the network topology.</span>
+<span class="sd">        activation (str, optional): Activation function to use. Defaults to &quot;tanh&quot;.</span>
+<span class="sd">        weight (torch.Tensor, optional): Weights for loss function. Defaults to torch.Tensor([1, 1]).</span>
+<span class="sd">        learning_rate (float, optional): Learning rate for optimizer. Defaults to 1e-4.</span>
+<span class="sd">        n_layers (int, optional): Number of layers in the network. Defaults to 4.</span>
+<span class="sd">        scheduler (str, optional): Learning rate scheduler to use. Defaults to &quot;plateau&quot;.</span>
+<span class="sd">        optimizer (str, optional): Optimizer to use. Defaults to &quot;adam&quot;.</span>
+<span class="sd">        validate (bool, optional): Whether to use validation data during training. Defaults to False.</span>
+<span class="sd">        n_outputs (int, optional): Number of output nodes. Defaults to 2.</span>
+<span class="sd">        dropout (float, optional): Dropout probability. Defaults to 0.</span>
+<span class="sd">        residual (bool, optional): Whether to use residual connections. Defaults to False.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        residual (bool): Whether to use residual connections.</span>
+<span class="sd">        pathways (Network): A Network object that defines the network topology.</span>
+<span class="sd">        n_layers (int): Number of layers in the network.</span>
+<span class="sd">        layer_names (List[str]): List of layer names.</span>
+<span class="sd">        features (Index): A pandas Index object containing the input features.</span>
+<span class="sd">        layers (nn.Module): The layers of the BINN.</span>
+<span class="sd">        loss (nn.Module): The loss function used during training.</span>
+<span class="sd">        learning_rate (float): Learning rate for optimizer.</span>
+<span class="sd">        scheduler (str): Learning rate scheduler used.</span>
+<span class="sd">        optimizer (str): Optimizer used.</span>
+<span class="sd">        validate (bool): Whether to use validation data during training.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -326,7 +639,7 @@ Theme by GitBook
             <span class="bp">self</span><span class="o">.</span><span class="n">layer_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">matrix</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">residual</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">generate_residual</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">_generate_residual</span><span class="p">(</span>
                 <span class="n">layer_sizes</span><span class="p">,</span>
                 <span class="n">connectivity_matrices</span><span class="o">=</span><span class="n">connectivity_matrices</span><span class="p">,</span>
                 <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;tanh&quot;</span><span class="p">,</span>
@@ -352,7 +665,13 @@ Theme by GitBook
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Performs a forward pass.</span>
+<span class="sd">        Performs a forward pass through the BINN.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (torch.Tensor): The input tensor to the BINN.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: The output tensor of the BINN.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">residual</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">_forward_residual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
@@ -361,7 +680,14 @@ Theme by GitBook
 
     <span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Training step.</span>
+<span class="sd">        Performs a single training step for the BINN.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            batch: The batch of data to use for the training step.</span>
+<span class="sd">            _: Not used.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            torch.Tensor: The loss tensor for the training step.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
         <span class="n">y_hat</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -376,8 +702,13 @@ Theme by GitBook
 
     <span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Validation step.</span>
+<span class="sd">        Implements a single validation step for the BINN.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            batch: A tuple containing the input and output data for the current batch.</span>
+<span class="sd">            _: The batch index, which is not used.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
         <span class="n">y_hat</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span><span class="n">y_hat</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -389,7 +720,11 @@ Theme by GitBook
 
     <span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Test step.</span>
+<span class="sd">        Implements a single testing step for the BINN.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            batch: A tuple containing the input and output data for the current batch.</span>
+<span class="sd">            _: The batch index, which is not used.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
         <span class="n">y_hat</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -402,6 +737,12 @@ Theme by GitBook
                  <span class="n">on_step</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">on_epoch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Configures the optimizer and learning rate scheduler for training the BINN.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of optimizers and a list of learning rate schedulers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">monitor</span> <span class="o">=</span> <span class="s2">&quot;val_loss&quot;</span>
         <span class="k">else</span><span class="p">:</span>
@@ -433,21 +774,37 @@ Theme by GitBook
         <span class="k">return</span> <span class="p">[</span><span class="n">optimizer</span><span class="p">],</span> <span class="p">[</span><span class="n">scheduler</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">calculate_accuracy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">prediction</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates the accuracy of the BINN predictions for a given batch.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            y: The ground-truth labels for the batch.</span>
+<span class="sd">            prediction: The predicted labels for the batch.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The calculated accuracy as a float.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">prediction</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span>
 
     <span class="k">def</span> <span class="nf">get_connectivity_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the connectivity matrices underlying the BINN.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The connectivity matrices as a list of Pandas DataFrames.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pathways</span><span class="o">.</span><span class="n">get_connectivity_matrices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_layers</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">reset_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Resets trainable parameters.</span>
+<span class="sd">        Resets the trainable parameters of the BINN.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">_reset_params</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">init_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the trainable parameters of the BINN.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">_init_weights</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
         </details>
@@ -468,6 +825,210 @@ Theme by GitBook
 
 
 
+<h3 id="binn.binn.BINN.calculate_accuracy" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">calculate_accuracy</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">prediction</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Calculates the accuracy of the BINN predictions for a given batch.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>y</code></td>
+          <td>
+          </td>
+          <td><p>The ground-truth labels for the batch.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>prediction</code></td>
+          <td>
+          </td>
+          <td><p>The predicted labels for the batch.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>The calculated accuracy as a float.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>binn/binn.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">calculate_accuracy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">prediction</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the accuracy of the BINN predictions for a given batch.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y: The ground-truth labels for the batch.</span>
+<span class="sd">        prediction: The predicted labels for the batch.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The calculated accuracy as a float.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">prediction</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="binn.binn.BINN.configure_optimizers" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">configure_optimizers</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Configures the optimizer and learning rate scheduler for training the BINN.</p>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A list of optimizers and a list of learning rate schedulers.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>binn/binn.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Configures the optimizer and learning rate scheduler for training the BINN.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of optimizers and a list of learning rate schedulers.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">validate</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">monitor</span> <span class="o">=</span> <span class="s2">&quot;val_loss&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">monitor</span> <span class="o">=</span> <span class="s2">&quot;train_loss&quot;</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span> <span class="o">==</span> <span class="s2">&quot;adam&quot;</span><span class="p">:</span>
+            <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">learning_rate</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="mf">1e-3</span>
+            <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span>
+
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span> <span class="o">==</span> <span class="s2">&quot;plateau&quot;</span><span class="p">:</span>
+        <span class="n">scheduler</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;scheduler&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">ReduceLROnPlateau</span><span class="p">(</span>
+                <span class="n">optimizer</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.00001</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;interval&quot;</span><span class="p">:</span> <span class="s2">&quot;epoch&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;monitor&quot;</span><span class="p">:</span> <span class="n">monitor</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">scheduler</span> <span class="o">==</span> <span class="s2">&quot;step&quot;</span><span class="p">:</span>
+        <span class="n">scheduler</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;scheduler&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">StepLR</span><span class="p">(</span>
+                <span class="n">optimizer</span><span class="p">,</span> <span class="n">step_size</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="n">optimizer</span><span class="p">],</span> <span class="p">[</span><span class="n">scheduler</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
 <h3 id="binn.binn.BINN.forward" class="doc doc-heading">
 <code class="highlight language-python"><span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code>
 
@@ -476,20 +1037,74 @@ Theme by GitBook
 
   <div class="doc doc-contents ">
   
-      <p>Performs a forward pass.</p>
+      <p>Performs a forward pass through the BINN.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>x</code></td>
+          <td>
+                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+          </td>
+          <td><p>The input tensor to the BINN.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+          </td>
+          <td><p>torch.Tensor: The output tensor of the BINN.</p></td>
+        </tr>
+    </tbody>
+  </table>
 
       <details class="quote">
         <summary>Source code in <code>binn/binn.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span>
-<span class="normal">81</span>
-<span class="normal">82</span>
-<span class="normal">83</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Performs a forward pass.</span>
+<span class="sd">    Performs a forward pass through the BINN.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (torch.Tensor): The input tensor to the BINN.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        torch.Tensor: The output tensor of the BINN.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">residual</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_forward_residual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
@@ -515,17 +1130,71 @@ Theme by GitBook
   
       <p>Returns the connectivity matrices underlying the BINN.</p>
 
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>The connectivity matrices as a list of Pandas DataFrames.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
       <details class="quote">
         <summary>Source code in <code>binn/binn.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">161</span>
-<span class="normal">162</span>
-<span class="normal">163</span>
-<span class="normal">164</span>
-<span class="normal">165</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_connectivity_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_connectivity_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the connectivity matrices underlying the BINN.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The connectivity matrices as a list of Pandas DataFrames.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pathways</span><span class="o">.</span><span class="n">get_connectivity_matrices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_layers</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="binn.binn.BINN.init_weights" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">init_weights</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Initializes the trainable parameters of the BINN.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>binn/binn.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">init_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Initializes the trainable parameters of the BINN.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">_init_weights</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
       </details>
   </div>
@@ -544,17 +1213,17 @@ Theme by GitBook
 
   <div class="doc doc-contents ">
   
-      <p>Resets trainable parameters.</p>
+      <p>Resets the trainable parameters of the BINN.</p>
 
       <details class="quote">
         <summary>Source code in <code>binn/binn.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">167</span>
-<span class="normal">168</span>
-<span class="normal">169</span>
-<span class="normal">170</span>
-<span class="normal">171</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">reset_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">reset_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Resets trainable parameters.</span>
+<span class="sd">    Resets the trainable parameters of the BINN.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">_reset_params</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -575,25 +1244,65 @@ Theme by GitBook
 
   <div class="doc doc-contents ">
   
-      <p>Test step.</p>
+      <p>Implements a single testing step for the BINN.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>batch</code></td>
+          <td>
+          </td>
+          <td><p>A tuple containing the input and output data for the current batch.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>_</code></td>
+          <td>
+          </td>
+          <td><p>The batch index, which is not used.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
 
       <details class="quote">
         <summary>Source code in <code>binn/binn.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">113</span>
-<span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Test step.</span>
+<span class="sd">    Implements a single testing step for the BINN.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        batch: A tuple containing the input and output data for the current batch.</span>
+<span class="sd">        _: The batch index, which is not used.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
     <span class="n">y_hat</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -622,26 +1331,89 @@ Theme by GitBook
 
   <div class="doc doc-contents ">
   
-      <p>Training step.</p>
+      <p>Performs a single training step for the BINN.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>batch</code></td>
+          <td>
+          </td>
+          <td><p>The batch of data to use for the training step.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>_</code></td>
+          <td>
+          </td>
+          <td><p>Not used.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>torch.Tensor: The loss tensor for the training step.</p></td>
+        </tr>
+    </tbody>
+  </table>
 
       <details class="quote">
         <summary>Source code in <code>binn/binn.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">85</span>
-<span class="normal">86</span>
-<span class="normal">87</span>
-<span class="normal">88</span>
-<span class="normal">89</span>
-<span class="normal">90</span>
-<span class="normal">91</span>
-<span class="normal">92</span>
-<span class="normal">93</span>
-<span class="normal">94</span>
-<span class="normal">95</span>
-<span class="normal">96</span>
-<span class="normal">97</span>
-<span class="normal">98</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Training step.</span>
+<span class="sd">    Performs a single training step for the BINN.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        batch: The batch of data to use for the training step.</span>
+<span class="sd">        _: Not used.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        torch.Tensor: The loss tensor for the training step.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
     <span class="n">y_hat</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -671,25 +1443,67 @@ Theme by GitBook
 
   <div class="doc doc-contents ">
   
-      <p>Validation step.</p>
+      <p>Implements a single validation step for the BINN.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>batch</code></td>
+          <td>
+          </td>
+          <td><p>A tuple containing the input and output data for the current batch.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>_</code></td>
+          <td>
+          </td>
+          <td><p>The batch index, which is not used.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
 
       <details class="quote">
         <summary>Source code in <code>binn/binn.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">100</span>
-<span class="normal">101</span>
-<span class="normal">102</span>
-<span class="normal">103</span>
-<span class="normal">104</span>
-<span class="normal">105</span>
-<span class="normal">106</span>
-<span class="normal">107</span>
-<span class="normal">108</span>
-<span class="normal">109</span>
-<span class="normal">110</span>
-<span class="normal">111</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">validation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Validation step.</span>
+<span class="sd">    Implements a single validation step for the BINN.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        batch: A tuple containing the input and output data for the current batch.</span>
+<span class="sd">        _: The batch index, which is not used.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
     <span class="n">y_hat</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span><span class="n">y_hat</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
@@ -720,7 +1534,6 @@ Theme by GitBook
   </div>
 
 </div><hr />
-<h2 id="network">Network</h2>
 
 
 <div class="doc doc-object doc-module">
@@ -759,65 +1572,7 @@ Theme by GitBook
 
         <details class="quote">
           <summary>Source code in <code>binn/network.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">268</span>
-<span class="normal">269</span>
-<span class="normal">270</span>
-<span class="normal">271</span>
-<span class="normal">272</span>
-<span class="normal">273</span>
-<span class="normal">274</span>
-<span class="normal">275</span>
-<span class="normal">276</span>
-<span class="normal">277</span>
-<span class="normal">278</span>
-<span class="normal">279</span>
-<span class="normal">280</span>
-<span class="normal">281</span>
-<span class="normal">282</span>
-<span class="normal">283</span>
-<span class="normal">284</span>
-<span class="normal">285</span>
-<span class="normal">286</span>
-<span class="normal">287</span>
-<span class="normal">288</span>
-<span class="normal">289</span>
-<span class="normal">290</span>
-<span class="normal">291</span>
-<span class="normal">292</span>
-<span class="normal">293</span>
-<span class="normal">294</span>
-<span class="normal">295</span>
-<span class="normal">296</span>
-<span class="normal">297</span>
-<span class="normal">298</span>
-<span class="normal">299</span>
-<span class="normal">300</span>
-<span class="normal">301</span>
-<span class="normal">302</span>
-<span class="normal">303</span>
-<span class="normal">304</span>
-<span class="normal">305</span>
-<span class="normal">306</span>
-<span class="normal">307</span>
-<span class="normal">308</span>
-<span class="normal">309</span>
-<span class="normal">310</span>
-<span class="normal">311</span>
-<span class="normal">312</span>
-<span class="normal">313</span>
-<span class="normal">314</span>
-<span class="normal">315</span>
-<span class="normal">316</span>
-<span class="normal">317</span>
-<span class="normal">318</span>
-<span class="normal">319</span>
-<span class="normal">320</span>
-<span class="normal">321</span>
-<span class="normal">322</span>
-<span class="normal">323</span>
-<span class="normal">324</span>
-<span class="normal">325</span>
-<span class="normal">326</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">326</span>
 <span class="normal">327</span>
 <span class="normal">328</span>
 <span class="normal">329</span>
@@ -893,7 +1648,65 @@ Theme by GitBook
 <span class="normal">399</span>
 <span class="normal">400</span>
 <span class="normal">401</span>
-<span class="normal">402</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ImportanceNetwork</span><span class="p">:</span>
+<span class="normal">402</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span>
+<span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span>
+<span class="normal">414</span>
+<span class="normal">415</span>
+<span class="normal">416</span>
+<span class="normal">417</span>
+<span class="normal">418</span>
+<span class="normal">419</span>
+<span class="normal">420</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span>
+<span class="normal">427</span>
+<span class="normal">428</span>
+<span class="normal">429</span>
+<span class="normal">430</span>
+<span class="normal">431</span>
+<span class="normal">432</span>
+<span class="normal">433</span>
+<span class="normal">434</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span>
+<span class="normal">442</span>
+<span class="normal">443</span>
+<span class="normal">444</span>
+<span class="normal">445</span>
+<span class="normal">446</span>
+<span class="normal">447</span>
+<span class="normal">448</span>
+<span class="normal">449</span>
+<span class="normal">450</span>
+<span class="normal">451</span>
+<span class="normal">452</span>
+<span class="normal">453</span>
+<span class="normal">454</span>
+<span class="normal">455</span>
+<span class="normal">456</span>
+<span class="normal">457</span>
+<span class="normal">458</span>
+<span class="normal">459</span>
+<span class="normal">460</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ImportanceNetwork</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Importance Network module. Used when creating SHAP-networks used for plotting.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1065,12 +1878,149 @@ Theme by GitBook
   <div class="doc doc-contents ">
 
   
-      <p>Core Network module.</p>
+      <p>A class for building and analyzing a directed graph network of biological pathways.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>input_data</code></td>
+          <td>
+                <code>pandas.<span title="pandas.DataFrame">DataFrame</span></code>
+          </td>
+          <td><p>A DataFrame containing the input data for the pathways.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>pathways</code></td>
+          <td>
+                <code>pandas.<span title="pandas.DataFrame">DataFrame</span></code>
+          </td>
+          <td><p>A DataFrame containing information on the pathways.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>mapping</code></td>
+          <td>
+                <code>pandas.DataFrame or None</code>
+          </td>
+          <td><p>A DataFrame containing mapping information.
+If None, then a DataFrame will be constructed from the <code>input_data</code> argument.
+Default is None.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>input_data_column</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The name of the column in <code>input_data</code> that contains
+the input data. Default is 'Protein'.</p></td>
+          <td>
+                <code>&#39;Protein&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>subset_pathways</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Whether to subset the pathways DataFrame to include
+only those pathways that are relevant to the input data. Default is True.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>mapping</code></td>
+          <td>
+                <code>pandas.<span title="pandas.DataFrame">DataFrame</span></code>
+          </td>
+          <td><p>A DataFrame containing the mapping information.</p></td>
+        </tr>
+        <tr>
+          <td><code>pathways</code></td>
+          <td>
+                <code>pandas.<span title="pandas.DataFrame">DataFrame</span></code>
+          </td>
+          <td><p>A DataFrame containing information on the pathways.</p></td>
+        </tr>
+        <tr>
+          <td><code>input_data</code></td>
+          <td>
+                <code>pandas.<span title="pandas.DataFrame">DataFrame</span></code>
+          </td>
+          <td><p>A DataFrame containing the input data for the pathways.</p></td>
+        </tr>
+        <tr>
+          <td><code>inputs</code></td>
+          <td>
+                <code>list</code>
+          </td>
+          <td><p>A list of the unique inputs in the mapping DataFrame.</p></td>
+        </tr>
+        <tr>
+          <td><code>netx</code></td>
+          <td>
+                <code>networkx.<span title="networkx.DiGraph">DiGraph</span></code>
+          </td>
+          <td><p>A directed graph network of the pathways.</p></td>
+        </tr>
+    </tbody>
+  </table>
 
 
         <details class="quote">
           <summary>Source code in <code>binn/network.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 37</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
 <span class="normal"> 38</span>
 <span class="normal"> 39</span>
 <span class="normal"> 40</span>
@@ -1191,9 +2141,87 @@ Theme by GitBook
 <span class="normal">155</span>
 <span class="normal">156</span>
 <span class="normal">157</span>
-<span class="normal">158</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Network</span><span class="p">:</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Network</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Core Network module. </span>
+<span class="sd">    A class for building and analyzing a directed graph network of biological pathways.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        input_data (pandas.DataFrame): A DataFrame containing the input data for the pathways.</span>
+<span class="sd">        pathways (pandas.DataFrame): A DataFrame containing information on the pathways.</span>
+<span class="sd">        mapping (pandas.DataFrame or None, optional): A DataFrame containing mapping information.</span>
+<span class="sd">            If None, then a DataFrame will be constructed from the `input_data` argument.</span>
+<span class="sd">            Default is None.</span>
+<span class="sd">        input_data_column (str, optional): The name of the column in `input_data` that contains</span>
+<span class="sd">            the input data. Default is &#39;Protein&#39;.</span>
+<span class="sd">        subset_pathways (bool, optional): Whether to subset the pathways DataFrame to include</span>
+<span class="sd">            only those pathways that are relevant to the input data. Default is True.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        mapping (pandas.DataFrame): A DataFrame containing the mapping information.</span>
+<span class="sd">        pathways (pandas.DataFrame): A DataFrame containing information on the pathways.</span>
+<span class="sd">        input_data (pandas.DataFrame): A DataFrame containing the input data for the pathways.</span>
+<span class="sd">        inputs (list): A list of the unique inputs in the mapping DataFrame.</span>
+<span class="sd">        netx (networkx.DiGraph): A directed graph network of the pathways.</span>
+
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -1231,7 +2259,7 @@ Theme by GitBook
 
             <span class="bp">self</span><span class="o">.</span><span class="n">pathways</span> <span class="o">=</span> <span class="n">pathways</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span> <span class="o">=</span> <span class="n">get_mapping_to_all_layers</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pathways</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span> <span class="o">=</span> <span class="n">_get_mapping_to_all_layers</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pathways</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">input_data</span> <span class="o">=</span> <span class="n">input_data</span>
 
@@ -1240,14 +2268,31 @@ Theme by GitBook
         <span class="bp">self</span><span class="o">.</span><span class="n">netx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_network</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">get_terminals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of all terminal nodes (nodes with no outgoing edges) in the network.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of strings representing the terminal nodes in the network.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="k">return</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">netx</span><span class="o">.</span><span class="n">out_degree</span><span class="p">()</span> <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">get_roots</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of all root nodes (nodes with no incoming edges) in the network.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of strings representing the root nodes in the network.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">get_nodes_at_level</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">netx</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-    <span class="c1"># get a DiGraph representation of the Reactome hierarchy</span>
     <span class="k">def</span> <span class="nf">build_network</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs a networkx DiGraph from the edges in the &#39;pathways&#39; attribute of the object, with a root node added to the graph to connect all root nodes together.</span>
 
+<span class="sd">        Returns:</span>
+<span class="sd">            A networkx DiGraph object representing the constructed network.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;netx&quot;</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">netx</span>
 
@@ -1263,19 +2308,52 @@ Theme by GitBook
         <span class="k">return</span> <span class="n">net</span>
 
     <span class="k">def</span> <span class="nf">get_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a BFS tree of the network from the root node.</span>
 
+<span class="sd">        Returns:</span>
+<span class="sd">            A networkx DiGraph object representing the BFS tree of the network from the root node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">nx</span><span class="o">.</span><span class="n">bfs_tree</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">netx</span><span class="p">,</span> <span class="s2">&quot;root&quot;</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_completed_network</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_levels</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a network that has been completed up to a certain number of levels below the root node.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            n_levels: The number of levels below the root node to complete the network to.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A networkx DiGraph object representing the completed network.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">complete_network</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">netx</span><span class="p">,</span> <span class="n">n_levels</span><span class="o">=</span><span class="n">n_levels</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_completed_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_levels</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a BFS tree of the completed network up to a certain number of levels below the root node.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            n_levels: The number of levels below the root node to complete the network to.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A networkx DiGraph object representing the completed BFS tree of the network from the root node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">G</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_tree</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">complete_network</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">n_levels</span><span class="o">=</span><span class="n">n_levels</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_levels</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;root_to_leaf&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of dictionaries where each dictionary contains the pathways at a certain level of the completed network and their inputs.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            n_levels: The number of levels below the root node to complete the network to.</span>
+<span class="sd">            direction: The direction of the layers to return. Must be either &quot;root_to_leaf&quot; or &quot;leaf_to_root&quot;. Defaults to &quot;root_to_leaf&quot;.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of dictionaries, where each dictionary contains pathway names as keys and input lists as values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="s2">&quot;root_to_leaf&quot;</span><span class="p">:</span>
             <span class="n">net</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_completed_network</span><span class="p">(</span><span class="n">n_levels</span><span class="p">)</span>
             <span class="n">layers</span> <span class="o">=</span> <span class="n">get_layers_from_net</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">n_levels</span><span class="p">)</span>
@@ -1299,7 +2377,16 @@ Theme by GitBook
         <span class="k">return</span> <span class="n">layers</span>
 
     <span class="k">def</span> <span class="nf">get_connectivity_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_levels</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;root_to_leaf&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a list of connectivity matrices for each layer of the completed network, ordered from leaf nodes to root node.</span>
 
+<span class="sd">        Args:</span>
+<span class="sd">            n_levels: The number of levels below the root node to complete the network to.</span>
+<span class="sd">            direction: The direction of the layers to return. Must be either &quot;root_to_leaf&quot; or &quot;leaf_to_root&quot;. Defaults to &quot;root_to_leaf&quot;.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of pandas DataFrames representing the connectivity matrices for each layer of the completed network.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">connectivity_matrices</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_layers</span><span class="p">(</span><span class="n">n_levels</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">layers</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
@@ -1328,6 +2415,672 @@ Theme by GitBook
 
 
 
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="binn.network.Network.build_network" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">build_network</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Constructs a networkx DiGraph from the edges in the 'pathways' attribute of the object, with a root node added to the graph to connect all root nodes together.</p>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A networkx DiGraph object representing the constructed network.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>binn/network.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">build_network</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constructs a networkx DiGraph from the edges in the &#39;pathways&#39; attribute of the object, with a root node added to the graph to connect all root nodes together.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A networkx DiGraph object representing the constructed network.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;netx&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">netx</span>
+
+    <span class="n">net</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_pandas_edgelist</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pathways</span><span class="p">,</span> <span class="s2">&quot;parent&quot;</span><span class="p">,</span> <span class="s2">&quot;child&quot;</span><span class="p">,</span> <span class="n">create_using</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="c1"># add root node</span>
+    <span class="n">roots</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">in_degree</span><span class="p">()</span> <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">root_node</span> <span class="o">=</span> <span class="s2">&quot;root&quot;</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="p">[(</span><span class="n">root_node</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">roots</span><span class="p">]</span>
+    <span class="n">net</span><span class="o">.</span><span class="n">add_edges_from</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">net</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="binn.network.Network.get_completed_network" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_completed_network</span><span class="p">(</span><span class="n">n_levels</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns a network that has been completed up to a certain number of levels below the root node.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>n_levels</code></td>
+          <td>
+          </td>
+          <td><p>The number of levels below the root node to complete the network to.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A networkx DiGraph object representing the completed network.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>binn/network.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_completed_network</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_levels</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a network that has been completed up to a certain number of levels below the root node.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        n_levels: The number of levels below the root node to complete the network to.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A networkx DiGraph object representing the completed network.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">complete_network</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">netx</span><span class="p">,</span> <span class="n">n_levels</span><span class="o">=</span><span class="n">n_levels</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="binn.network.Network.get_completed_tree" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_completed_tree</span><span class="p">(</span><span class="n">n_levels</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns a BFS tree of the completed network up to a certain number of levels below the root node.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>n_levels</code></td>
+          <td>
+          </td>
+          <td><p>The number of levels below the root node to complete the network to.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A networkx DiGraph object representing the completed BFS tree of the network from the root node.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>binn/network.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_completed_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_levels</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a BFS tree of the completed network up to a certain number of levels below the root node.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        n_levels: The number of levels below the root node to complete the network to.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A networkx DiGraph object representing the completed BFS tree of the network from the root node.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_tree</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">complete_network</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">n_levels</span><span class="o">=</span><span class="n">n_levels</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="binn.network.Network.get_connectivity_matrices" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_connectivity_matrices</span><span class="p">(</span><span class="n">n_levels</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;root_to_leaf&#39;</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns a list of connectivity matrices for each layer of the completed network, ordered from leaf nodes to root node.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>n_levels</code></td>
+          <td>
+          </td>
+          <td><p>The number of levels below the root node to complete the network to.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>direction</code></td>
+          <td>
+          </td>
+          <td><p>The direction of the layers to return. Must be either "root_to_leaf" or "leaf_to_root". Defaults to "root_to_leaf".</p></td>
+          <td>
+                <code>&#39;root_to_leaf&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A list of pandas DataFrames representing the connectivity matrices for each layer of the completed network.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>binn/network.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_connectivity_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_levels</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;root_to_leaf&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a list of connectivity matrices for each layer of the completed network, ordered from leaf nodes to root node.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        n_levels: The number of levels below the root node to complete the network to.</span>
+<span class="sd">        direction: The direction of the layers to return. Must be either &quot;root_to_leaf&quot; or &quot;leaf_to_root&quot;. Defaults to &quot;root_to_leaf&quot;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of pandas DataFrames representing the connectivity matrices for each layer of the completed network.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">connectivity_matrices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_layers</span><span class="p">(</span><span class="n">n_levels</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">layers</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">mapp</span> <span class="o">=</span> <span class="n">get_map_from_layer</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">inputs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mapp</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span> <span class="o">=</span> <span class="n">inputs</span>
+        <span class="n">filter_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="nb">all</span> <span class="o">=</span> <span class="n">filter_df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">mapp</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                              <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mapp</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="n">connectivity_matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">all</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">connectivity_matrices</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="binn.network.Network.get_layers" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_layers</span><span class="p">(</span><span class="n">n_levels</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;root_to_leaf&#39;</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns a list of dictionaries where each dictionary contains the pathways at a certain level of the completed network and their inputs.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>n_levels</code></td>
+          <td>
+          </td>
+          <td><p>The number of levels below the root node to complete the network to.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>direction</code></td>
+          <td>
+          </td>
+          <td><p>The direction of the layers to return. Must be either "root_to_leaf" or "leaf_to_root". Defaults to "root_to_leaf".</p></td>
+          <td>
+                <code>&#39;root_to_leaf&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A list of dictionaries, where each dictionary contains pathway names as keys and input lists as values.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>binn/network.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_layers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_levels</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">&quot;root_to_leaf&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a list of dictionaries where each dictionary contains the pathways at a certain level of the completed network and their inputs.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        n_levels: The number of levels below the root node to complete the network to.</span>
+<span class="sd">        direction: The direction of the layers to return. Must be either &quot;root_to_leaf&quot; or &quot;leaf_to_root&quot;. Defaults to &quot;root_to_leaf&quot;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of dictionaries, where each dictionary contains pathway names as keys and input lists as values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="s2">&quot;root_to_leaf&quot;</span><span class="p">:</span>
+        <span class="n">net</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_completed_network</span><span class="p">(</span><span class="n">n_levels</span><span class="p">)</span>
+        <span class="n">layers</span> <span class="o">=</span> <span class="n">get_layers_from_net</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">n_levels</span><span class="p">)</span>
+
+    <span class="n">terminal_nodes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">n</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">out_degree</span><span class="p">()</span> <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="p">]</span>
+
+    <span class="n">mapping_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span>
+    <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">missing_pathways</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">terminal_nodes</span><span class="p">:</span>
+        <span class="n">pathway_name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_copy.*&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">mapping_df</span><span class="p">[</span><span class="n">mapping_df</span><span class="p">[</span><span class="s2">&quot;connections&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pathway_name</span><span class="p">][</span>
+            <span class="s2">&quot;input&quot;</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">missing_pathways</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pathway_name</span><span class="p">)</span>
+        <span class="nb">dict</span><span class="p">[</span><span class="n">pathway_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">layers</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="binn.network.Network.get_roots" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_roots</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns a list of all root nodes (nodes with no incoming edges) in the network.</p>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A list of strings representing the root nodes in the network.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>binn/network.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_roots</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a list of all root nodes (nodes with no incoming edges) in the network.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of strings representing the root nodes in the network.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">get_nodes_at_level</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">netx</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="binn.network.Network.get_terminals" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_terminals</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns a list of all terminal nodes (nodes with no outgoing edges) in the network.</p>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A list of strings representing the terminal nodes in the network.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>binn/network.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_terminals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a list of all terminal nodes (nodes with no outgoing edges) in the network.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of strings representing the terminal nodes in the network.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">netx</span><span class="o">.</span><span class="n">out_degree</span><span class="p">()</span> <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="binn.network.Network.get_tree" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">get_tree</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Returns a BFS tree of the network from the root node.</p>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>A networkx DiGraph object representing the BFS tree of the network from the root node.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>binn/network.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_tree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a BFS tree of the network from the root node.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A networkx DiGraph object representing the BFS tree of the network from the root node.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">nx</span><span class="o">.</span><span class="n">bfs_tree</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">netx</span><span class="p">,</span> <span class="s2">&quot;root&quot;</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
 
 
   </div>
@@ -1343,7 +3096,7 @@ Theme by GitBook
 
   </div>
 
-</div><h2 id="binnexplainer">BINNExplainer</h2>
+</div><hr />
 
 
 <div class="doc doc-object doc-module">
@@ -1377,7 +3130,31 @@ Theme by GitBook
   <div class="doc doc-contents ">
 
   
-      <p>BINNExplainer.</p>
+      <p>A class for explaining the predictions of a BINN model using SHAP values.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>model</code></td>
+          <td>
+                <code><a class="autorefs autorefs-internal" title="binn.BINN" href="#binn.binn.BINN">BINN</a></code>
+          </td>
+          <td><p>A trained BINN model.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
 
 
         <details class="quote">
@@ -1502,15 +3279,82 @@ Theme by GitBook
 <span class="normal">125</span>
 <span class="normal">126</span>
 <span class="normal">127</span>
-<span class="normal">128</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">BINNExplainer</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot; BINNExplainer. &quot;&quot;&quot;</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">BINNExplainer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class for explaining the predictions of a BINN model using SHAP values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model (BINN): A trained BINN model.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">BINN</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
 
     <span class="k">def</span> <span class="nf">explain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">background_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates SHAP explanations for a given test_data by computing the Shapley values for each feature using</span>
+<span class="sd">        the provided background_data. The feature importances are then aggregated and returned in a pandas dataframe.</span>
 
+<span class="sd">        Args:</span>
+<span class="sd">            test_data (torch.Tensor): The input data for which to generate the explanations.</span>
+<span class="sd">            background_data (torch.Tensor): The background data to use for computing the Shapley values.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: A dataframe containing the aggregated SHAP feature importances.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">shap_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_explain_layers</span><span class="p">(</span><span class="n">background_data</span><span class="p">,</span> <span class="n">test_data</span><span class="p">)</span>
 
         <span class="n">feature_dict</span> <span class="o">=</span> <span class="p">{</span>
@@ -1559,6 +3403,21 @@ Theme by GitBook
                         <span class="n">nr_iterations</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
                         <span class="n">trainer</span><span class="p">,</span>
                         <span class="n">dataloader</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the SHAP explanations for the given test_data by averaging the Shapley values over multiple iterations.</span>
+<span class="sd">        For each iteration, the model&#39;s parameters are randomly initialized and trained on the provided data using</span>
+<span class="sd">        the provided trainer and dataloader. The feature importances are then aggregated and returned in a pandas dataframe.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            test_data (torch.Tensor): The input data for which to generate the explanations.</span>
+<span class="sd">            background_data (torch.Tensor): The background data to use for computing the Shapley values.</span>
+<span class="sd">            nr_iterations (int): The number of iterations to use for averaging the Shapley values.</span>
+<span class="sd">            trainer: The PyTorch Lightning trainer to use for training the model.</span>
+<span class="sd">            dataloader: The PyTorch DataLoader to use for loading the data.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: A dataframe containing the aggregated SHAP feature importances.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dfs</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nr_iterations</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">reset_params</span><span class="p">()</span>
@@ -1583,6 +3442,19 @@ Theme by GitBook
     <span class="k">def</span> <span class="nf">explain_input</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">background_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="nb">int</span>
     <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the SHAP explanations for the given test_data for a specific layer in the model by computing the</span>
+<span class="sd">        Shapley values for each feature using the provided background_data. The feature importances are then returned</span>
+<span class="sd">        in a dictionary.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            test_data (torch.Tensor): The input data for which to generate the explanations.</span>
+<span class="sd">            background_data (torch.Tensor): The background data to use for computing the Shapley values.</span>
+<span class="sd">            layer (int): The index of the layer for which to compute the SHAP explanations.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: A dictionary containing the SHAP feature importances.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">explainer</span> <span class="o">=</span> <span class="n">shap</span><span class="o">.</span><span class="n">DeepExplainer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">background_data</span><span class="p">)</span>
         <span class="n">shap_values</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">shap_values</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
@@ -1595,7 +3467,16 @@ Theme by GitBook
     <span class="k">def</span> <span class="nf">_explain_layers</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">background_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">test_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Helper method to compute SHAP explanations for each layer in the model.</span>
 
+<span class="sd">        Args:</span>
+<span class="sd">            background_data (torch.Tensor): The background data to use for computing the Shapley values.</span>
+<span class="sd">            test_data (torch.Tensor): The input data for which to generate the explanations.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: A dictionary containing the SHAP feature importances for each layer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">feature_index</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="n">intermediate_data</span> <span class="o">=</span> <span class="n">test_data</span>
@@ -1638,6 +3519,501 @@ Theme by GitBook
 
 
 
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="binn.explainer.BINNExplainer.explain" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">explain</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">background_data</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Generates SHAP explanations for a given test_data by computing the Shapley values for each feature using
+the provided background_data. The feature importances are then aggregated and returned in a pandas dataframe.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>test_data</code></td>
+          <td>
+                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+          </td>
+          <td><p>The input data for which to generate the explanations.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>background_data</code></td>
+          <td>
+                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+          </td>
+          <td><p>The background data to use for computing the Shapley values.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>pd.DataFrame: A dataframe containing the aggregated SHAP feature importances.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>binn/explainer.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">explain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">background_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates SHAP explanations for a given test_data by computing the Shapley values for each feature using</span>
+<span class="sd">    the provided background_data. The feature importances are then aggregated and returned in a pandas dataframe.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        test_data (torch.Tensor): The input data for which to generate the explanations.</span>
+<span class="sd">        background_data (torch.Tensor): The background data to use for computing the Shapley values.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: A dataframe containing the aggregated SHAP feature importances.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">shap_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_explain_layers</span><span class="p">(</span><span class="n">background_data</span><span class="p">,</span> <span class="n">test_data</span><span class="p">)</span>
+
+    <span class="n">feature_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;source layer&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;target layer&quot;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="p">}</span>
+    <span class="n">connectivity_matrices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get_connectivity_matrices</span><span class="p">()</span>
+    <span class="n">curr_layer</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">sv</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">cm</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+        <span class="n">shap_dict</span><span class="p">[</span><span class="s2">&quot;shap_values&quot;</span><span class="p">],</span> <span class="n">shap_dict</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">],</span> <span class="n">connectivity_matrices</span>
+    <span class="p">):</span>
+        <span class="n">sv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">sv</span><span class="p">)</span>
+        <span class="n">sv</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">sv</span><span class="p">)</span>
+        <span class="n">sv_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sv</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sv_mean</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">connections</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="n">cm</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="n">features</span><span class="p">[</span><span class="n">f</span><span class="p">]]</span>
+            <span class="n">connections</span> <span class="o">=</span> <span class="n">connections</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+                <span class="p">:,</span> <span class="p">(</span><span class="n">connections</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="p">]</span>  <span class="c1"># get targets and append to target</span>
+            <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">connections</span><span class="p">:</span>
+                <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">features</span><span class="p">[</span><span class="n">f</span><span class="p">]</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">curr_layer</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">curr_layer</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sv_mean</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">f</span><span class="p">])</span>
+                <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">features</span><span class="p">[</span><span class="n">f</span><span class="p">]</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">curr_layer</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">curr_layer</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sv_mean</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">f</span><span class="p">])</span>
+                <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;source layer&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr_layer</span><span class="p">)</span>
+                <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;source layer&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr_layer</span><span class="p">)</span>
+                <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;target layer&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr_layer</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;target layer&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr_layer</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">curr_layer</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">feature_dict</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="binn.explainer.BINNExplainer.explain_average" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">explain_average</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">background_data</span><span class="p">,</span> <span class="n">nr_iterations</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Computes the SHAP explanations for the given test_data by averaging the Shapley values over multiple iterations.
+For each iteration, the model's parameters are randomly initialized and trained on the provided data using
+the provided trainer and dataloader. The feature importances are then aggregated and returned in a pandas dataframe.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>test_data</code></td>
+          <td>
+                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+          </td>
+          <td><p>The input data for which to generate the explanations.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>background_data</code></td>
+          <td>
+                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+          </td>
+          <td><p>The background data to use for computing the Shapley values.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>nr_iterations</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>The number of iterations to use for averaging the Shapley values.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>trainer</code></td>
+          <td>
+          </td>
+          <td><p>The PyTorch Lightning trainer to use for training the model.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>dataloader</code></td>
+          <td>
+          </td>
+          <td><p>The PyTorch DataLoader to use for loading the data.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>pd.DataFrame: A dataframe containing the aggregated SHAP feature importances.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>binn/explainer.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">explain_average</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                    <span class="n">test_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+                    <span class="n">background_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+                    <span class="n">nr_iterations</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                    <span class="n">trainer</span><span class="p">,</span>
+                    <span class="n">dataloader</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the SHAP explanations for the given test_data by averaging the Shapley values over multiple iterations.</span>
+<span class="sd">    For each iteration, the model&#39;s parameters are randomly initialized and trained on the provided data using</span>
+<span class="sd">    the provided trainer and dataloader. The feature importances are then aggregated and returned in a pandas dataframe.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        test_data (torch.Tensor): The input data for which to generate the explanations.</span>
+<span class="sd">        background_data (torch.Tensor): The background data to use for computing the Shapley values.</span>
+<span class="sd">        nr_iterations (int): The number of iterations to use for averaging the Shapley values.</span>
+<span class="sd">        trainer: The PyTorch Lightning trainer to use for training the model.</span>
+<span class="sd">        dataloader: The PyTorch DataLoader to use for loading the data.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: A dataframe containing the aggregated SHAP feature importances.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dfs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nr_iterations</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">reset_params</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">init_weights</span><span class="p">()</span>
+        <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">background_data</span><span class="p">)</span>
+        <span class="n">dfs</span><span class="p">[</span><span class="n">iteration</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
+
+    <span class="n">col_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;value_</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">dfs</span><span class="o">.</span><span class="n">keys</span><span class="p">())))]</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">dfs</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">values_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">values_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="n">col_names</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;value_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values_mean</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;values_std&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values_std</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values_mean</span>
+    <span class="k">return</span> <span class="n">df</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="binn.explainer.BINNExplainer.explain_input" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">explain_input</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">background_data</span><span class="p">,</span> <span class="n">layer</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Computes the SHAP explanations for the given test_data for a specific layer in the model by computing the
+Shapley values for each feature using the provided background_data. The feature importances are then returned
+in a dictionary.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>test_data</code></td>
+          <td>
+                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+          </td>
+          <td><p>The input data for which to generate the explanations.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>background_data</code></td>
+          <td>
+                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+          </td>
+          <td><p>The background data to use for computing the Shapley values.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>layer</code></td>
+          <td>
+                <code>int</code>
+          </td>
+          <td><p>The index of the layer for which to compute the SHAP explanations.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>dict</code></td>          <td>
+          </td>
+          <td><p>A dictionary containing the SHAP feature importances.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>binn/explainer.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">explain_input</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">background_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the SHAP explanations for the given test_data for a specific layer in the model by computing the</span>
+<span class="sd">    Shapley values for each feature using the provided background_data. The feature importances are then returned</span>
+<span class="sd">    in a dictionary.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        test_data (torch.Tensor): The input data for which to generate the explanations.</span>
+<span class="sd">        background_data (torch.Tensor): The background data to use for computing the Shapley values.</span>
+<span class="sd">        layer (int): The index of the layer for which to compute the SHAP explanations.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: A dictionary containing the SHAP feature importances.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">explainer</span> <span class="o">=</span> <span class="n">shap</span><span class="o">.</span><span class="n">DeepExplainer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">background_data</span><span class="p">)</span>
+    <span class="n">shap_values</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">shap_values</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+
+    <span class="n">shap_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">column_names</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;shap_values&quot;</span><span class="p">:</span> <span class="n">shap_values</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">shap_dict</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
 
 
   </div>
@@ -1653,7 +4029,750 @@ Theme by GitBook
 
   </div>
 
+</div><hr />
+
+
+<div class="doc doc-object doc-module">
+
+
+<a id="binn.sklearn"></a>
+  <div class="doc doc-contents first">
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="binn.sklearn.BINNClassifier" class="doc doc-heading">
+        <code>BINNClassifier</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+      <p class="doc doc-class-bases">
+        Bases: <code><span title="sklearn.base.BaseEstimator">BaseEstimator</span></code>, <code><span title="sklearn.base.ClassifierMixin">ClassifierMixin</span></code></p>
+
+  
+      <p>A sci-kit learn wrapper for the BINN.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>pathways</code></td>
+          <td>
+          </td>
+          <td><p>Network, optional
+The network architecture to use for the classifier. If None, a default
+architecture will be used. Default is None.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>activation</code></td>
+          <td>
+          </td>
+          <td><p>str, optional
+The activation function to use for the classifier. Default is 'tanh'.</p></td>
+          <td>
+                <code>&#39;tanh&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>weight</code></td>
+          <td>
+          </td>
+          <td><p>torch.Tensor, optional
+The weight to assign to each class. Default is torch.Tensor([1, 1]).</p></td>
+          <td>
+                <code>torch.Tensor([1, 1])</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>learning_rate</code></td>
+          <td>
+          </td>
+          <td><p>float, optional
+The learning rate for the optimizer. Default is 1e-4.</p></td>
+          <td>
+                <code>0.0001</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>n_layers</code></td>
+          <td>
+          </td>
+          <td><p>int, optional
+The number of layers in the network architecture. Default is 4.</p></td>
+          <td>
+                <code>4</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>scheduler</code></td>
+          <td>
+          </td>
+          <td><p>str, optional
+The scheduler to use for the optimizer. Default is 'plateau'.</p></td>
+          <td>
+                <code>&#39;plateau&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>optimizer</code></td>
+          <td>
+          </td>
+          <td><p>str, optional
+The optimizer to use for training. Default is 'adam'.</p></td>
+          <td>
+                <code>&#39;adam&#39;</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>n_outputs</code></td>
+          <td>
+          </td>
+          <td><p>int, optional
+The number of outputs of the network architecture. Default is 2.</p></td>
+          <td>
+                <code>2</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>dropout</code></td>
+          <td>
+          </td>
+          <td><p>float, optional
+The dropout rate to use for the classifier. Default is 0.</p></td>
+          <td>
+                <code>0</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>residual</code></td>
+          <td>
+          </td>
+          <td><p>bool, optional
+Whether to use residual connections in the network architecture.
+Default is False.</p></td>
+          <td>
+                <code>False</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>threads</code></td>
+          <td>
+          </td>
+          <td><p>int, optional
+The number of threads to use for data loading. Default is 1.</p></td>
+          <td>
+                <code>1</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>epochs</code></td>
+          <td>
+          </td>
+          <td><p>int, optional
+The number of epochs to train the classifier for. Default is 100.</p></td>
+          <td>
+                <code>100</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>logger</code></td>
+          <td>
+          </td>
+          <td><p>Union[SuperLogger, None], optional
+The logger to use for logging training information. Default is None.</p></td>
+          <td>
+                <code>None</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>log_steps</code></td>
+          <td>
+          </td>
+          <td><p>int, optional
+The number of steps between each log message during training.
+Default is 50.</p></td>
+          <td>
+                <code>50</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Attributes:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>clf</code></td>
+          <td>
+          </td>
+          <td><p>BINN
+The BINN (Block Independent Neural Network) instance used for
+classification.</p></td>
+        </tr>
+        <tr>
+          <td><code>threads</code></td>
+          <td>
+          </td>
+          <td><p>int
+The number of threads used for data loading.</p></td>
+        </tr>
+        <tr>
+          <td><code>epochs</code></td>
+          <td>
+          </td>
+          <td><p>int
+The number of epochs to train the classifier for.</p></td>
+        </tr>
+        <tr>
+          <td><code>logger</code></td>
+          <td>
+          </td>
+          <td><p>Union[SuperLogger, None]
+The logger used for logging training information.</p></td>
+        </tr>
+        <tr>
+          <td><code>log_steps</code></td>
+          <td>
+          </td>
+          <td><p>int
+The number of steps between each log message during training.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+
+        <details class="quote">
+          <summary>Source code in <code>binn/sklearn.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">BINNClassifier</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">ClassifierMixin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A sci-kit learn wrapper for the BINN.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        pathways : Network, optional</span>
+<span class="sd">            The network architecture to use for the classifier. If None, a default</span>
+<span class="sd">            architecture will be used. Default is None.</span>
+<span class="sd">        activation : str, optional</span>
+<span class="sd">            The activation function to use for the classifier. Default is &#39;tanh&#39;.</span>
+<span class="sd">        weight : torch.Tensor, optional</span>
+<span class="sd">            The weight to assign to each class. Default is torch.Tensor([1, 1]).</span>
+<span class="sd">        learning_rate : float, optional</span>
+<span class="sd">            The learning rate for the optimizer. Default is 1e-4.</span>
+<span class="sd">        n_layers : int, optional</span>
+<span class="sd">            The number of layers in the network architecture. Default is 4.</span>
+<span class="sd">        scheduler : str, optional</span>
+<span class="sd">            The scheduler to use for the optimizer. Default is &#39;plateau&#39;.</span>
+<span class="sd">        optimizer : str, optional</span>
+<span class="sd">            The optimizer to use for training. Default is &#39;adam&#39;.</span>
+<span class="sd">        n_outputs : int, optional</span>
+<span class="sd">            The number of outputs of the network architecture. Default is 2.</span>
+<span class="sd">        dropout : float, optional</span>
+<span class="sd">            The dropout rate to use for the classifier. Default is 0.</span>
+<span class="sd">        residual : bool, optional</span>
+<span class="sd">            Whether to use residual connections in the network architecture.</span>
+<span class="sd">            Default is False.</span>
+<span class="sd">        threads : int, optional</span>
+<span class="sd">            The number of threads to use for data loading. Default is 1.</span>
+<span class="sd">        epochs : int, optional</span>
+<span class="sd">            The number of epochs to train the classifier for. Default is 100.</span>
+<span class="sd">        logger : Union[SuperLogger, None], optional</span>
+<span class="sd">            The logger to use for logging training information. Default is None.</span>
+<span class="sd">        log_steps : int, optional</span>
+<span class="sd">            The number of steps between each log message during training.</span>
+<span class="sd">            Default is 50.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        clf : BINN</span>
+<span class="sd">            The BINN (Block Independent Neural Network) instance used for</span>
+<span class="sd">            classification.</span>
+<span class="sd">        threads : int</span>
+<span class="sd">            The number of threads used for data loading.</span>
+<span class="sd">        epochs : int</span>
+<span class="sd">            The number of epochs to train the classifier for.</span>
+<span class="sd">        logger : Union[SuperLogger, None]</span>
+<span class="sd">            The logger used for logging training information.</span>
+<span class="sd">        log_steps : int</span>
+<span class="sd">            The number of steps between each log message during training.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">pathways</span><span class="p">:</span> <span class="n">Network</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">activation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;tanh&quot;</span><span class="p">,</span>
+        <span class="n">weight</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+        <span class="n">learning_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span>
+        <span class="n">n_layers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="n">scheduler</span><span class="o">=</span><span class="s2">&quot;plateau&quot;</span><span class="p">,</span>
+        <span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;adam&quot;</span><span class="p">,</span>
+        <span class="n">n_outputs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">dropout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">residual</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">threads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">epochs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="n">logger</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">SuperLogger</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">log_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clf</span> <span class="o">=</span> <span class="n">BINN</span><span class="p">(</span>
+            <span class="n">pathways</span><span class="o">=</span><span class="n">pathways</span><span class="p">,</span>
+            <span class="n">activation</span><span class="o">=</span><span class="n">activation</span><span class="p">,</span>
+            <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span>
+            <span class="n">learning_rate</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">,</span>
+            <span class="n">n_layers</span><span class="o">=</span><span class="n">n_layers</span><span class="p">,</span>
+            <span class="n">scheduler</span><span class="o">=</span><span class="n">scheduler</span><span class="p">,</span>
+            <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span>
+            <span class="n">validate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">n_outputs</span><span class="o">=</span><span class="n">n_outputs</span><span class="p">,</span>
+            <span class="n">dropout</span><span class="o">=</span><span class="n">dropout</span><span class="p">,</span>
+            <span class="n">residual</span><span class="o">=</span><span class="n">residual</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">threads</span> <span class="o">=</span> <span class="n">threads</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epochs</span> <span class="o">=</span> <span class="n">epochs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_steps</span> <span class="o">=</span> <span class="n">log_steps</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Trains the classifier using the provided input data and target labels.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            X (array-like of shape (n_samples, n_features)): The input data.</span>
+<span class="sd">            y (array-like of shape (n_samples,)): The target labels.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dataloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span>
+            <span class="n">dataset</span><span class="o">=</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">(</span><span class="n">y</span><span class="p">)),</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+            <span class="n">num_workers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">,</span>
+            <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
+            <span class="n">callbacks</span><span class="o">=</span><span class="p">[],</span> <span class="n">logger</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get_logger_list</span><span class="p">(),</span> <span class="n">max_epochs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">,</span>
+            <span class="n">log_every_n_steps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">log_steps</span>
+        <span class="p">)</span>
+
+        <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clf</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predicts target labels for the provided input data using the trained classifier.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            X (array-like of shape (n_samples, n_features)): The input data.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            y_hat (torch.Tensor of shape (n_samples,)): The predicted target labels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">y_hat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clf</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">y_hat</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="binn.sklearn.BINNClassifier.fit" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Trains the classifier using the provided input data and target labels.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>X</code></td>
+          <td>
+                <code>array-like of shape (n_samples, n_features</code>
+          </td>
+          <td><p>The input data.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>y</code></td>
+          <td>
+                <code>array-like of shape (n_samples,</code>
+          </td>
+          <td><p>The target labels.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+          </td>
+          <td><p>None</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>binn/sklearn.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Trains the classifier using the provided input data and target labels.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        X (array-like of shape (n_samples, n_features)): The input data.</span>
+<span class="sd">        y (array-like of shape (n_samples,)): The target labels.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dataloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span>
+        <span class="n">dataset</span><span class="o">=</span><span class="n">TensorDataset</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">LongTensor</span><span class="p">(</span><span class="n">y</span><span class="p">)),</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+        <span class="n">num_workers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">threads</span><span class="p">,</span>
+        <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
+        <span class="n">callbacks</span><span class="o">=</span><span class="p">[],</span> <span class="n">logger</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">get_logger_list</span><span class="p">(),</span> <span class="n">max_epochs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">,</span>
+        <span class="n">log_every_n_steps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">log_steps</span>
+    <span class="p">)</span>
+
+    <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clf</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
 </div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="binn.sklearn.BINNClassifier.predict" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Predicts target labels for the provided input data using the trained classifier.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>X</code></td>
+          <td>
+                <code>array-like of shape (n_samples, n_features</code>
+          </td>
+          <td><p>The input data.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>y_hat</code></td>          <td>
+                <code>torch.Tensor of shape (n_samples,)</code>
+          </td>
+          <td><p>The predicted target labels.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>binn/sklearn.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Predicts target labels for the provided input data using the trained classifier.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        X (array-like of shape (n_samples, n_features)): The input data.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        y_hat (torch.Tensor of shape (n_samples,)): The predicted target labels.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">y_hat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clf</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">y_hat</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div><hr />
 
 
 </section>

@@ -30,9 +30,7 @@
 <li class="divider"></li>
 <li class="chapter" data-path="">
 <a href="..">Welcome to the BINN documentation</a>
-<li class="chapter" data-path="reference/">
-<a href="../reference/">API Reference</a>
-<li class="header">Examples</li>
+<li class="header">Examples & tutorials</li>
 
 <li>
 <a href="../binn_example/" class="">BINN - Biologically Informed Neural Network</a>
@@ -40,6 +38,12 @@
 
 <li>
 <a href="./" class="active">Interpretation and plotting</a>
+</li>
+
+<li class="header">Reference</li>
+
+<li>
+<a href="../reference/" class="">API Reference</a>
 </li>
 
 <li class="divider"></li>
@@ -1399,7 +1403,7 @@ explainer = BINNExplainer(binn)</div>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Explain the network using SHAP.</p>
+<p>Explain the network using SHAP. The value column in the resulting dataframe contains the SHAP values. Note that each source and target entity is now superceded by the layer index. This is so that we can keep track of copies of nodes.</p>
 
 </div>
 </div>
