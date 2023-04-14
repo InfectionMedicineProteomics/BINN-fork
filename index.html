@@ -44,7 +44,7 @@
 <a href="sklearn_api/" class="">Scikit-learn API</a>
 </li>
 
-<li class="header">Reference</li>
+<li class="header">API Reference</li>
 
 <li>
 <a href="reference/binn_ref/" class="">BINN</a>
@@ -118,7 +118,7 @@ Theme by GitBook
 <li><a href="shap_example/">Interpretation example</a></li>
 </ul>
 <h3 id="introduction">Introduction</h3>
-<p>Biological systems are highly complex and require tools which are capable of capturing that complexity while at the same time making the systems understandable. Here, we have created a package which generates <strong>BINNs (<em>Biologically Informed Neural Networks</em>)</strong>. A BINN is generated using an underlying graph which determines the connecitivty between its layers and the annotations for each node. The implementation is agnostic to the input graph and can be provided with e.g., <a href="https://reactome.org/">Reactome pathways</a>, <a href="https://www.genome.jp/kegg/">KEGG pathways</a>, or <a href="http://geneontology.org/">Gene Ontology pathways</a>.</p>
+<p>Biological systems are highly complex and require tools which are capable of capturing that complexity while at the same time making the systems understandable. Here, we have created a package which generates <strong>BINNs (<em>Biologically Informed Neural Networks</em>)</strong>. A BINN is generated using an underlying graph which determines the connecitivty between its layers and the annotations for each node. The implementation is agnostic to the input graph and can be provided with e.g., <a href="https://reactome.org/">Reactome pathways</a>, <a href="https://www.genome.jp/kegg/">KEGG pathways</a>, <a href="http://geneontology.org/">Gene Ontology pathways</a> or your own curated pathways.</p>
 <p>The initial layer of the BINN contain the input features, and should connect to the chosen graph. This could be genes, proteins or any other entities which map correctly to the input graph. The network is then trained and interpreted using SHAP. This results in importance values for each node in the network, allowing you to identify which biological entities and pathways are important for the classification you trained the network on.</p>
 <p>We also include some plotting functionalities which allow you to visualize the importance of each node in the network.</p>
 <table>
