@@ -59,11 +59,11 @@
 </li>
 
 <li>
-<a href="../reference/sk_ref/" class="">Scikit-learn API</a>
+<a href="../reference/import_ref/" class="">Importance Network & Visualization</a>
 </li>
 
 <li>
-<a href="../reference/plot_ref/" class="">Plotting</a>
+<a href="../reference/sk_ref/" class="">Scikit-learn API</a>
 </li>
 
 <li class="divider"></li>
@@ -1208,7 +1208,7 @@ import pandas as pd
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Similar to before, we load data and create a network, however, now we instead create a BINNClassifier object (this is the scikit-learn wrapper class).</p>
+<p>Similar to the PyTorch API, we load data and create a network, however, now we instead create a BINNClassifier object (this is the scikit-learn wrapper class).</p>
 
 </div>
 </div>
@@ -1219,7 +1219,7 @@ import pandas as pd
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
         
         
         <div class="CodeMirror cm-s-jupyter">
@@ -1290,7 +1290,7 @@ binn.clf.features</div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[13]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
 
 
 
@@ -1329,7 +1329,7 @@ binn.clf.features</div>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
         
         
         <div class="CodeMirror cm-s-jupyter">
@@ -1346,7 +1346,7 @@ binn.clf.features</div>
             </div>
             <div class="highlight-ipynb hl-python "><pre><span></span><span class="kn">from</span> <span class="nn">util_for_examples</span> <span class="kn">import</span> <span class="n">generate_data</span><span class="p">,</span> <span class="n">fit_data_matrix_to_network_input</span>
 
-<span class="n">X</span> <span class="o">=</span> <span class="n">fit_data_matrix_to_network_input</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">features</span><span class="o">=</span><span class="n">binn</span><span class="o">.</span><span class="n">clf</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">fit_data_matrix_to_network_input</span><span class="p">(</span><span class="n">input_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(),</span> <span class="n">features</span><span class="o">=</span><span class="n">binn</span><span class="o">.</span><span class="n">clf</span><span class="o">.</span><span class="n">features</span><span class="p">)</span>
 
 <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">generate_data</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">design_matrix</span><span class="p">)</span>
 
@@ -1355,11 +1355,11 @@ binn.clf.features</div>
 <span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
 <span class="n">y_train</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="mi">10</span><span class="p">:]</span>
 
-<span class="n">binn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">binn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 <div id="cell-3" class="clipboard-copy-txt">from util_for_examples import generate_data, fit_data_matrix_to_network_input
 
-X = fit_data_matrix_to_network_input(input_data, features=binn.clf.features)
+X = fit_data_matrix_to_network_input(input_data.reset_index(), features=binn.clf.features)
 
 X, y = generate_data(X, design_matrix)
 
@@ -1368,7 +1368,7 @@ X_train = X[10:]
 y_test = y[:10]
 y_train = y[10:]
 
-binn.fit(X_train, y_train)</div>
+binn.fit(X_train, y_train, epochs=5)</div>
         
         </div>
     </div>
@@ -1404,26 +1404,7 @@ You defined a `validation_step` but have no `val_dataloader`. Skipping val loop.
 0         Non-trainable params
 364 K     Total params
 1.457     Total estimated model params size (MB)
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Epoch 0:   0%|          | 0/24 [01:17&lt;?, ?it/s]
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>Experiment logs directory logs/test/lightning_logs/version_1 exists and is not empty. Previous log files in this directory will be deleted when the new ones are saved!
+Experiment logs directory logs/test/lightning_logs/version_2 exists and is not empty. Previous log files in this directory will be deleted when the new ones are saved!
 The number of training batches (24) is smaller than the logging interval Trainer(log_every_n_steps=50). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
 </pre>
 </div>
@@ -1434,7 +1415,7 @@ The number of training batches (24) is smaller than the logging interval Trainer
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Epoch 2: 100%|██████████| 24/24 [00:00&lt;00:00, 52.40it/s, loss=0.909, v_num=1, train_loss=0.901, train_acc=0.545]</pre>
+<pre>Epoch 4: 100%|██████████| 24/24 [00:00&lt;00:00, 54.65it/s, loss=0.7, v_num=2, train_loss=0.695, train_acc=0.599]  </pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
@@ -1443,7 +1424,7 @@ The number of training batches (24) is smaller than the logging interval Trainer
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>`Trainer.fit` stopped: `max_epochs=3` reached.
+<pre>`Trainer.fit` stopped: `max_epochs=5` reached.
 </pre>
 </div>
 </div>
@@ -1453,7 +1434,7 @@ The number of training batches (24) is smaller than the logging interval Trainer
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Epoch 2: 100%|██████████| 24/24 [00:03&lt;00:00,  6.25it/s, loss=0.909, v_num=1, train_loss=0.901, train_acc=0.545]
+<pre>Epoch 4: 100%|██████████| 24/24 [00:04&lt;00:00,  5.99it/s, loss=0.7, v_num=2, train_loss=0.695, train_acc=0.599]
 </pre>
 </div>
 </div>
@@ -1481,7 +1462,7 @@ The number of training batches (24) is smaller than the logging interval Trainer
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
         
         
         <div class="CodeMirror cm-s-jupyter">
@@ -1514,22 +1495,22 @@ The number of training batches (24) is smaller than the logging interval Trainer
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[12]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
 
 
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>tensor([[ 0.9221,  0.6372],
-        [-0.1756, -0.8618],
-        [-0.7503, -0.4109],
-        [ 0.9660, -0.8077],
-        [ 2.0756, -1.2263],
-        [ 1.2871, -0.4783],
-        [-0.4326, -0.5821],
-        [ 1.5961,  0.7129],
-        [-2.0181,  2.4639],
-        [-1.5397,  1.0532]])</pre>
+<pre>tensor([[-0.4758,  0.8845],
+        [ 0.7474, -0.4624],
+        [-0.0038,  0.6866],
+        [ 1.2215, -0.4077],
+        [ 0.1493,  0.2471],
+        [ 1.9233,  0.0633],
+        [-1.1539, -0.7882],
+        [ 0.1260,  1.7059],
+        [ 1.0814, -0.3451],
+        [-1.9565, -0.9222]])</pre>
 </div>
 
 </div>

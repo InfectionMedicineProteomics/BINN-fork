@@ -59,11 +59,11 @@
 </li>
 
 <li>
-<a href="reference/sk_ref/" class="">Scikit-learn API</a>
+<a href="reference/import_ref/" class="">Importance Network & Visualization</a>
 </li>
 
 <li>
-<a href="reference/plot_ref/" class="">Plotting</a>
+<a href="reference/sk_ref/" class="">Scikit-learn API</a>
 </li>
 
 <li class="divider"></li>
@@ -107,15 +107,24 @@ Theme by GitBook
 <p><a style="color:red">Note that the docs are still stabilizing!</a></p>
 <h3 id="table-of-contents">Table Of Contents</h3>
 <ul>
-<li>Introduction</li>
-<li>Install</li>
+<li><a href="#install">Install</a></li>
+<li><a href="#introduction">Introduction</a></li>
 <li><a href="reference.md">API Reference</a></li>
 </ul>
+<h3 id="install">Install</h3>
+<p>BINN can be installed via <code>pip</code></p>
+<pre><code>pip install binn
+</code></pre>
+<p>The package can also be built from source and installed with git.</p>
+<pre><code>git clone git@github.com:InfectionMedicineProteomics/BINN.git
+pip install -e BINN/
+</code></pre>
 <p><strong>Examples:</strong></p>
 <p>In the <a href="binn_example/">examples</a> we use proteins as the input layer and the Reactome pathway database to generate the BINN. The network is trained on mass-spec intensity values.</p>
 <ul>
 <li><a href="binn_example/">BINN example</a></li>
 <li><a href="shap_example/">Interpretation example</a></li>
+<li><a href="sklearn_api/">Scikit-learn API</a></li>
 </ul>
 <h3 id="introduction">Introduction</h3>
 <p>Biological systems are highly complex and require tools which are capable of capturing that complexity while at the same time making the systems understandable. Here, we have created a package which generates <strong>BINNs (<em>Biologically Informed Neural Networks</em>)</strong>. A BINN is generated using an underlying graph which determines the connecitivty between its layers and the annotations for each node. The implementation is agnostic to the input graph and can be provided with e.g., <a href="https://reactome.org/">Reactome pathways</a>, <a href="https://www.genome.jp/kegg/">KEGG pathways</a>, <a href="http://geneontology.org/">Gene Ontology pathways</a> or your own curated pathways.</p>
@@ -124,7 +133,7 @@ Theme by GitBook
 <table>
 <thead>
 <tr>
-<th align="center"><img src="img/test.png" style="display:block;margin-left:auto;margin-right:auto;"></th>
+<th align="center"><img src="img/complete_sankey.png" style="display:block;margin-left:auto;margin-right:auto;"></th>
 </tr>
 </thead>
 <tbody>
@@ -137,7 +146,7 @@ Theme by GitBook
 <table>
 <thead>
 <tr>
-<th align="center"><img src="img/sankey.png" style="display:block;margin-left:auto;margin-right:auto;"></th>
+<th align="center"><img src="img/subgraph_sankey.png" style="display:block;margin-left:auto;margin-right:auto;"></th>
 </tr>
 </thead>
 <tbody>
@@ -146,12 +155,6 @@ Theme by GitBook
 </tr>
 </tbody>
 </table>
-<h3 id="install">Install</h3>
-<p>Currently, the package is available at GitHub and can be cloned with the following commands.</p>
-<pre><code>git clone git@github.com:InfectionMedicineProteomics/BINN.git
-pip install -e BINN/
-</code></pre>
-<p>We are working on making the package available through pip.</p>
 <h3 id="contributors">Contributors</h3>
 <p><a href="https://orcid.org/0000-0001-9997-2405">Erik Hartman</a>, infection medicine proteomics, Lund University</p>
 <p><a href="https://orcid.org/0000-0002-2391-6914">Aaron Scott</a>, infection medicine proteomics, Lund University</p>
@@ -161,7 +164,7 @@ pip install -e BINN/
 <p><a href="https://github.com/InfectionMedicineProteomics/BINN">github.com/InfectionMedicineProteomics/BINN</a></p>
 <h3 id="cite">Cite</h3>
 <p>The article presenting the BINN is currently avaiable on bioRXiv. Please cite:</p>
-<p>"Interpreting biologically informed neural networks for enhanced biomarker discovery and pathway analysis", Erik Hartman, Aaron Scott, Lars Malmström, Johan Malmström, bioRxiv 2023.02.16.528807; doi: https://doi.org/10.1101/2023.02.16.528807</p>
+<p><code>Interpreting biologically informed neural networks for enhanced biomarker discovery and pathway analysis", Erik Hartman, Aaron Scott, Lars Malmström, Johan Malmström, bioRxiv 2023.02.16.528807; doi: https://doi.org/10.1101/2023.02.16.528807</code></p>
 <p><br><br><br><br>
 <img src="img/imp_logo.png" width="250" height="250" style="display:block;margin-left:auto;margin-right:auto;"></p>
 
