@@ -37,7 +37,7 @@
 </li>
 
 <li>
-<a href="../shap_example/" class="">Interpretation and plotting</a>
+<a href="../shap_example/" class="">Shap example</a>
 </li>
 
 <li>
@@ -1243,10 +1243,12 @@ import pandas as pd
     <span class="n">input_data</span><span class="o">=</span><span class="n">input_data</span><span class="p">,</span>
     <span class="n">pathways</span><span class="o">=</span><span class="n">pathways</span><span class="p">,</span>
     <span class="n">mapping</span><span class="o">=</span><span class="n">translation</span><span class="p">,</span>
+    <span class="n">source_column</span><span class="o">=</span><span class="s2">&quot;child&quot;</span><span class="p">,</span>
+    <span class="n">target_column</span><span class="o">=</span><span class="s2">&quot;parent&quot;</span>
 <span class="p">)</span>
 
 <span class="n">binn</span> <span class="o">=</span> <span class="n">BINNClassifier</span><span class="p">(</span>
-    <span class="n">pathways</span><span class="o">=</span><span class="n">network</span><span class="p">,</span>
+    <span class="n">network</span><span class="o">=</span><span class="n">network</span><span class="p">,</span>
     <span class="n">n_layers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
     <span class="n">dropout</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
     <span class="n">epochs</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
@@ -1264,10 +1266,12 @@ network = Network(
     input_data=input_data,
     pathways=pathways,
     mapping=translation,
+    source_column="child",
+    target_column="parent"
 )
 
 binn = BINNClassifier(
-    pathways=network,
+    network=network,
     n_layers=4,
     dropout=0.2,
     epochs=3,
@@ -1329,7 +1333,7 @@ binn.clf.features</div>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
         
         
         <div class="CodeMirror cm-s-jupyter">
@@ -1395,16 +1399,17 @@ HPU available: False, using: 0 HPUs
 GPU available but not used. Set `accelerator` and `devices` using `Trainer(accelerator=&#39;gpu&#39;, devices=1)`.
 You defined a `validation_step` but have no `val_dataloader`. Skipping val loop.
 
-  | Name   | Type             | Params
---------------------------------------------
-0 | layers | Sequential       | 364 K 
-1 | loss   | CrossEntropyLoss | 0     
---------------------------------------------
+  | Name     | Type             | Params
+----------------------------------------------
+0 | layers   | Sequential       | 364 K 
+1 | loss     | CrossEntropyLoss | 0     
+2 | loss_val | CrossEntropyLoss | 0     
+----------------------------------------------
 364 K     Trainable params
 0         Non-trainable params
 364 K     Total params
 1.457     Total estimated model params size (MB)
-Experiment logs directory logs/test/lightning_logs/version_2 exists and is not empty. Previous log files in this directory will be deleted when the new ones are saved!
+Experiment logs directory logs/test/lightning_logs/version_3 exists and is not empty. Previous log files in this directory will be deleted when the new ones are saved!
 The number of training batches (24) is smaller than the logging interval Trainer(log_every_n_steps=50). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
 </pre>
 </div>
@@ -1415,7 +1420,7 @@ The number of training batches (24) is smaller than the logging interval Trainer
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Epoch 4: 100%|██████████| 24/24 [00:00&lt;00:00, 54.65it/s, loss=0.7, v_num=2, train_loss=0.695, train_acc=0.599]  </pre>
+<pre>Epoch 4: 100%|██████████| 24/24 [00:00&lt;00:00, 57.06it/s, loss=0.75, v_num=3, train_loss=0.773, train_acc=0.556] </pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
@@ -1434,7 +1439,7 @@ The number of training batches (24) is smaller than the logging interval Trainer
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Epoch 4: 100%|██████████| 24/24 [00:04&lt;00:00,  5.99it/s, loss=0.7, v_num=2, train_loss=0.695, train_acc=0.599]
+<pre>Epoch 4: 100%|██████████| 24/24 [00:09&lt;00:00,  2.66it/s, loss=0.75, v_num=3, train_loss=0.773, train_acc=0.556]
 </pre>
 </div>
 </div>
@@ -1462,7 +1467,7 @@ The number of training batches (24) is smaller than the logging interval Trainer
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
         
         
         <div class="CodeMirror cm-s-jupyter">
@@ -1495,22 +1500,22 @@ The number of training batches (24) is smaller than the logging interval Trainer
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
 
 
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>tensor([[-0.4758,  0.8845],
-        [ 0.7474, -0.4624],
-        [-0.0038,  0.6866],
-        [ 1.2215, -0.4077],
-        [ 0.1493,  0.2471],
-        [ 1.9233,  0.0633],
-        [-1.1539, -0.7882],
-        [ 0.1260,  1.7059],
-        [ 1.0814, -0.3451],
-        [-1.9565, -0.9222]])</pre>
+<pre>tensor([[-0.7593, -0.6118],
+        [ 0.1700, -0.8432],
+        [ 0.0709, -1.0857],
+        [-0.2082, -1.1145],
+        [ 0.1687, -1.3955],
+        [-0.7921,  0.4828],
+        [ 0.0444, -0.1737],
+        [-1.5466,  0.4932],
+        [-0.5567,  1.1309],
+        [ 0.2844,  0.0567]])</pre>
 </div>
 
 </div>

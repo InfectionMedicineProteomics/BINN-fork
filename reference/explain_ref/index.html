@@ -37,7 +37,7 @@
 </li>
 
 <li>
-<a href="../../shap_example/" class="">Interpretation and plotting</a>
+<a href="../../shap_example/" class="">Shap example</a>
 </li>
 
 <li>
@@ -165,8 +165,7 @@ Theme by GitBook
 
         <details class="quote">
           <summary>Source code in <code>binn/explainer.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  9</span>
-<span class="normal"> 10</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 10</span>
 <span class="normal"> 11</span>
 <span class="normal"> 12</span>
 <span class="normal"> 13</span>
@@ -334,7 +333,76 @@ Theme by GitBook
 <span class="normal">175</span>
 <span class="normal">176</span>
 <span class="normal">177</span>
-<span class="normal">178</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">BINNExplainer</span><span class="p">:</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">BINNExplainer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class for explaining the predictions of a BINN model using SHAP values.</span>
 
@@ -343,7 +411,9 @@ Theme by GitBook
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">BINN</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
 
+    <span class="k">def</span> <span class="nf">update_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">BINN</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">model</span>
 
     <span class="k">def</span> <span class="nf">explain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">background_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
@@ -362,12 +432,23 @@ Theme by GitBook
         <span class="n">feature_dict</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="p">[],</span>
             <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;source name&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;target name&quot;</span><span class="p">:</span> <span class="p">[],</span>
             <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">[],</span>
             <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="p">[],</span>
             <span class="s2">&quot;source layer&quot;</span><span class="p">:</span> <span class="p">[],</span>
             <span class="s2">&quot;target layer&quot;</span><span class="p">:</span> <span class="p">[],</span>
         <span class="p">}</span>
         <span class="n">connectivity_matrices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get_connectivity_matrices</span><span class="p">()</span>
+        <span class="n">feature_id_mapping</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">feature_id</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">feature_id_mapping</span><span class="p">[</span><span class="s2">&quot;root&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature_id</span>
+        <span class="k">for</span> <span class="n">layer_features</span> <span class="ow">in</span> <span class="n">shap_dict</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">layer_features</span><span class="p">:</span>
+                <span class="n">feature_id</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">feature_id_mapping</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature_id</span>
+
         <span class="n">curr_layer</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">sv</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">cm</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
             <span class="n">shap_dict</span><span class="p">[</span><span class="s2">&quot;shap_values&quot;</span><span class="p">],</span> <span class="n">shap_dict</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">],</span> <span class="n">connectivity_matrices</span>
@@ -376,19 +457,21 @@ Theme by GitBook
             <span class="n">sv</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">sv</span><span class="p">)</span>
             <span class="n">sv_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sv</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sv_mean</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sv_mean</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
                 <span class="n">n_classes</span> <span class="o">=</span> <span class="n">sv_mean</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="n">connections</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="n">cm</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="n">features</span><span class="p">[</span><span class="n">f</span><span class="p">]]</span>
+                <span class="n">connections</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="n">cm</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="n">features</span><span class="p">[</span><span class="n">feature</span><span class="p">]]</span>
                 <span class="n">connections</span> <span class="o">=</span> <span class="n">connections</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
                     <span class="p">:,</span> <span class="p">(</span><span class="n">connections</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
                 <span class="p">]</span>  <span class="c1"># get targets and append to target</span>
                 <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">connections</span><span class="p">:</span>
                     <span class="k">for</span> <span class="n">curr_class</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_classes</span><span class="p">):</span>
                         <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">features</span><span class="p">[</span><span class="n">f</span><span class="p">]</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">curr_layer</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                        <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">curr_layer</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                        <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sv_mean</span><span class="p">[</span><span class="n">curr_class</span><span class="p">][</span><span class="n">f</span><span class="p">])</span>
+                            <span class="n">feature_id_mapping</span><span class="p">[</span><span class="n">features</span><span class="p">[</span><span class="n">feature</span><span class="p">]]</span>
+                        <span class="p">)</span>
+                        <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feature_id_mapping</span><span class="p">[</span><span class="n">target</span><span class="p">])</span>
+                        <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;source name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="n">feature</span><span class="p">])</span>
+                        <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;target name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+                        <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sv_mean</span><span class="p">[</span><span class="n">curr_class</span><span class="p">][</span><span class="n">feature</span><span class="p">])</span>
                         <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr_class</span><span class="p">)</span>
                         <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;source layer&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr_layer</span><span class="p">)</span>
                         <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;target layer&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr_layer</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
@@ -396,12 +479,14 @@ Theme by GitBook
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">feature_dict</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">df</span>
 
-    <span class="k">def</span> <span class="nf">explain_average</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                        <span class="n">test_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
-                        <span class="n">background_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
-                        <span class="n">nr_iterations</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                        <span class="n">max_epochs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                        <span class="n">dataloader</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">explain_average</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">test_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">background_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">nr_iterations</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">max_epochs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">dataloader</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes the SHAP explanations for the given test_data by averaging the Shapley values over multiple iterations.</span>
 <span class="sd">        For each iteration, the model&#39;s parameters are randomly initialized and trained on the provided data using</span>
@@ -426,21 +511,49 @@ Theme by GitBook
             <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">background_data</span><span class="p">)</span>
             <span class="n">dfs</span><span class="p">[</span><span class="n">iteration</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
 
-        <span class="n">col_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;value_</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">dfs</span><span class="o">.</span><span class="n">keys</span><span class="p">())))]</span>
+        <span class="n">col_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;value_</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">dfs</span><span class="o">.</span><span class="n">keys</span><span class="p">())))]</span>
         <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">dfs</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
         <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
         <span class="n">values_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">values_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">df</span><span class="p">[</span><span class="n">col_names</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">T</span>
-        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;value_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values_mean</span>
-        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;values_std&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values_std</span>
-        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values_mean</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;value_mean&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values_mean</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;values_std&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values_std</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values_mean</span>
         <span class="k">return</span> <span class="n">df</span>
 
+    <span class="k">def</span> <span class="nf">recursive_pathway_elimination</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">input_data</span><span class="p">,</span>
+        <span class="n">design_matrix</span><span class="p">,</span>
+        <span class="n">nr_iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="n">max_epochs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="n">clip_threshold</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span>
+        <span class="n">constant_removal_rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+        <span class="n">min_features_per_layer</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">rpe</span> <span class="o">=</span> <span class="n">RecursivePathwayElimination</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="n">return_dict</span> <span class="o">=</span> <span class="n">rpe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
+            <span class="n">input_data</span><span class="o">=</span><span class="n">input_data</span><span class="p">,</span>
+            <span class="n">design_matrix</span><span class="o">=</span><span class="n">design_matrix</span><span class="p">,</span>
+            <span class="n">nr_iterations</span><span class="o">=</span><span class="n">nr_iterations</span><span class="p">,</span>
+            <span class="n">max_epochs</span><span class="o">=</span><span class="n">max_epochs</span><span class="p">,</span>
+            <span class="n">clip_threshold</span><span class="o">=</span><span class="n">clip_threshold</span><span class="p">,</span>
+            <span class="n">constant_removal_rate</span><span class="o">=</span><span class="n">constant_removal_rate</span><span class="p">,</span>
+            <span class="n">min_features_per_layer</span><span class="o">=</span><span class="n">min_features_per_layer</span><span class="p">,</span>
+            <span class="n">early_stopping</span><span class="o">=</span><span class="n">early_stopping</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">rpe_model</span> <span class="o">=</span> <span class="n">rpe</span><span class="o">.</span><span class="n">get_final_model</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rpe_data</span> <span class="o">=</span> <span class="n">rpe</span><span class="o">.</span><span class="n">get_final_data</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">return_dict</span>
+
     <span class="k">def</span> <span class="nf">explain_input</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">background_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">background_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes the SHAP explanations for the given test_data for a specific layer in the model by computing the</span>
@@ -459,8 +572,7 @@ Theme by GitBook
         <span class="n">explainer</span> <span class="o">=</span> <span class="n">shap</span><span class="o">.</span><span class="n">DeepExplainer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">background_data</span><span class="p">)</span>
         <span class="n">shap_values</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">shap_values</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
 
-        <span class="n">shap_dict</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">column_names</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;shap_values&quot;</span><span class="p">:</span> <span class="n">shap_values</span><span class="p">}</span>
+        <span class="n">shap_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">layer_names</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;shap_values&quot;</span><span class="p">:</span> <span class="n">shap_values</span><span class="p">}</span>
 
         <span class="k">return</span> <span class="n">shap_dict</span>
 
@@ -484,18 +596,42 @@ Theme by GitBook
         <span class="n">shap_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;shap_values&quot;</span><span class="p">:</span> <span class="p">[]}</span>
 
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
-
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
-                <span class="ow">not</span> <span class="s2">&quot;Residual&quot;</span> <span class="ow">in</span> <span class="n">name</span> <span class="ow">or</span> <span class="s2">&quot;final&quot;</span> <span class="ow">in</span> <span class="n">name</span>
+                <span class="s2">&quot;Residual&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">name</span> <span class="ow">or</span> <span class="s2">&quot;final&quot;</span> <span class="ow">in</span> <span class="n">name</span>
             <span class="p">):</span>
-                <span class="n">explainer</span> <span class="o">=</span> <span class="n">shap</span><span class="o">.</span><span class="n">DeepExplainer</span><span class="p">(</span>
-                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">layer</span><span class="p">),</span> <span class="n">background_data</span><span class="p">)</span>
+                <span class="n">explainer</span> <span class="o">=</span> <span class="n">shap</span><span class="o">.</span><span class="n">DeepExplainer</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">layer</span><span class="p">),</span> <span class="n">background_data</span><span class="p">)</span>
                 <span class="n">shap_values</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">shap_values</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
-                <span class="n">shap_dict</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">layer_names</span><span class="p">[</span><span class="n">feature_index</span><span class="p">])</span>
+                <span class="n">shap_dict</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">layer_names</span><span class="p">[</span><span class="n">feature_index</span><span class="p">])</span>
                 <span class="n">shap_dict</span><span class="p">[</span><span class="s2">&quot;shap_values&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shap_values</span><span class="p">)</span>
                 <span class="n">feature_index</span> <span class="o">+=</span> <span class="mi">1</span>
 
+                <span class="n">intermediate_data</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">intermediate_data</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span><span class="p">)</span>
+                <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">)</span>
+                <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">)</span>
+            <span class="p">):</span>
+                <span class="n">intermediate_data</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">intermediate_data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">shap_dict</span>
+
+    <span class="k">def</span> <span class="nf">_explain_layer</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">background_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">test_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">wanted_layer</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="n">intermediate_data</span> <span class="o">=</span> <span class="n">test_data</span>
+
+        <span class="n">shap_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;shap_values&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="n">layer_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">named_children</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+                <span class="s2">&quot;Residual&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">name</span> <span class="ow">or</span> <span class="s2">&quot;final&quot;</span> <span class="ow">in</span> <span class="n">name</span>
+            <span class="p">):</span>
+                <span class="k">if</span> <span class="n">layer_index</span> <span class="o">==</span> <span class="n">wanted_layer</span><span class="p">:</span>
+                    <span class="n">explainer</span> <span class="o">=</span> <span class="n">shap</span><span class="o">.</span><span class="n">DeepExplainer</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">layer</span><span class="p">),</span> <span class="n">background_data</span><span class="p">)</span>
+                    <span class="n">shap_values</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">shap_values</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
+                    <span class="n">shap_dict</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">layer_names</span><span class="p">[</span><span class="n">wanted_layer</span><span class="p">]</span>
+                    <span class="n">shap_dict</span><span class="p">[</span><span class="s2">&quot;shap_values&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">shap_values</span>
+                    <span class="k">return</span> <span class="n">shap_dict</span>
+                <span class="n">layer_index</span> <span class="o">+=</span> <span class="mi">1</span>
                 <span class="n">intermediate_data</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">intermediate_data</span><span class="p">)</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span><span class="p">)</span>
@@ -587,10 +723,7 @@ the provided background_data. The feature importances are then aggregated and re
 
       <details class="quote">
         <summary>Source code in <code>binn/explainer.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">24</span>
 <span class="normal">25</span>
 <span class="normal">26</span>
 <span class="normal">27</span>
@@ -635,7 +768,23 @@ the provided background_data. The feature importances are then aggregated and re
 <span class="normal">66</span>
 <span class="normal">67</span>
 <span class="normal">68</span>
-<span class="normal">69</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">explain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">background_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">explain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">background_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generates SHAP explanations for a given test_data by computing the Shapley values for each feature using</span>
 <span class="sd">    the provided background_data. The feature importances are then aggregated and returned in a pandas dataframe.</span>
@@ -651,12 +800,23 @@ the provided background_data. The feature importances are then aggregated and re
     <span class="n">feature_dict</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="p">[],</span>
         <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;source name&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;target name&quot;</span><span class="p">:</span> <span class="p">[],</span>
         <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">[],</span>
         <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="p">[],</span>
         <span class="s2">&quot;source layer&quot;</span><span class="p">:</span> <span class="p">[],</span>
         <span class="s2">&quot;target layer&quot;</span><span class="p">:</span> <span class="p">[],</span>
     <span class="p">}</span>
     <span class="n">connectivity_matrices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get_connectivity_matrices</span><span class="p">()</span>
+    <span class="n">feature_id_mapping</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">feature_id</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">feature_id_mapping</span><span class="p">[</span><span class="s2">&quot;root&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature_id</span>
+    <span class="k">for</span> <span class="n">layer_features</span> <span class="ow">in</span> <span class="n">shap_dict</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">layer_features</span><span class="p">:</span>
+            <span class="n">feature_id</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">feature_id_mapping</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">feature_id</span>
+
     <span class="n">curr_layer</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">sv</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">cm</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
         <span class="n">shap_dict</span><span class="p">[</span><span class="s2">&quot;shap_values&quot;</span><span class="p">],</span> <span class="n">shap_dict</span><span class="p">[</span><span class="s2">&quot;features&quot;</span><span class="p">],</span> <span class="n">connectivity_matrices</span>
@@ -665,19 +825,21 @@ the provided background_data. The feature importances are then aggregated and re
         <span class="n">sv</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">sv</span><span class="p">)</span>
         <span class="n">sv_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sv</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sv_mean</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sv_mean</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
             <span class="n">n_classes</span> <span class="o">=</span> <span class="n">sv_mean</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">connections</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="n">cm</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="n">features</span><span class="p">[</span><span class="n">f</span><span class="p">]]</span>
+            <span class="n">connections</span> <span class="o">=</span> <span class="n">cm</span><span class="p">[</span><span class="n">cm</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="n">features</span><span class="p">[</span><span class="n">feature</span><span class="p">]]</span>
             <span class="n">connections</span> <span class="o">=</span> <span class="n">connections</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
                 <span class="p">:,</span> <span class="p">(</span><span class="n">connections</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="p">]</span>  <span class="c1"># get targets and append to target</span>
             <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">connections</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">curr_class</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_classes</span><span class="p">):</span>
                     <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">features</span><span class="p">[</span><span class="n">f</span><span class="p">]</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">curr_layer</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                    <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">curr_layer</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                    <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sv_mean</span><span class="p">[</span><span class="n">curr_class</span><span class="p">][</span><span class="n">f</span><span class="p">])</span>
+                        <span class="n">feature_id_mapping</span><span class="p">[</span><span class="n">features</span><span class="p">[</span><span class="n">feature</span><span class="p">]]</span>
+                    <span class="p">)</span>
+                    <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">feature_id_mapping</span><span class="p">[</span><span class="n">target</span><span class="p">])</span>
+                    <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;source name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">features</span><span class="p">[</span><span class="n">feature</span><span class="p">])</span>
+                    <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;target name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+                    <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sv_mean</span><span class="p">[</span><span class="n">curr_class</span><span class="p">][</span><span class="n">feature</span><span class="p">])</span>
                     <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr_class</span><span class="p">)</span>
                     <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;source layer&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr_layer</span><span class="p">)</span>
                     <span class="n">feature_dict</span><span class="p">[</span><span class="s2">&quot;target layer&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">curr_layer</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
@@ -788,23 +950,7 @@ the provided trainer and dataloader. The feature importances are then aggregated
 
       <details class="quote">
         <summary>Source code in <code>binn/explainer.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 71</span>
-<span class="normal"> 72</span>
-<span class="normal"> 73</span>
-<span class="normal"> 74</span>
-<span class="normal"> 75</span>
-<span class="normal"> 76</span>
-<span class="normal"> 77</span>
-<span class="normal"> 78</span>
-<span class="normal"> 79</span>
-<span class="normal"> 80</span>
-<span class="normal"> 81</span>
-<span class="normal"> 82</span>
-<span class="normal"> 83</span>
-<span class="normal"> 84</span>
-<span class="normal"> 85</span>
-<span class="normal"> 86</span>
-<span class="normal"> 87</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 87</span>
 <span class="normal"> 88</span>
 <span class="normal"> 89</span>
 <span class="normal"> 90</span>
@@ -829,12 +975,32 @@ the provided trainer and dataloader. The feature importances are then aggregated
 <span class="normal">109</span>
 <span class="normal">110</span>
 <span class="normal">111</span>
-<span class="normal">112</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">explain_average</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                    <span class="n">test_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
-                    <span class="n">background_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
-                    <span class="n">nr_iterations</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                    <span class="n">max_epochs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-                    <span class="n">dataloader</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">explain_average</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">test_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">background_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">nr_iterations</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">max_epochs</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">dataloader</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the SHAP explanations for the given test_data by averaging the Shapley values over multiple iterations.</span>
 <span class="sd">    For each iteration, the model&#39;s parameters are randomly initialized and trained on the provided data using</span>
@@ -859,17 +1025,17 @@ the provided trainer and dataloader. The feature importances are then aggregated
         <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">explain</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">background_data</span><span class="p">)</span>
         <span class="n">dfs</span><span class="p">[</span><span class="n">iteration</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span>
 
-    <span class="n">col_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;value_</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">dfs</span><span class="o">.</span><span class="n">keys</span><span class="p">())))]</span>
+    <span class="n">col_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;value_</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">dfs</span><span class="o">.</span><span class="n">keys</span><span class="p">())))]</span>
     <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">dfs</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
     <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
     <span class="n">values_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">values_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">df</span><span class="p">[</span><span class="n">col_names</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">T</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;value_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values_mean</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;values_std&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values_std</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values_mean</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;value_mean&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values_mean</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;values_std&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values_std</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values_mean</span>
     <span class="k">return</span> <span class="n">df</span>
 </code></pre></div></td></tr></table></div>
       </details>
@@ -882,7 +1048,7 @@ the provided trainer and dataloader. The feature importances are then aggregated
 
 
 <h3 id="binn.explainer.BINNExplainer.explain_input" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">explain_input</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">background_data</span><span class="p">,</span> <span class="n">layer</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">explain_input</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">background_data</span><span class="p">)</span></code>
 
 </h3>
 
@@ -957,31 +1123,30 @@ in a dictionary.</p>
 
       <details class="quote">
         <summary>Source code in <code>binn/explainer.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">114</span>
-<span class="normal">115</span>
-<span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span>
-<span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
-<span class="normal">133</span>
-<span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">explain_input</span><span class="p">(</span>
-    <span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">background_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">layer</span><span class="p">:</span> <span class="nb">int</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">explain_input</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">test_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">background_data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the SHAP explanations for the given test_data for a specific layer in the model by computing the</span>
@@ -1000,8 +1165,7 @@ in a dictionary.</p>
     <span class="n">explainer</span> <span class="o">=</span> <span class="n">shap</span><span class="o">.</span><span class="n">DeepExplainer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">background_data</span><span class="p">)</span>
     <span class="n">shap_values</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">shap_values</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
 
-    <span class="n">shap_dict</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">column_names</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;shap_values&quot;</span><span class="p">:</span> <span class="n">shap_values</span><span class="p">}</span>
+    <span class="n">shap_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">layer_names</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;shap_values&quot;</span><span class="p">:</span> <span class="n">shap_values</span><span class="p">}</span>
 
     <span class="k">return</span> <span class="n">shap_dict</span>
 </code></pre></div></td></tr></table></div>

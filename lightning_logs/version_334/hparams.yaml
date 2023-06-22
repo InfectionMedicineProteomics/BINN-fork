@@ -1,0 +1,37 @@
+activation: tanh
+connectivity_matrices:
+- !!python/object:pandas.core.frame.DataFrame
+  _flags:
+    allows_duplicate_labels: true
+  _metadata: &id004 []
+  _mgr: !!python/object/apply:pandas.core.internals.managers.BlockManager
+  - !!python/tuple
+    - !!python/object/apply:pandas._libs.internals._unpickle_block
+      - !!python/object/apply:numpy.core.multiarray._reconstruct
+        args:
+        - &id001 !!python/name:numpy.ndarray ''
+        - !!python/tuple
+          - 0
+        - !!binary |
+          Yg==
+        state: !!python/tuple
+        - 1
+        - !!python/tuple
+          - 443
+          - 449
+        - &id005 !!python/object/apply:numpy.dtype
+          args:
+          - i8
+          - false
+          - true
+          state: !!python/tuple
+          - 3
+          - <
+          - null
+          - null
+          - null
+          - -1
+          - -1
+          - 0
+        - false
+        -

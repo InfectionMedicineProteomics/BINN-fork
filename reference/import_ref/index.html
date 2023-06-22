@@ -37,7 +37,7 @@
 </li>
 
 <li>
-<a href="../../shap_example/" class="">Interpretation and plotting</a>
+<a href="../../shap_example/" class="">Shap example</a>
 </li>
 
 <li>
@@ -150,7 +150,7 @@ Theme by GitBook
     </thead>
     <tbody>
         <tr>
-          <td><code>df</code></td>
+          <td><code>importance_df</code></td>
           <td>
                 <code>pandas.<span title="pandas.DataFrame">DataFrame</span></code>
           </td>
@@ -171,6 +171,28 @@ nodes. Defaults to "value".</p></td>
                 <code>&#39;value&#39;</code>
           </td>
         </tr>
+        <tr>
+          <td><code>normalize</code></td>
+          <td>
+                <code>bool</code>
+          </td>
+          <td><p>Whether or not to normalize the value column. Defaults to True.</p></td>
+          <td>
+                <code>True</code>
+          </td>
+        </tr>
+        <tr>
+          <td><code>norm_method</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>Method to normalie the value column with. Options are 'subgraph' and 'fan'.
+If 'subgraph', normalizes on the log(nodes in subgraph) from each node. If 'fan', normalizes on the
+log(fan in + fan out) for each node.</p></td>
+          <td>
+                <code>&#39;subgraph&#39;</code>
+          </td>
+        </tr>
     </tbody>
   </table>
 
@@ -185,14 +207,7 @@ nodes. Defaults to "value".</p></td>
     </thead>
     <tbody>
         <tr>
-          <td><code>complete_df</code></td>
-          <td>
-                <code>pandas.<span title="pandas.DataFrame">DataFrame</span></code>
-          </td>
-          <td><p>The original dataframe containing the complete importance network of the system.</p></td>
-        </tr>
-        <tr>
-          <td><code>df</code></td>
+          <td><code>importance_df</code></td>
           <td>
                 <code>pandas.<span title="pandas.DataFrame">DataFrame</span></code>
           </td>
@@ -219,13 +234,21 @@ nodes. Defaults to "value".</p></td>
           </td>
           <td><p>A directed graph object representing the importance network of the system in reverse.</p></td>
         </tr>
+        <tr>
+          <td><code>norm_method</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The normalization method.</p></td>
+        </tr>
     </tbody>
   </table>
 
 
         <details class="quote">
           <summary>Source code in <code>binn/importance_network.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  9</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  8</span>
+<span class="normal">  9</span>
 <span class="normal"> 10</span>
 <span class="normal"> 11</span>
 <span class="normal"> 12</span>
@@ -544,31 +567,48 @@ nodes. Defaults to "value".</p></td>
 <span class="normal">325</span>
 <span class="normal">326</span>
 <span class="normal">327</span>
-<span class="normal">328</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ImportanceNetwork</span><span class="p">:</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ImportanceNetwork</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class for building and analyzing a directed graph representing the importance network of a system.</span>
 
 <span class="sd">    Parameters:</span>
-<span class="sd">        df (pandas.DataFrame): A dataframe with columns for the source node, target node, value flow between nodes,</span>
+<span class="sd">        importance_df (pandas.DataFrame): A dataframe with columns for the source node, target node, value flow between nodes,</span>
 <span class="sd">            and layer for each node. This dataframe should represent the complete importance network of the system.</span>
 <span class="sd">        val_col (str, optional): The name of the column in the DataFrame that represents the value flow between</span>
 <span class="sd">            nodes. Defaults to &quot;value&quot;.</span>
+<span class="sd">        normalize (bool, optional): Whether or not to normalize the value column. Defaults to True.</span>
+<span class="sd">        norm_method (str, optional): Method to normalie the value column with. Options are &#39;subgraph&#39; and &#39;fan&#39;.</span>
+<span class="sd">            If &#39;subgraph&#39;, normalizes on the log(nodes in subgraph) from each node. If &#39;fan&#39;, normalizes on the</span>
+<span class="sd">            log(fan in + fan out) for each node.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        complete_df (pandas.DataFrame): The original dataframe containing the complete importance network of the system.</span>
-<span class="sd">        df (pandas.DataFrame): The dataframe used for downstream/upstream subgraph construction and plotting.</span>
+<span class="sd">        importance_df (pandas.DataFrame): The dataframe used for downstream/upstream subgraph construction and plotting.</span>
 <span class="sd">        val_col (str): The name of the column in the DataFrame that represents the value flow between nodes.</span>
 <span class="sd">        G (networkx.DiGraph): A directed graph object representing the importance network of the system.</span>
 <span class="sd">        G_reverse (networkx.DiGraph): A directed graph object representing the importance network of the system in reverse.</span>
+<span class="sd">        norm_method (str): The normalization method.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">val_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;value&quot;</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">complete_df</span> <span class="o">=</span> <span class="n">df</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span> <span class="o">=</span> <span class="n">df</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">importance_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+        <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">norm_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;subgraph&quot;</span><span class="p">,</span>
+        <span class="n">val_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;value&quot;</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root_node</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span> <span class="o">=</span> <span class="n">importance_df</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">val_col</span> <span class="o">=</span> <span class="n">val_col</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">importance_graph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_graph</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">importance_graph_reverse</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_graph</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">norm_method</span> <span class="o">=</span> <span class="n">norm_method</span>
+        <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_normalization</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">norm_method</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">plot_subgraph_sankey</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -577,6 +617,9 @@ nodes. Defaults to "value".</p></td>
         <span class="n">savename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;sankey.png&quot;</span><span class="p">,</span>
         <span class="n">val_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;value&quot;</span><span class="p">,</span>
         <span class="n">cmap</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;coolwarm&quot;</span><span class="p">,</span>
+        <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1200</span><span class="p">,</span>
+        <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.5</span><span class="p">,</span>
+        <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate a Sankey diagram using the provided query node.</span>
@@ -593,28 +636,27 @@ nodes. Defaults to "value".</p></td>
 <span class="sd">                to &quot;coolwarm&quot;.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            plotly.graph_objs._figure.Figure:</span>
-<span class="sd">                The plotly Figure object representing the Sankey diagram.</span>
+<span class="sd">            plotly.graph_objs._figure.Figure: The plotly Figure object representing the Sankey diagram.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">upstream</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
-            <span class="n">final_node</span> <span class="o">=</span> <span class="s2">&quot;root&quot;</span>
-            <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_downstream_subgraph</span><span class="p">(</span>
-                <span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">upstream</span><span class="p">:</span>
+            <span class="n">final_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="s2">&quot;root&quot;</span><span class="p">)</span>
+
+            <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_downstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
             <span class="n">source_or_target</span> <span class="o">=</span> <span class="s2">&quot;source&quot;</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">final_node</span> <span class="o">=</span> <span class="n">query_node</span>
-            <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_upstream_subgraph</span><span class="p">(</span>
-                <span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+            <span class="n">final_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="n">query_node</span><span class="p">)</span>
+            <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_upstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
             <span class="n">source_or_target</span> <span class="o">=</span> <span class="s2">&quot;target&quot;</span>
         <span class="n">nodes_in_subgraph</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">subgraph</span><span class="o">.</span><span class="n">nodes</span><span class="p">]</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="n">source_or_target</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span>
-            <span class="n">nodes_in_subgraph</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="n">source_or_target</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">nodes_in_subgraph</span><span class="p">)</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">fig</span> <span class="o">=</span> <span class="n">subgraph_sankey</span><span class="p">(</span>
             <span class="n">df</span><span class="p">,</span> <span class="n">final_node</span><span class="o">=</span><span class="n">final_node</span><span class="p">,</span> <span class="n">val_col</span><span class="o">=</span><span class="n">val_col</span><span class="p">,</span> <span class="n">cmap_name</span><span class="o">=</span><span class="n">cmap</span>
         <span class="p">)</span>
 
-        <span class="n">fig</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">fig</span>
 
     <span class="k">def</span> <span class="nf">plot_complete_sankey</span><span class="p">(</span>
@@ -624,6 +666,9 @@ nodes. Defaults to "value".</p></td>
         <span class="n">node_cmap</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Reds&quot;</span><span class="p">,</span>
         <span class="n">edge_cmap</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Reds&quot;</span><span class="p">,</span>
         <span class="n">savename</span><span class="o">=</span><span class="s2">&quot;sankey.png&quot;</span><span class="p">,</span>
+        <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1900</span><span class="p">,</span>
+        <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">800</span><span class="p">,</span>
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot a complete Sankey diagram for the importance network.</span>
@@ -641,12 +686,11 @@ nodes. Defaults to "value".</p></td>
 <span class="sd">                The filename to save the plot. Defaults to &quot;sankey.png&quot;.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            plotly.graph_objs._figure.Figure</span>
-<span class="sd">                The plotly Figure object representing the Sankey diagram.</span>
+<span class="sd">            plotly.graph_objs._figure.Figure: The plotly Figure object representing the Sankey diagram.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">fig</span> <span class="o">=</span> <span class="n">complete_sankey</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">complete_df</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">,</span>
             <span class="n">multiclass</span><span class="o">=</span><span class="n">multiclass</span><span class="p">,</span>
             <span class="n">val_col</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">val_col</span><span class="p">,</span>
             <span class="n">show_top_n</span><span class="o">=</span><span class="n">show_top_n</span><span class="p">,</span>
@@ -654,7 +698,7 @@ nodes. Defaults to "value".</p></td>
             <span class="n">node_cmap</span><span class="o">=</span><span class="n">node_cmap</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="n">fig</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1900</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">800</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">fig</span>
 
     <span class="k">def</span> <span class="nf">create_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -664,22 +708,23 @@ nodes. Defaults to "value".</p></td>
 <span class="sd">        Returns:</span>
 <span class="sd">            importance_graph: a directed graph (DiGraph) object</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">importance_graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="n">source_name</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;source name&quot;</span><span class="p">]</span>
             <span class="n">source</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;source&quot;</span><span class="p">]</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">val_col</span><span class="p">]</span>
             <span class="n">source_layer</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;source layer&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="n">importance_graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">source_layer</span><span class="p">)</span>
+            <span class="n">importance_graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
+                <span class="n">source</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">source_layer</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">source_name</span>
+            <span class="p">)</span>
         <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
             <span class="n">source</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;source&quot;</span><span class="p">]</span>
             <span class="n">target</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;target&quot;</span><span class="p">]</span>
             <span class="n">importance_graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
         <span class="n">root_layer</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;target layer&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="n">importance_graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;root&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">root_layer</span><span class="p">)</span>
+        <span class="n">importance_graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">root_node</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">root_layer</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;root&quot;</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">importance_graph</span>
 
     <span class="k">def</span> <span class="nf">get_downstream_subgraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -710,8 +755,7 @@ nodes. Defaults to "value".</p></td>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_graph</span><span class="o">.</span><span class="n">has_edge</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">):</span>
                     <span class="n">subgraph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">)</span>
 
-        <span class="n">subgraph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
-            <span class="n">query_node</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()[</span><span class="n">query_node</span><span class="p">])</span>
+        <span class="n">subgraph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()[</span><span class="n">query_node</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">subgraph</span>
 
     <span class="k">def</span> <span class="nf">get_upstream_subgraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -725,8 +769,7 @@ nodes. Defaults to "value".</p></td>
 <span class="sd">        Returns:</span>
 <span class="sd">            subgraph: a directed graph (DiGraph) object containing all nodes upstream of the query node, up to the given depth limit</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_downstream_subgraph</span><span class="p">(</span>
-            <span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="n">depth_limit</span><span class="p">)</span>
+        <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_downstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="n">depth_limit</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">subgraph</span>
 
     <span class="k">def</span> <span class="nf">get_complete_subgraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -740,8 +783,7 @@ nodes. Defaults to "value".</p></td>
 <span class="sd">        Returns:</span>
 <span class="sd">            subgraph: a directed graph (DiGraph) object containing all nodes both upstream and downstream of the query node, up to the given depth limit</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_downstream_subgraph</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">importance_graph</span><span class="p">,</span> <span class="n">query_node</span><span class="p">)</span>
+        <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_downstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="n">depth_limit</span><span class="p">)</span>
         <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">n</span>
             <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">traversal</span><span class="o">.</span><span class="n">bfs_successors</span><span class="p">(</span>
@@ -750,18 +792,17 @@ nodes. Defaults to "value".</p></td>
             <span class="k">if</span> <span class="n">n</span> <span class="o">!=</span> <span class="n">query_node</span>
         <span class="p">]</span>
         <span class="k">for</span> <span class="n">source</span><span class="p">,</span> <span class="n">targets</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
-            <span class="n">subgraph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
-                <span class="n">source</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_graph_reverse</span><span class="o">.</span><span class="n">nodes</span><span class="p">()[</span><span class="n">source</span><span class="p">])</span>
+            <span class="n">subgraph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_graph_reverse</span><span class="o">.</span><span class="n">nodes</span><span class="p">()[</span><span class="n">source</span><span class="p">])</span>
             <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
-                <span class="n">subgraph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
-                    <span class="n">t</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_graph_reverse</span><span class="o">.</span><span class="n">nodes</span><span class="p">()[</span><span class="n">t</span><span class="p">])</span>
+                <span class="n">subgraph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_graph_reverse</span><span class="o">.</span><span class="n">nodes</span><span class="p">()[</span><span class="n">t</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">node1</span> <span class="ow">in</span> <span class="n">subgraph</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">node2</span> <span class="ow">in</span> <span class="n">subgraph</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_graph_reverse</span><span class="o">.</span><span class="n">has_edge</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">):</span>
                     <span class="n">subgraph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">)</span>
 
         <span class="n">subgraph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
-            <span class="n">query_node</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_graph_reverse</span><span class="o">.</span><span class="n">nodes</span><span class="p">()[</span><span class="n">query_node</span><span class="p">])</span>
+            <span class="n">query_node</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_graph_reverse</span><span class="o">.</span><span class="n">nodes</span><span class="p">()[</span><span class="n">query_node</span><span class="p">]</span>
+        <span class="p">)</span>
         <span class="k">return</span> <span class="n">subgraph</span>
 
     <span class="k">def</span> <span class="nf">get_nr_nodes_in_upstream_subgraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -775,8 +816,7 @@ nodes. Defaults to "value".</p></td>
 <span class="sd">            the number of nodes in the upstream subgraph of the query node</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_upstream_subgraph</span><span class="p">(</span>
-            <span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_upstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">subgraph</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">get_nr_nodes_in_downstream_subgraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -789,8 +829,7 @@ nodes. Defaults to "value".</p></td>
 <span class="sd">        Returns:</span>
 <span class="sd">            the number of nodes in the downstream subgraph of the query node</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_downstream_subgraph</span><span class="p">(</span>
-            <span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_downstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">subgraph</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">get_fan_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -817,53 +856,46 @@ nodes. Defaults to "value".</p></td>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_graph</span><span class="o">.</span><span class="n">out_edges</span><span class="p">(</span><span class="n">query_node</span><span class="p">)])</span>
 
-    <span class="k">def</span> <span class="nf">add_normalization</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">add_normalization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;subgraph&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Adds several normalization columns to the dataframe:</span>
-<span class="sd">        - &#39;fan_in&#39;: the number of incoming edges for each node</span>
+<span class="sd">        Adds normalization to the importance values based on the specified method.</span>
 
-<span class="sd">        - &#39;fan_out&#39;: the number of outgoing edges for each node</span>
-
-<span class="sd">        - &#39;fan_tot&#39;: the total number of incoming and outgoing edges for each node</span>
-
-<span class="sd">        - &#39;nodes_in_upstream&#39;: the number of nodes in the upstream subgraph for each node</span>
-
-<span class="sd">        - &#39;nodes_in_downstream&#39;: the number of nodes in the downstream subgraph for each node</span>
-
-<span class="sd">        - &#39;nodes_in_subgraph&#39;: the total number of nodes in the upstream and downstream subgraphs for each node</span>
-
-<span class="sd">        - &#39;log(nodes_in_subgraph)&#39;: the logarithm (base 2) of &#39;nodes_in_subgraph&#39;</span>
-
-<span class="sd">        - &#39;weighted_val_log&#39;: the &#39;value&#39; column normalized by the logarithm of &#39;nodes_in_subgraph&#39;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            method (str): The normalization method to use. Options are &quot;fan&quot; and &quot;subgraph&quot;.</span>
+<span class="sd">                &quot;fan&quot; normalizes based on fan-in and fan-out values.</span>
+<span class="sd">                &quot;subgraph&quot; normalizes based on the number of nodes in the upstream and</span>
+<span class="sd">                downstream subgraphs.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            pd.DataFrame:</span>
-<span class="sd">                The input dataframe with the added normalization columns.</span>
+<span class="sd">            pd.DataFrame: The importance dataframe with the normalized values added.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;fan_in&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fan_in</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;fan_out&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fan_out</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;fan_tot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;fan_in&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;fan_out&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;nodes_in_upstream&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nr_nodes_in_upstream_subgraph</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;nodes_in_downstream&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nr_nodes_in_downstream_subgraph</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;nodes_in_subgraph&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;nodes_in_downstream&quot;</span><span class="p">]</span> <span class="o">+</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;nodes_in_upstream&quot;</span><span class="p">]</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;log(nodes_in_subgraph)&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;nodes_in_subgraph&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;weighted_val_log&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-            <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;nodes_in_subgraph&quot;</span><span class="p">])),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
-        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;fan&quot;</span><span class="p">:</span>
+            <span class="n">fan_in</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">get_fan_in</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]])</span>
+            <span class="n">fan_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">get_fan_out</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]])</span>
+            <span class="n">nr_tot</span> <span class="o">=</span> <span class="n">fan_in</span> <span class="o">+</span> <span class="n">fan_out</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;subgraph&quot;</span><span class="p">:</span>
+            <span class="n">upstream_nodes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">get_nr_nodes_in_upstream_subgraph</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">downstream_nodes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">get_nr_nodes_in_downstream_subgraph</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span>
+                <span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">nr_tot</span> <span class="o">=</span> <span class="n">upstream_nodes</span> <span class="o">+</span> <span class="n">downstream_nodes</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">nr_tot</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span>
+
+    <span class="k">def</span> <span class="nf">get_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">node</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not find node </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
         </details>
 
@@ -884,38 +916,41 @@ nodes. Defaults to "value".</p></td>
 
 
 <h3 id="binn.importance_network.ImportanceNetwork.add_normalization" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">add_normalization</span><span class="p">()</span></code>
+<code class="highlight language-python"><span class="n">add_normalization</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;subgraph&#39;</span><span class="p">)</span></code>
 
 </h3>
 
 
   <div class="doc doc-contents ">
   
-      <p>Adds several normalization columns to the dataframe:
-- 'fan_in': the number of incoming edges for each node</p>
-<ul>
-<li>
-<p>'fan_out': the number of outgoing edges for each node</p>
-</li>
-<li>
-<p>'fan_tot': the total number of incoming and outgoing edges for each node</p>
-</li>
-<li>
-<p>'nodes_in_upstream': the number of nodes in the upstream subgraph for each node</p>
-</li>
-<li>
-<p>'nodes_in_downstream': the number of nodes in the downstream subgraph for each node</p>
-</li>
-<li>
-<p>'nodes_in_subgraph': the total number of nodes in the upstream and downstream subgraphs for each node</p>
-</li>
-<li>
-<p>'log(nodes_in_subgraph)': the logarithm (base 2) of 'nodes_in_subgraph'</p>
-</li>
-<li>
-<p>'weighted_val_log': the 'value' column normalized by the logarithm of 'nodes_in_subgraph'</p>
-</li>
-</ul>
+      <p>Adds normalization to the importance values based on the specified method.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>method</code></td>
+          <td>
+                <code>str</code>
+          </td>
+          <td><p>The normalization method to use. Options are "fan" and "subgraph".
+"fan" normalizes based on fan-in and fan-out values.
+"subgraph" normalizes based on the number of nodes in the upstream and
+downstream subgraphs.</p></td>
+          <td>
+                <code>&#39;subgraph&#39;</code>
+          </td>
+        </tr>
+    </tbody>
+  </table>
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -929,26 +964,14 @@ nodes. Defaults to "value".</p></td>
         <tr>
           <td>
           </td>
-          <td><p>pd.DataFrame:
-The input dataframe with the added normalization columns.</p></td>
+          <td><p>pd.DataFrame: The importance dataframe with the normalized values added.</p></td>
         </tr>
     </tbody>
   </table>
 
       <details class="quote">
         <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">282</span>
-<span class="normal">283</span>
-<span class="normal">284</span>
-<span class="normal">285</span>
-<span class="normal">286</span>
-<span class="normal">287</span>
-<span class="normal">288</span>
-<span class="normal">289</span>
-<span class="normal">290</span>
-<span class="normal">291</span>
-<span class="normal">292</span>
-<span class="normal">293</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">293</span>
 <span class="normal">294</span>
 <span class="normal">295</span>
 <span class="normal">296</span>
@@ -981,54 +1004,39 @@ The input dataframe with the added normalization columns.</p></td>
 <span class="normal">323</span>
 <span class="normal">324</span>
 <span class="normal">325</span>
-<span class="normal">326</span>
-<span class="normal">327</span>
-<span class="normal">328</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">add_normalization</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">326</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">add_normalization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;subgraph&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Adds several normalization columns to the dataframe:</span>
-<span class="sd">    - &#39;fan_in&#39;: the number of incoming edges for each node</span>
+<span class="sd">    Adds normalization to the importance values based on the specified method.</span>
 
-<span class="sd">    - &#39;fan_out&#39;: the number of outgoing edges for each node</span>
-
-<span class="sd">    - &#39;fan_tot&#39;: the total number of incoming and outgoing edges for each node</span>
-
-<span class="sd">    - &#39;nodes_in_upstream&#39;: the number of nodes in the upstream subgraph for each node</span>
-
-<span class="sd">    - &#39;nodes_in_downstream&#39;: the number of nodes in the downstream subgraph for each node</span>
-
-<span class="sd">    - &#39;nodes_in_subgraph&#39;: the total number of nodes in the upstream and downstream subgraphs for each node</span>
-
-<span class="sd">    - &#39;log(nodes_in_subgraph)&#39;: the logarithm (base 2) of &#39;nodes_in_subgraph&#39;</span>
-
-<span class="sd">    - &#39;weighted_val_log&#39;: the &#39;value&#39; column normalized by the logarithm of &#39;nodes_in_subgraph&#39;</span>
+<span class="sd">    Args:</span>
+<span class="sd">        method (str): The normalization method to use. Options are &quot;fan&quot; and &quot;subgraph&quot;.</span>
+<span class="sd">            &quot;fan&quot; normalizes based on fan-in and fan-out values.</span>
+<span class="sd">            &quot;subgraph&quot; normalizes based on the number of nodes in the upstream and</span>
+<span class="sd">            downstream subgraphs.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        pd.DataFrame:</span>
-<span class="sd">            The input dataframe with the added normalization columns.</span>
+<span class="sd">        pd.DataFrame: The importance dataframe with the normalized values added.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;fan_in&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fan_in</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
-    <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;fan_out&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fan_out</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
-    <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;fan_tot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;fan_in&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;fan_out&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;nodes_in_upstream&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nr_nodes_in_upstream_subgraph</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
-    <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;nodes_in_downstream&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nr_nodes_in_downstream_subgraph</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
-    <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;nodes_in_subgraph&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;nodes_in_downstream&quot;</span><span class="p">]</span> <span class="o">+</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;nodes_in_upstream&quot;</span><span class="p">]</span>
-    <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;log(nodes_in_subgraph)&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;nodes_in_subgraph&quot;</span><span class="p">])</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;weighted_val_log&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;nodes_in_subgraph&quot;</span><span class="p">])),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
-    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;fan&quot;</span><span class="p">:</span>
+        <span class="n">fan_in</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">get_fan_in</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]])</span>
+        <span class="n">fan_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">get_fan_out</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]])</span>
+        <span class="n">nr_tot</span> <span class="o">=</span> <span class="n">fan_in</span> <span class="o">+</span> <span class="n">fan_out</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;subgraph&quot;</span><span class="p">:</span>
+        <span class="n">upstream_nodes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_nr_nodes_in_upstream_subgraph</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">downstream_nodes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_nr_nodes_in_downstream_subgraph</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">nr_tot</span> <span class="o">=</span> <span class="n">upstream_nodes</span> <span class="o">+</span> <span class="n">downstream_nodes</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">nr_tot</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span>
 </code></pre></div></td></tr></table></div>
       </details>
@@ -1069,52 +1077,54 @@ The input dataframe with the added normalization columns.</p></td>
 
       <details class="quote">
         <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span>
-<span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
-<span class="normal">133</span>
-<span class="normal">134</span>
-<span class="normal">135</span>
-<span class="normal">136</span>
-<span class="normal">137</span>
-<span class="normal">138</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">138</span>
 <span class="normal">139</span>
 <span class="normal">140</span>
 <span class="normal">141</span>
 <span class="normal">142</span>
 <span class="normal">143</span>
 <span class="normal">144</span>
-<span class="normal">145</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">create_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">create_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Create a directed graph (DiGraph) from the source and target nodes in the input dataframe.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        importance_graph: a directed graph (DiGraph) object</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">importance_graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">source_name</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;source name&quot;</span><span class="p">]</span>
         <span class="n">source</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;source&quot;</span><span class="p">]</span>
         <span class="n">value</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">val_col</span><span class="p">]</span>
         <span class="n">source_layer</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;source layer&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="n">importance_graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">source_layer</span><span class="p">)</span>
+        <span class="n">importance_graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
+            <span class="n">source</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">source_layer</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">source_name</span>
+        <span class="p">)</span>
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
         <span class="n">source</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;source&quot;</span><span class="p">]</span>
         <span class="n">target</span> <span class="o">=</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;target&quot;</span><span class="p">]</span>
         <span class="n">importance_graph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
     <span class="n">root_layer</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;target layer&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="n">importance_graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;root&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">root_layer</span><span class="p">)</span>
+    <span class="n">importance_graph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root_node</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">root_layer</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;root&quot;</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">importance_graph</span>
 </code></pre></div></td></tr></table></div>
       </details>
@@ -1188,22 +1198,7 @@ The input dataframe with the added normalization columns.</p></td>
 
       <details class="quote">
         <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">194</span>
-<span class="normal">195</span>
-<span class="normal">196</span>
-<span class="normal">197</span>
-<span class="normal">198</span>
-<span class="normal">199</span>
-<span class="normal">200</span>
-<span class="normal">201</span>
-<span class="normal">202</span>
-<span class="normal">203</span>
-<span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span>
-<span class="normal">207</span>
-<span class="normal">208</span>
-<span class="normal">209</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">209</span>
 <span class="normal">210</span>
 <span class="normal">211</span>
 <span class="normal">212</span>
@@ -1221,7 +1216,20 @@ The input dataframe with the added normalization columns.</p></td>
 <span class="normal">224</span>
 <span class="normal">225</span>
 <span class="normal">226</span>
-<span class="normal">227</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_complete_subgraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_complete_subgraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get a subgraph that contains all nodes both upstream and downstream of the query node up to the given depth limit (if provided).</span>
 
@@ -1232,8 +1240,7 @@ The input dataframe with the added normalization columns.</p></td>
 <span class="sd">    Returns:</span>
 <span class="sd">        subgraph: a directed graph (DiGraph) object containing all nodes both upstream and downstream of the query node, up to the given depth limit</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_downstream_subgraph</span><span class="p">(</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">importance_graph</span><span class="p">,</span> <span class="n">query_node</span><span class="p">)</span>
+    <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_downstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="n">depth_limit</span><span class="p">)</span>
     <span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">n</span>
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nx</span><span class="o">.</span><span class="n">traversal</span><span class="o">.</span><span class="n">bfs_successors</span><span class="p">(</span>
@@ -1242,18 +1249,17 @@ The input dataframe with the added normalization columns.</p></td>
         <span class="k">if</span> <span class="n">n</span> <span class="o">!=</span> <span class="n">query_node</span>
     <span class="p">]</span>
     <span class="k">for</span> <span class="n">source</span><span class="p">,</span> <span class="n">targets</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
-        <span class="n">subgraph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
-            <span class="n">source</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_graph_reverse</span><span class="o">.</span><span class="n">nodes</span><span class="p">()[</span><span class="n">source</span><span class="p">])</span>
+        <span class="n">subgraph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_graph_reverse</span><span class="o">.</span><span class="n">nodes</span><span class="p">()[</span><span class="n">source</span><span class="p">])</span>
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
-            <span class="n">subgraph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
-                <span class="n">t</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_graph_reverse</span><span class="o">.</span><span class="n">nodes</span><span class="p">()[</span><span class="n">t</span><span class="p">])</span>
+            <span class="n">subgraph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_graph_reverse</span><span class="o">.</span><span class="n">nodes</span><span class="p">()[</span><span class="n">t</span><span class="p">])</span>
     <span class="k">for</span> <span class="n">node1</span> <span class="ow">in</span> <span class="n">subgraph</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
         <span class="k">for</span> <span class="n">node2</span> <span class="ow">in</span> <span class="n">subgraph</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_graph_reverse</span><span class="o">.</span><span class="n">has_edge</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">):</span>
                 <span class="n">subgraph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">)</span>
 
     <span class="n">subgraph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
-        <span class="n">query_node</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_graph_reverse</span><span class="o">.</span><span class="n">nodes</span><span class="p">()[</span><span class="n">query_node</span><span class="p">])</span>
+        <span class="n">query_node</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_graph_reverse</span><span class="o">.</span><span class="n">nodes</span><span class="p">()[</span><span class="n">query_node</span><span class="p">]</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">subgraph</span>
 </code></pre></div></td></tr></table></div>
       </details>
@@ -1327,24 +1333,7 @@ The input dataframe with the added normalization columns.</p></td>
 
       <details class="quote">
         <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">147</span>
-<span class="normal">148</span>
-<span class="normal">149</span>
-<span class="normal">150</span>
-<span class="normal">151</span>
-<span class="normal">152</span>
-<span class="normal">153</span>
-<span class="normal">154</span>
-<span class="normal">155</span>
-<span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
-<span class="normal">159</span>
-<span class="normal">160</span>
-<span class="normal">161</span>
-<span class="normal">162</span>
-<span class="normal">163</span>
-<span class="normal">164</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">164</span>
 <span class="normal">165</span>
 <span class="normal">166</span>
 <span class="normal">167</span>
@@ -1357,7 +1346,23 @@ The input dataframe with the added normalization columns.</p></td>
 <span class="normal">174</span>
 <span class="normal">175</span>
 <span class="normal">176</span>
-<span class="normal">177</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_downstream_subgraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_downstream_subgraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get a subgraph that contains all nodes downstream of the query node up to the given depth limit (if provided).</span>
 
@@ -1385,8 +1390,7 @@ The input dataframe with the added normalization columns.</p></td>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_graph</span><span class="o">.</span><span class="n">has_edge</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">):</span>
                 <span class="n">subgraph</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">node1</span><span class="p">,</span> <span class="n">node2</span><span class="p">)</span>
 
-    <span class="n">subgraph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
-        <span class="n">query_node</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()[</span><span class="n">query_node</span><span class="p">])</span>
+    <span class="n">subgraph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()[</span><span class="n">query_node</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">subgraph</span>
 </code></pre></div></td></tr></table></div>
       </details>
@@ -1451,17 +1455,17 @@ The input dataframe with the added normalization columns.</p></td>
 
       <details class="quote">
         <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">258</span>
-<span class="normal">259</span>
-<span class="normal">260</span>
-<span class="normal">261</span>
-<span class="normal">262</span>
-<span class="normal">263</span>
-<span class="normal">264</span>
-<span class="normal">265</span>
-<span class="normal">266</span>
-<span class="normal">267</span>
-<span class="normal">268</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_fan_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_fan_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the number of incoming edges (fan-in) for the query node.</span>
 
@@ -1535,17 +1539,17 @@ The input dataframe with the added normalization columns.</p></td>
 
       <details class="quote">
         <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">270</span>
-<span class="normal">271</span>
-<span class="normal">272</span>
-<span class="normal">273</span>
-<span class="normal">274</span>
-<span class="normal">275</span>
-<span class="normal">276</span>
-<span class="normal">277</span>
-<span class="normal">278</span>
-<span class="normal">279</span>
-<span class="normal">280</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_fan_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_fan_out</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the number of outgoing edges (fan-out) for the query node.</span>
 
@@ -1619,19 +1623,18 @@ The input dataframe with the added normalization columns.</p></td>
 
       <details class="quote">
         <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">244</span>
-<span class="normal">245</span>
-<span class="normal">246</span>
-<span class="normal">247</span>
-<span class="normal">248</span>
-<span class="normal">249</span>
-<span class="normal">250</span>
-<span class="normal">251</span>
-<span class="normal">252</span>
-<span class="normal">253</span>
-<span class="normal">254</span>
-<span class="normal">255</span>
-<span class="normal">256</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_nr_nodes_in_downstream_subgraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_nr_nodes_in_downstream_subgraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the number of nodes in the downstream subgraph of the query node.</span>
 
@@ -1641,8 +1644,7 @@ The input dataframe with the added normalization columns.</p></td>
 <span class="sd">    Returns:</span>
 <span class="sd">        the number of nodes in the downstream subgraph of the query node</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_downstream_subgraph</span><span class="p">(</span>
-        <span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_downstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">subgraph</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
       </details>
@@ -1707,20 +1709,19 @@ The input dataframe with the added normalization columns.</p></td>
 
       <details class="quote">
         <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span>
-<span class="normal">236</span>
-<span class="normal">237</span>
-<span class="normal">238</span>
-<span class="normal">239</span>
-<span class="normal">240</span>
-<span class="normal">241</span>
-<span class="normal">242</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_nr_nodes_in_upstream_subgraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_nr_nodes_in_upstream_subgraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the number of nodes in the upstream subgraph of the query node.</span>
 
@@ -1731,8 +1732,7 @@ The input dataframe with the added normalization columns.</p></td>
 <span class="sd">        the number of nodes in the upstream subgraph of the query node</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_upstream_subgraph</span><span class="p">(</span>
-        <span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_upstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">subgraph</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
       </details>
@@ -1806,20 +1806,19 @@ The input dataframe with the added normalization columns.</p></td>
 
       <details class="quote">
         <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">179</span>
-<span class="normal">180</span>
-<span class="normal">181</span>
-<span class="normal">182</span>
-<span class="normal">183</span>
-<span class="normal">184</span>
-<span class="normal">185</span>
-<span class="normal">186</span>
-<span class="normal">187</span>
-<span class="normal">188</span>
-<span class="normal">189</span>
-<span class="normal">190</span>
-<span class="normal">191</span>
-<span class="normal">192</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_upstream_subgraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_upstream_subgraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get a subgraph that contains all nodes upstream of the query node up to the given depth limit (if provided).</span>
 
@@ -1830,8 +1829,7 @@ The input dataframe with the added normalization columns.</p></td>
 <span class="sd">    Returns:</span>
 <span class="sd">        subgraph: a directed graph (DiGraph) object containing all nodes upstream of the query node, up to the given depth limit</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_downstream_subgraph</span><span class="p">(</span>
-        <span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="n">depth_limit</span><span class="p">)</span>
+    <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_downstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="n">depth_limit</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">subgraph</span>
 </code></pre></div></td></tr></table></div>
       </details>
@@ -1844,7 +1842,7 @@ The input dataframe with the added normalization columns.</p></td>
 
 
 <h3 id="binn.importance_network.ImportanceNetwork.plot_complete_sankey" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">plot_complete_sankey</span><span class="p">(</span><span class="n">multiclass</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_top_n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">node_cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">edge_cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">savename</span><span class="o">=</span><span class="s1">&#39;sankey.png&#39;</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">plot_complete_sankey</span><span class="p">(</span><span class="n">multiclass</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_top_n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">node_cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">edge_cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">savename</span><span class="o">=</span><span class="s1">&#39;sankey.png&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1900</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">800</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1929,29 +1927,14 @@ The filename to save the plot. Defaults to "sankey.png".</p></td>
         <tr>
           <td>
           </td>
-          <td><p>plotly.graph_objs._figure.Figure
-The plotly Figure object representing the Sankey diagram.</p></td>
+          <td><p>plotly.graph_objs._figure.Figure: The plotly Figure object representing the Sankey diagram.</p></td>
         </tr>
     </tbody>
   </table>
 
       <details class="quote">
         <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 82</span>
-<span class="normal"> 83</span>
-<span class="normal"> 84</span>
-<span class="normal"> 85</span>
-<span class="normal"> 86</span>
-<span class="normal"> 87</span>
-<span class="normal"> 88</span>
-<span class="normal"> 89</span>
-<span class="normal"> 90</span>
-<span class="normal"> 91</span>
-<span class="normal"> 92</span>
-<span class="normal"> 93</span>
-<span class="normal"> 94</span>
-<span class="normal"> 95</span>
-<span class="normal"> 96</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 96</span>
 <span class="normal"> 97</span>
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
@@ -1975,13 +1958,32 @@ The plotly Figure object representing the Sankey diagram.</p></td>
 <span class="normal">117</span>
 <span class="normal">118</span>
 <span class="normal">119</span>
-<span class="normal">120</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">plot_complete_sankey</span><span class="p">(</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">plot_complete_sankey</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">multiclass</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">show_top_n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
     <span class="n">node_cmap</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Reds&quot;</span><span class="p">,</span>
     <span class="n">edge_cmap</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Reds&quot;</span><span class="p">,</span>
     <span class="n">savename</span><span class="o">=</span><span class="s2">&quot;sankey.png&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1900</span><span class="p">,</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">800</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot a complete Sankey diagram for the importance network.</span>
@@ -1999,12 +2001,11 @@ The plotly Figure object representing the Sankey diagram.</p></td>
 <span class="sd">            The filename to save the plot. Defaults to &quot;sankey.png&quot;.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        plotly.graph_objs._figure.Figure</span>
-<span class="sd">            The plotly Figure object representing the Sankey diagram.</span>
+<span class="sd">        plotly.graph_objs._figure.Figure: The plotly Figure object representing the Sankey diagram.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">fig</span> <span class="o">=</span> <span class="n">complete_sankey</span><span class="p">(</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">complete_df</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">,</span>
         <span class="n">multiclass</span><span class="o">=</span><span class="n">multiclass</span><span class="p">,</span>
         <span class="n">val_col</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">val_col</span><span class="p">,</span>
         <span class="n">show_top_n</span><span class="o">=</span><span class="n">show_top_n</span><span class="p">,</span>
@@ -2012,7 +2013,7 @@ The plotly Figure object representing the Sankey diagram.</p></td>
         <span class="n">node_cmap</span><span class="o">=</span><span class="n">node_cmap</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="n">fig</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1900</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">800</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">fig</span>
 </code></pre></div></td></tr></table></div>
       </details>
@@ -2025,7 +2026,7 @@ The plotly Figure object representing the Sankey diagram.</p></td>
 
 
 <h3 id="binn.importance_network.ImportanceNetwork.plot_subgraph_sankey" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">plot_subgraph_sankey</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">upstream</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">savename</span><span class="o">=</span><span class="s1">&#39;sankey.png&#39;</span><span class="p">,</span> <span class="n">val_col</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">)</span></code>
+<code class="highlight language-python"><span class="n">plot_subgraph_sankey</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">upstream</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">savename</span><span class="o">=</span><span class="s1">&#39;sankey.png&#39;</span><span class="p">,</span> <span class="n">val_col</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2114,27 +2115,14 @@ to "coolwarm".</p></td>
         <tr>
           <td>
           </td>
-          <td><p>plotly.graph_objs._figure.Figure:
-The plotly Figure object representing the Sankey diagram.</p></td>
+          <td><p>plotly.graph_objs._figure.Figure: The plotly Figure object representing the Sankey diagram.</p></td>
         </tr>
     </tbody>
   </table>
 
       <details class="quote">
         <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span>
-<span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span>
-<span class="normal">41</span>
-<span class="normal">42</span>
-<span class="normal">43</span>
-<span class="normal">44</span>
-<span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">47</span>
 <span class="normal">48</span>
 <span class="normal">49</span>
 <span class="normal">50</span>
@@ -2167,13 +2155,30 @@ The plotly Figure object representing the Sankey diagram.</p></td>
 <span class="normal">77</span>
 <span class="normal">78</span>
 <span class="normal">79</span>
-<span class="normal">80</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">plot_subgraph_sankey</span><span class="p">(</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">plot_subgraph_sankey</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">query_node</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">upstream</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">savename</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;sankey.png&quot;</span><span class="p">,</span>
     <span class="n">val_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;value&quot;</span><span class="p">,</span>
     <span class="n">cmap</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;coolwarm&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1200</span><span class="p">,</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a Sankey diagram using the provided query node.</span>
@@ -2190,28 +2195,27 @@ The plotly Figure object representing the Sankey diagram.</p></td>
 <span class="sd">            to &quot;coolwarm&quot;.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        plotly.graph_objs._figure.Figure:</span>
-<span class="sd">            The plotly Figure object representing the Sankey diagram.</span>
+<span class="sd">        plotly.graph_objs._figure.Figure: The plotly Figure object representing the Sankey diagram.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">upstream</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
-        <span class="n">final_node</span> <span class="o">=</span> <span class="s2">&quot;root&quot;</span>
-        <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_downstream_subgraph</span><span class="p">(</span>
-            <span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">upstream</span><span class="p">:</span>
+        <span class="n">final_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="s2">&quot;root&quot;</span><span class="p">)</span>
+
+        <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_downstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
         <span class="n">source_or_target</span> <span class="o">=</span> <span class="s2">&quot;source&quot;</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">final_node</span> <span class="o">=</span> <span class="n">query_node</span>
-        <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_upstream_subgraph</span><span class="p">(</span>
-            <span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">final_node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="n">query_node</span><span class="p">)</span>
+        <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_upstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
         <span class="n">source_or_target</span> <span class="o">=</span> <span class="s2">&quot;target&quot;</span>
     <span class="n">nodes_in_subgraph</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">subgraph</span><span class="o">.</span><span class="n">nodes</span><span class="p">]</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="n">source_or_target</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span>
-        <span class="n">nodes_in_subgraph</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="n">source_or_target</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">nodes_in_subgraph</span><span class="p">)</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">subgraph_sankey</span><span class="p">(</span>
         <span class="n">df</span><span class="p">,</span> <span class="n">final_node</span><span class="o">=</span><span class="n">final_node</span><span class="p">,</span> <span class="n">val_col</span><span class="o">=</span><span class="n">val_col</span><span class="p">,</span> <span class="n">cmap_name</span><span class="o">=</span><span class="n">cmap</span>
     <span class="p">)</span>
 
-    <span class="n">fig</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">fig</span>
 </code></pre></div></td></tr></table></div>
       </details>
