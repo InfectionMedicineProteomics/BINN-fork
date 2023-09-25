@@ -6,7 +6,7 @@
 <title>BINN - BINN</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<meta name="generator" content="mkdocs-1.4.2, mkdocs-gitbook-1.0.7">
+<meta name="generator" content="mkdocs-1.5.3, mkdocs-gitbook-1.0.7">
 
 <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
 <meta name="HandheldFriendly" content="true"/>
@@ -29,7 +29,7 @@
 </li>
 <li class="divider"></li>
 <li class="chapter" data-path="">
-<a href="../..">Welcome to the BINN documentation</a>
+<a href="../..">Home</a>
 <li class="header">Examples & tutorials</li>
 
 <li>
@@ -109,6 +109,7 @@ Theme by GitBook
 <div class="doc doc-object doc-module">
 
 
+
 <a id="binn.binn"></a>
   <div class="doc doc-contents first">
 
@@ -127,22 +128,25 @@ Theme by GitBook
 
 
 
+
 <h2 id="binn.binn.BINN" class="doc doc-heading">
-        <code>BINN</code>
+          <code>BINN</code>
 
 
 </h2>
 
 
   <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="pytorch_lightning.LightningModule">LightningModule</span></code></p>
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="pytorch_lightning.LightningModule">LightningModule</span></code></p>
 
   
       <p>Implements a Biologically Informed Neural Network (BINN). The BINN
 is implemented using the PyTorch Lightning-framework.
 If you are unfamiliar with PyTorch, we suggest visiting
 their website: https://pytorch.org/</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -160,7 +164,11 @@ their website: https://pytorch.org/</p>
           <td>
                 <code><a class="autorefs autorefs-internal" title="binn.network.Network" href="../net_ref/#binn.network.Network">Network</a></code>
           </td>
-          <td><p>A Network object that defines the network topology.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A Network object that defines the network topology.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -170,7 +178,11 @@ their website: https://pytorch.org/</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>Activation function to use. Defaults to "tanh".</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Activation function to use. Defaults to "tanh".</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;tanh&#39;</code>
           </td>
@@ -178,11 +190,15 @@ their website: https://pytorch.org/</p>
         <tr>
           <td><code>weight</code></td>
           <td>
-                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+                <code><span title="torch.Tensor">Tensor</span></code>
           </td>
-          <td><p>Weights for loss function. Defaults to torch.Tensor([1, 1]).</p></td>
           <td>
-                <code>torch.Tensor([1, 1])</code>
+            <div class="doc-md-description">
+              <p>Weights for loss function. Defaults to torch.Tensor([1, 1]).</p>
+            </div>
+          </td>
+          <td>
+                <code><span title="torch.Tensor">Tensor</span>([1, 1])</code>
           </td>
         </tr>
         <tr>
@@ -190,7 +206,11 @@ their website: https://pytorch.org/</p>
           <td>
                 <code>float</code>
           </td>
-          <td><p>Learning rate for optimizer. Defaults to 1e-4.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Learning rate for optimizer. Defaults to 1e-4.</p>
+            </div>
+          </td>
           <td>
                 <code>0.0001</code>
           </td>
@@ -200,7 +220,11 @@ their website: https://pytorch.org/</p>
           <td>
                 <code>int</code>
           </td>
-          <td><p>Number of layers in the network. Defaults to 4.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Number of layers in the network. Defaults to 4.</p>
+            </div>
+          </td>
           <td>
                 <code>4</code>
           </td>
@@ -210,7 +234,11 @@ their website: https://pytorch.org/</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>Learning rate scheduler to use. Defaults to "plateau".</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Learning rate scheduler to use. Defaults to "plateau".</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;plateau&#39;</code>
           </td>
@@ -220,7 +248,11 @@ their website: https://pytorch.org/</p>
           <td>
                 <code>str</code>
           </td>
-          <td><p>Optimizer to use. Defaults to "adam".</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Optimizer to use. Defaults to "adam".</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;adam&#39;</code>
           </td>
@@ -230,7 +262,11 @@ their website: https://pytorch.org/</p>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Whether to use validation data during training. Defaults to False.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether to use validation data during training. Defaults to False.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -240,7 +276,11 @@ their website: https://pytorch.org/</p>
           <td>
                 <code>int</code>
           </td>
-          <td><p>Number of output nodes. Defaults to 2.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Number of output nodes. Defaults to 2.</p>
+            </div>
+          </td>
           <td>
                 <code>2</code>
           </td>
@@ -250,7 +290,11 @@ their website: https://pytorch.org/</p>
           <td>
                 <code>float</code>
           </td>
-          <td><p>Dropout probability. Defaults to 0.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Dropout probability. Defaults to 0.</p>
+            </div>
+          </td>
           <td>
                 <code>0</code>
           </td>
@@ -260,13 +304,19 @@ their website: https://pytorch.org/</p>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Whether to use residual connections. Defaults to False.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether to use residual connections. Defaults to False.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Attributes:</strong></p>
   <table>
@@ -283,85 +333,128 @@ their website: https://pytorch.org/</p>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Whether to use residual connections.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether to use residual connections.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>pathways</code></td>
           <td>
                 <code><a class="autorefs autorefs-internal" title="binn.network.Network" href="../net_ref/#binn.network.Network">Network</a></code>
           </td>
-          <td><p>A Network object that defines the network topology.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A Network object that defines the network topology.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>n_layers</code></td>
           <td>
                 <code>int</code>
           </td>
-          <td><p>Number of layers in the network.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Number of layers in the network.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>layer_names</code></td>
           <td>
                 <code>List[str]</code>
           </td>
-          <td><p>List of layer names.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>List of layer names.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>features</code></td>
           <td>
                 <code>Index</code>
           </td>
-          <td><p>A pandas Index object containing the input features.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A pandas Index object containing the input features.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>layers</code></td>
           <td>
-                <code><span title="torch.nn">nn</span>.<span title="torch.nn.Module">Module</span></code>
+                <code><span title="torch.nn.Module">Module</span></code>
           </td>
-          <td><p>The layers of the BINN.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The layers of the BINN.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>loss</code></td>
           <td>
-                <code><span title="torch.nn">nn</span>.<span title="torch.nn.Module">Module</span></code>
+                <code><span title="torch.nn.Module">Module</span></code>
           </td>
-          <td><p>The loss function used during training.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The loss function used during training.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>learning_rate</code></td>
           <td>
                 <code>float</code>
           </td>
-          <td><p>Learning rate for optimizer.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Learning rate for optimizer.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>scheduler</code></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>Learning rate scheduler used.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Learning rate scheduler used.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>optimizer</code></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>Optimizer used.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Optimizer used.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>validate</code></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Whether to use validation data during training.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether to use validation data during training.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-
-        <details class="quote">
-          <summary>Source code in <code>binn/binn.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 11</span>
+            <details class="quote">
+              <summary>Source code in <code>binn/binn.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 11</span>
 <span class="normal"> 12</span>
 <span class="normal"> 13</span>
 <span class="normal"> 14</span>
@@ -845,7 +938,7 @@ their website: https://pytorch.org/</p>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">_init_weights</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-        </details>
+            </details>
 
   
 
@@ -859,12 +952,14 @@ their website: https://pytorch.org/</p>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.binn.BINN.calculate_accuracy" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">calculate_accuracy</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">prediction</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">calculate_accuracy</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">prediction</span><span class="p">)</span></code>
 
 </h3>
 
@@ -872,6 +967,8 @@ their website: https://pytorch.org/</p>
   <div class="doc doc-contents ">
   
       <p>Calculates the accuracy of the BINN predictions for a given batch.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -888,7 +985,11 @@ their website: https://pytorch.org/</p>
           <td><code>y</code></td>
           <td>
           </td>
-          <td><p>The ground-truth labels for the batch.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The ground-truth labels for the batch.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -897,13 +998,19 @@ their website: https://pytorch.org/</p>
           <td><code>prediction</code></td>
           <td>
           </td>
-          <td><p>The predicted labels for the batch.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The predicted labels for the batch.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -918,14 +1025,18 @@ their website: https://pytorch.org/</p>
           <td>
                 <code>float</code>
           </td>
-          <td><p>The calculated accuracy as a float.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The calculated accuracy as a float.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/binn.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">220</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/binn.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">220</span>
 <span class="normal">221</span>
 <span class="normal">222</span>
 <span class="normal">223</span>
@@ -949,17 +1060,19 @@ their website: https://pytorch.org/</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="n">prediction</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)))</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.binn.BINN.configure_optimizers" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">configure_optimizers</span><span class="p">()</span></code>
+          <code class="highlight language-python"><span class="n">configure_optimizers</span><span class="p">()</span></code>
 
 </h3>
 
@@ -967,6 +1080,8 @@ their website: https://pytorch.org/</p>
   <div class="doc doc-contents ">
   
       <p>Configures the optimizer and learning rate scheduler for training the BINN.</p>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -980,14 +1095,18 @@ their website: https://pytorch.org/</p>
         <tr>
           <td>
           </td>
-          <td><p>A list of optimizers and a list of learning rate schedulers.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A list of optimizers and a list of learning rate schedulers.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/binn.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">183</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/binn.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">183</span>
 <span class="normal">184</span>
 <span class="normal">185</span>
 <span class="normal">186</span>
@@ -1059,17 +1178,19 @@ their website: https://pytorch.org/</p>
 
     <span class="k">return</span> <span class="p">[</span><span class="n">optimizer</span><span class="p">],</span> <span class="p">[</span><span class="n">scheduler</span><span class="p">]</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.binn.BINN.forward" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">forward</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1077,6 +1198,8 @@ their website: https://pytorch.org/</p>
   <div class="doc doc-contents ">
   
       <p>Performs a forward pass through the BINN.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1092,15 +1215,21 @@ their website: https://pytorch.org/</p>
         <tr>
           <td><code>x</code></td>
           <td>
-                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+                <code><span title="torch.Tensor">Tensor</span></code>
           </td>
-          <td><p>The input tensor to the BINN.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input tensor to the BINN.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1113,16 +1242,20 @@ their website: https://pytorch.org/</p>
     <tbody>
         <tr>
           <td>
-                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+                <code><span title="torch.Tensor">Tensor</span></code>
           </td>
-          <td><p>torch.Tensor: The output tensor of the BINN.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>torch.Tensor: The output tensor of the BINN.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/binn.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">114</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/binn.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">114</span>
 <span class="normal">115</span>
 <span class="normal">116</span>
 <span class="normal">117</span>
@@ -1150,17 +1283,19 @@ their website: https://pytorch.org/</p>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layers</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.binn.BINN.get_connectivity_matrices" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">get_connectivity_matrices</span><span class="p">()</span></code>
+          <code class="highlight language-python"><span class="n">get_connectivity_matrices</span><span class="p">()</span></code>
 
 </h3>
 
@@ -1168,6 +1303,8 @@ their website: https://pytorch.org/</p>
   <div class="doc doc-contents ">
   
       <p>Returns the connectivity matrices underlying the BINN.</p>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1182,14 +1319,18 @@ their website: https://pytorch.org/</p>
           <td>
                 <code>list</code>
           </td>
-          <td><p>The connectivity matrices as a list of Pandas DataFrames.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The connectivity matrices as a list of Pandas DataFrames.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/binn.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">233</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/binn.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">233</span>
 <span class="normal">234</span>
 <span class="normal">235</span>
 <span class="normal">236</span>
@@ -1205,17 +1346,19 @@ their website: https://pytorch.org/</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">connectivity_matrices</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.binn.BINN.init_weights" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">init_weights</span><span class="p">()</span></code>
+          <code class="highlight language-python"><span class="n">init_weights</span><span class="p">()</span></code>
 
 </h3>
 
@@ -1224,9 +1367,9 @@ their website: https://pytorch.org/</p>
   
       <p>Initializes the trainable parameters of the BINN.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/binn.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">248</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/binn.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">248</span>
 <span class="normal">249</span>
 <span class="normal">250</span>
 <span class="normal">251</span>
@@ -1236,17 +1379,19 @@ their website: https://pytorch.org/</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">_init_weights</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.binn.BINN.reset_params" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">reset_params</span><span class="p">()</span></code>
+          <code class="highlight language-python"><span class="n">reset_params</span><span class="p">()</span></code>
 
 </h3>
 
@@ -1255,9 +1400,9 @@ their website: https://pytorch.org/</p>
   
       <p>Resets the trainable parameters of the BINN.</p>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/binn.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">242</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/binn.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">242</span>
 <span class="normal">243</span>
 <span class="normal">244</span>
 <span class="normal">245</span>
@@ -1267,17 +1412,19 @@ their website: https://pytorch.org/</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">_reset_params</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.binn.BINN.test_step" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">test_step</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">test_step</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1285,6 +1432,8 @@ their website: https://pytorch.org/</p>
   <div class="doc doc-contents ">
   
       <p>Implements a single testing step for the BINN.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1301,7 +1450,11 @@ their website: https://pytorch.org/</p>
           <td><code>batch</code></td>
           <td>
           </td>
-          <td><p>A tuple containing the input and output data for the current batch.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A tuple containing the input and output data for the current batch.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1310,7 +1463,11 @@ their website: https://pytorch.org/</p>
           <td><code>_</code></td>
           <td>
           </td>
-          <td><p>The batch index, which is not used.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The batch index, which is not used.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1318,9 +1475,9 @@ their website: https://pytorch.org/</p>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/binn.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">167</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/binn.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">167</span>
 <span class="normal">168</span>
 <span class="normal">169</span>
 <span class="normal">170</span>
@@ -1350,17 +1507,19 @@ their website: https://pytorch.org/</p>
     <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;test_loss&quot;</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">prog_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">on_step</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">on_epoch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;test_acc&quot;</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">prog_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">on_step</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">on_epoch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.binn.BINN.training_step" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">training_step</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">training_step</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1368,6 +1527,8 @@ their website: https://pytorch.org/</p>
   <div class="doc doc-contents ">
   
       <p>Performs a single training step for the BINN.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1384,7 +1545,11 @@ their website: https://pytorch.org/</p>
           <td><code>batch</code></td>
           <td>
           </td>
-          <td><p>The batch of data to use for the training step.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The batch of data to use for the training step.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1393,13 +1558,19 @@ their website: https://pytorch.org/</p>
           <td><code>_</code></td>
           <td>
           </td>
-          <td><p>Not used.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Not used.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1414,14 +1585,18 @@ their website: https://pytorch.org/</p>
           <td>
                 <code>float</code>
           </td>
-          <td><p>torch.Tensor: The loss tensor for the training step.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>torch.Tensor: The loss tensor for the training step.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/binn.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">129</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/binn.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">129</span>
 <span class="normal">130</span>
 <span class="normal">131</span>
 <span class="normal">132</span>
@@ -1459,17 +1634,19 @@ their website: https://pytorch.org/</p>
     <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;train_acc&quot;</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">prog_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">on_step</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">on_epoch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">loss</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.binn.BINN.validation_step" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">validation_step</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">validation_step</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1477,6 +1654,8 @@ their website: https://pytorch.org/</p>
   <div class="doc doc-contents ">
   
       <p>Implements a single validation step for the BINN.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1493,7 +1672,11 @@ their website: https://pytorch.org/</p>
           <td><code>batch</code></td>
           <td>
           </td>
-          <td><p>A tuple containing the input and output data for the current batch.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A tuple containing the input and output data for the current batch.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1502,7 +1685,11 @@ their website: https://pytorch.org/</p>
           <td><code>_</code></td>
           <td>
           </td>
-          <td><p>The batch index, which is not used.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The batch index, which is not used.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1510,9 +1697,9 @@ their website: https://pytorch.org/</p>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/binn.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">149</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/binn.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">149</span>
 <span class="normal">150</span>
 <span class="normal">151</span>
 <span class="normal">152</span>
@@ -1546,7 +1733,7 @@ their website: https://pytorch.org/</p>
     <span class="bp">self</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;val_acc&quot;</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">,</span> <span class="n">prog_bar</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">on_step</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">on_epoch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;val_loss&quot;</span><span class="p">:</span> <span class="n">loss</span><span class="p">,</span> <span class="s2">&quot;val_acc&quot;</span><span class="p">:</span> <span class="n">accuracy</span><span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>

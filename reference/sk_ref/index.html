@@ -6,7 +6,7 @@
 <title>Scikit-learn API - BINN</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<meta name="generator" content="mkdocs-1.4.2, mkdocs-gitbook-1.0.7">
+<meta name="generator" content="mkdocs-1.5.3, mkdocs-gitbook-1.0.7">
 
 <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
 <meta name="HandheldFriendly" content="true"/>
@@ -29,7 +29,7 @@
 </li>
 <li class="divider"></li>
 <li class="chapter" data-path="">
-<a href="../..">Welcome to the BINN documentation</a>
+<a href="../..">Home</a>
 <li class="header">Examples & tutorials</li>
 
 <li>
@@ -108,6 +108,7 @@ Theme by GitBook
 <div class="doc doc-object doc-module">
 
 
+
 <a id="binn.sklearn"></a>
   <div class="doc doc-contents first">
 
@@ -126,176 +127,55 @@ Theme by GitBook
 
 
 
+
 <h2 id="binn.sklearn.BINNClassifier" class="doc doc-heading">
-        <code>BINNClassifier</code>
+          <code>BINNClassifier</code>
 
 
 </h2>
 
 
   <div class="doc doc-contents ">
-      <p class="doc doc-class-bases">
-        Bases: <code><span title="sklearn.base.BaseEstimator">BaseEstimator</span></code>, <code><span title="sklearn.base.ClassifierMixin">ClassifierMixin</span></code></p>
+          <p class="doc doc-class-bases">
+            Bases: <code><span title="sklearn.base.BaseEstimator">BaseEstimator</span></code>, <code><span title="sklearn.base.ClassifierMixin">ClassifierMixin</span></code></p>
 
   
       <p>A sci-kit learn wrapper for the BINN.</p>
+<p>Args:</p>
+<pre><code>pathways : Network, optional
+    The network architecture to use for the classifier. If None, a default
+    architecture will be used. Default is None.
+activation : str, optional
+    The activation function to use for the classifier. Default is 'tanh'.
+weight : torch.Tensor, optional
+    The weight to assign to each class. Default is torch.Tensor([1, 1]).
+learning_rate : float, optional
+    The learning rate for the optimizer. Default is 1e-4.
+n_layers : int, optional
+    The number of layers in the network architecture. Default is 4.
+scheduler : str, optional
+    The scheduler to use for the optimizer. Default is 'plateau'.
+optimizer : str, optional
+    The optimizer to use for training. Default is 'adam'.
+n_outputs : int, optional
+    The number of outputs of the network architecture. Default is 2.
+dropout : float, optional
+    The dropout rate to use for the classifier. Default is 0.
+residual : bool, optional
+    Whether to use residual connections in the network architecture.
+    Default is False.
+threads : int, optional
+    The number of threads to use for data loading. Default is 1.
+epochs : int, optional
+    The number of epochs to train the classifier for. Default is 100.
+logger : Union[SuperLogger, None], optional
+    The logger to use for logging training information. Default is None.
+log_steps : int, optional
+    The number of steps between each log message during training.
+    Default is 50.
+</code></pre>
 
-  <p><strong>Parameters:</strong></p>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Default</th>
-      </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><code>pathways</code></td>
-          <td>
-          </td>
-          <td><p>Network, optional
-The network architecture to use for the classifier. If None, a default
-architecture will be used. Default is None.</p></td>
-          <td>
-              <em>required</em>
-          </td>
-        </tr>
-        <tr>
-          <td><code>activation</code></td>
-          <td>
-          </td>
-          <td><p>str, optional
-The activation function to use for the classifier. Default is 'tanh'.</p></td>
-          <td>
-                <code>&#39;tanh&#39;</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>weight</code></td>
-          <td>
-          </td>
-          <td><p>torch.Tensor, optional
-The weight to assign to each class. Default is torch.Tensor([1, 1]).</p></td>
-          <td>
-                <code>torch.Tensor([1, 1])</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>learning_rate</code></td>
-          <td>
-          </td>
-          <td><p>float, optional
-The learning rate for the optimizer. Default is 1e-4.</p></td>
-          <td>
-                <code>0.0001</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>n_layers</code></td>
-          <td>
-          </td>
-          <td><p>int, optional
-The number of layers in the network architecture. Default is 4.</p></td>
-          <td>
-                <code>4</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>scheduler</code></td>
-          <td>
-          </td>
-          <td><p>str, optional
-The scheduler to use for the optimizer. Default is 'plateau'.</p></td>
-          <td>
-                <code>&#39;plateau&#39;</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>optimizer</code></td>
-          <td>
-          </td>
-          <td><p>str, optional
-The optimizer to use for training. Default is 'adam'.</p></td>
-          <td>
-                <code>&#39;adam&#39;</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>n_outputs</code></td>
-          <td>
-          </td>
-          <td><p>int, optional
-The number of outputs of the network architecture. Default is 2.</p></td>
-          <td>
-                <code>2</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>dropout</code></td>
-          <td>
-          </td>
-          <td><p>float, optional
-The dropout rate to use for the classifier. Default is 0.</p></td>
-          <td>
-                <code>0</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>residual</code></td>
-          <td>
-          </td>
-          <td><p>bool, optional
-Whether to use residual connections in the network architecture.
-Default is False.</p></td>
-          <td>
-                <code>False</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>threads</code></td>
-          <td>
-          </td>
-          <td><p>int, optional
-The number of threads to use for data loading. Default is 1.</p></td>
-          <td>
-                <code>1</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>epochs</code></td>
-          <td>
-          </td>
-          <td><p>int, optional
-The number of epochs to train the classifier for. Default is 100.</p></td>
-          <td>
-                <code>100</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>logger</code></td>
-          <td>
-          </td>
-          <td><p>Union[SuperLogger, None], optional
-The logger to use for logging training information. Default is None.</p></td>
-          <td>
-                <code>None</code>
-          </td>
-        </tr>
-        <tr>
-          <td><code>log_steps</code></td>
-          <td>
-          </td>
-          <td><p>int, optional
-The number of steps between each log message during training.
-Default is 50.</p></td>
-          <td>
-                <code>50</code>
-          </td>
-        </tr>
-    </tbody>
-  </table>
+
 
   <p><strong>Attributes:</strong></p>
   <table>
@@ -311,45 +191,64 @@ Default is 50.</p></td>
           <td><code>clf</code></td>
           <td>
           </td>
-          <td><p>BINN
+          <td>
+            <div class="doc-md-description">
+              <p>BINN
 The BINN (Block Independent Neural Network) instance used for
-classification.</p></td>
+classification.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>threads</code></td>
           <td>
           </td>
-          <td><p>int
-The number of threads used for data loading.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>int
+The number of threads used for data loading.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>epochs</code></td>
           <td>
           </td>
-          <td><p>int
-The number of epochs to train the classifier for.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>int
+The number of epochs to train the classifier for.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>logger</code></td>
           <td>
           </td>
-          <td><p>Union[SuperLogger, None]
-The logger used for logging training information.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Union[SuperLogger, None]
+The logger used for logging training information.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>log_steps</code></td>
           <td>
           </td>
-          <td><p>int
-The number of steps between each log message during training.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>int
+The number of steps between each log message during training.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-
-        <details class="quote">
-          <summary>Source code in <code>binn/sklearn.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 11</span>
+            <details class="quote">
+              <summary>Source code in <code>binn/sklearn.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 11</span>
 <span class="normal"> 12</span>
 <span class="normal"> 13</span>
 <span class="normal"> 14</span>
@@ -615,7 +514,7 @@ The number of steps between each log message during training.</p></td>
             <span class="n">y_hat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clf</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">y_hat</span>
 </code></pre></div></td></tr></table></div>
-        </details>
+            </details>
 
   
 
@@ -629,12 +528,14 @@ The number of steps between each log message during training.</p></td>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.sklearn.BINNClassifier.fit" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">epochs</span><span class="p">)</span></code>
 
 </h3>
 
@@ -642,6 +543,8 @@ The number of steps between each log message during training.</p></td>
   <div class="doc doc-contents ">
   
       <p>Trains the classifier using the provided input data and target labels.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -659,7 +562,11 @@ The number of steps between each log message during training.</p></td>
           <td>
                 <code>array-like of shape (n_samples, n_features</code>
           </td>
-          <td><p>The input data.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input data.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -669,13 +576,19 @@ The number of steps between each log message during training.</p></td>
           <td>
                 <code>array-like of shape (n_samples,</code>
           </td>
-          <td><p>The target labels.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The target labels.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -689,14 +602,18 @@ The number of steps between each log message during training.</p></td>
         <tr>
           <td>
           </td>
-          <td><p>None</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>None</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/sklearn.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">100</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/sklearn.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">100</span>
 <span class="normal">101</span>
 <span class="normal">102</span>
 <span class="normal">103</span>
@@ -754,17 +671,19 @@ The number of steps between each log message during training.</p></td>
 
     <span class="n">trainer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clf</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.sklearn.BINNClassifier.predict" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></code>
 
 </h3>
 
@@ -772,6 +691,8 @@ The number of steps between each log message during training.</p></td>
   <div class="doc doc-contents ">
   
       <p>Predicts target labels for the provided input data using the trained classifier.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -789,13 +710,19 @@ The number of steps between each log message during training.</p></td>
           <td>
                 <code>array-like of shape (n_samples, n_features</code>
           </td>
-          <td><p>The input data.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input data.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -810,14 +737,18 @@ The number of steps between each log message during training.</p></td>
 <td><code>y_hat</code></td>          <td>
                 <code>torch.Tensor of shape (n_samples,)</code>
           </td>
-          <td><p>The predicted target labels.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The predicted target labels.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/sklearn.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">130</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/sklearn.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">130</span>
 <span class="normal">131</span>
 <span class="normal">132</span>
 <span class="normal">133</span>
@@ -845,7 +776,7 @@ The number of steps between each log message during training.</p></td>
         <span class="n">y_hat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clf</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">y_hat</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>

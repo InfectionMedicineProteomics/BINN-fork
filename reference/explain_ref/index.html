@@ -6,7 +6,7 @@
 <title>Explain - BINN</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<meta name="generator" content="mkdocs-1.4.2, mkdocs-gitbook-1.0.7">
+<meta name="generator" content="mkdocs-1.5.3, mkdocs-gitbook-1.0.7">
 
 <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
 <meta name="HandheldFriendly" content="true"/>
@@ -29,7 +29,7 @@
 </li>
 <li class="divider"></li>
 <li class="chapter" data-path="">
-<a href="../..">Welcome to the BINN documentation</a>
+<a href="../..">Home</a>
 <li class="header">Examples & tutorials</li>
 
 <li>
@@ -108,6 +108,7 @@ Theme by GitBook
 <div class="doc doc-object doc-module">
 
 
+
 <a id="binn.explainer"></a>
   <div class="doc doc-contents first">
 
@@ -126,8 +127,9 @@ Theme by GitBook
 
 
 
+
 <h2 id="binn.explainer.BINNExplainer" class="doc doc-heading">
-        <code>BINNExplainer</code>
+          <code>BINNExplainer</code>
 
 
 </h2>
@@ -137,6 +139,8 @@ Theme by GitBook
 
   
       <p>A class for explaining the predictions of a BINN model using SHAP values.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -154,7 +158,11 @@ Theme by GitBook
           <td>
                 <code><a class="autorefs autorefs-internal" title="binn.BINN" href="../binn_ref/#binn.binn.BINN">BINN</a></code>
           </td>
-          <td><p>A trained BINN model.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A trained BINN model.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -162,10 +170,9 @@ Theme by GitBook
     </tbody>
   </table>
 
-
-        <details class="quote">
-          <summary>Source code in <code>binn/explainer.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 10</span>
+            <details class="quote">
+              <summary>Source code in <code>binn/explainer.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 10</span>
 <span class="normal"> 11</span>
 <span class="normal"> 12</span>
 <span class="normal"> 13</span>
@@ -641,7 +648,7 @@ Theme by GitBook
                 <span class="n">intermediate_data</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">intermediate_data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">shap_dict</span>
 </code></pre></div></td></tr></table></div>
-        </details>
+            </details>
 
   
 
@@ -655,12 +662,14 @@ Theme by GitBook
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.explainer.BINNExplainer.explain" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">explain</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">background_data</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">explain</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">background_data</span><span class="p">)</span></code>
 
 </h3>
 
@@ -669,6 +678,8 @@ Theme by GitBook
   
       <p>Generates SHAP explanations for a given test_data by computing the Shapley values for each feature using
 the provided background_data. The feature importances are then aggregated and returned in a pandas dataframe.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -684,9 +695,13 @@ the provided background_data. The feature importances are then aggregated and re
         <tr>
           <td><code>test_data</code></td>
           <td>
-                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+                <code><span title="torch.Tensor">Tensor</span></code>
           </td>
-          <td><p>The input data for which to generate the explanations.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input data for which to generate the explanations.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -694,15 +709,21 @@ the provided background_data. The feature importances are then aggregated and re
         <tr>
           <td><code>background_data</code></td>
           <td>
-                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+                <code><span title="torch.Tensor">Tensor</span></code>
           </td>
-          <td><p>The background data to use for computing the Shapley values.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The background data to use for computing the Shapley values.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -716,14 +737,18 @@ the provided background_data. The feature importances are then aggregated and re
         <tr>
           <td>
           </td>
-          <td><p>pd.DataFrame: A dataframe containing the aggregated SHAP feature importances.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>pd.DataFrame: A dataframe containing the aggregated SHAP feature importances.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/explainer.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">24</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/explainer.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">24</span>
 <span class="normal">25</span>
 <span class="normal">26</span>
 <span class="normal">27</span>
@@ -847,17 +872,19 @@ the provided background_data. The feature importances are then aggregated and re
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">feature_dict</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">df</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.explainer.BINNExplainer.explain_average" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">explain_average</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">background_data</span><span class="p">,</span> <span class="n">nr_iterations</span><span class="p">,</span> <span class="n">max_epochs</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">explain_average</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">background_data</span><span class="p">,</span> <span class="n">nr_iterations</span><span class="p">,</span> <span class="n">max_epochs</span><span class="p">,</span> <span class="n">dataloader</span><span class="p">)</span></code>
 
 </h3>
 
@@ -867,6 +894,8 @@ the provided background_data. The feature importances are then aggregated and re
       <p>Computes the SHAP explanations for the given test_data by averaging the Shapley values over multiple iterations.
 For each iteration, the model's parameters are randomly initialized and trained on the provided data using
 the provided trainer and dataloader. The feature importances are then aggregated and returned in a pandas dataframe.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -882,9 +911,13 @@ the provided trainer and dataloader. The feature importances are then aggregated
         <tr>
           <td><code>test_data</code></td>
           <td>
-                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+                <code><span title="torch.Tensor">Tensor</span></code>
           </td>
-          <td><p>The input data for which to generate the explanations.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input data for which to generate the explanations.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -892,9 +925,13 @@ the provided trainer and dataloader. The feature importances are then aggregated
         <tr>
           <td><code>background_data</code></td>
           <td>
-                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+                <code><span title="torch.Tensor">Tensor</span></code>
           </td>
-          <td><p>The background data to use for computing the Shapley values.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The background data to use for computing the Shapley values.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -904,7 +941,11 @@ the provided trainer and dataloader. The feature importances are then aggregated
           <td>
                 <code>int</code>
           </td>
-          <td><p>The number of iterations to use for averaging the Shapley values.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The number of iterations to use for averaging the Shapley values.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -913,7 +954,11 @@ the provided trainer and dataloader. The feature importances are then aggregated
           <td><code>trainer</code></td>
           <td>
           </td>
-          <td><p>The PyTorch Lightning trainer to use for training the model.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The PyTorch Lightning trainer to use for training the model.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -922,13 +967,19 @@ the provided trainer and dataloader. The feature importances are then aggregated
           <td><code>dataloader</code></td>
           <td>
           </td>
-          <td><p>The PyTorch DataLoader to use for loading the data.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The PyTorch DataLoader to use for loading the data.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -941,16 +992,20 @@ the provided trainer and dataloader. The feature importances are then aggregated
     <tbody>
         <tr>
           <td>
-                <code><span title="pandas">pd</span>.<span title="pandas.DataFrame">DataFrame</span></code>
+                <code><span title="pandas.DataFrame">DataFrame</span></code>
           </td>
-          <td><p>pd.DataFrame: A dataframe containing the aggregated SHAP feature importances.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>pd.DataFrame: A dataframe containing the aggregated SHAP feature importances.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/explainer.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 87</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/explainer.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 87</span>
 <span class="normal"> 88</span>
 <span class="normal"> 89</span>
 <span class="normal"> 90</span>
@@ -1038,17 +1093,19 @@ the provided trainer and dataloader. The feature importances are then aggregated
     <span class="n">df</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">values_mean</span>
     <span class="k">return</span> <span class="n">df</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.explainer.BINNExplainer.explain_input" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">explain_input</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">background_data</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">explain_input</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">background_data</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1058,6 +1115,8 @@ the provided trainer and dataloader. The feature importances are then aggregated
       <p>Computes the SHAP explanations for the given test_data for a specific layer in the model by computing the
 Shapley values for each feature using the provided background_data. The feature importances are then returned
 in a dictionary.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1073,9 +1132,13 @@ in a dictionary.</p>
         <tr>
           <td><code>test_data</code></td>
           <td>
-                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+                <code><span title="torch.Tensor">Tensor</span></code>
           </td>
-          <td><p>The input data for which to generate the explanations.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The input data for which to generate the explanations.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1083,9 +1146,13 @@ in a dictionary.</p>
         <tr>
           <td><code>background_data</code></td>
           <td>
-                <code>torch.<span title="torch.Tensor">Tensor</span></code>
+                <code><span title="torch.Tensor">Tensor</span></code>
           </td>
-          <td><p>The background data to use for computing the Shapley values.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The background data to use for computing the Shapley values.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1095,13 +1162,19 @@ in a dictionary.</p>
           <td>
                 <code>int</code>
           </td>
-          <td><p>The index of the layer for which to compute the SHAP explanations.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The index of the layer for which to compute the SHAP explanations.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1116,14 +1189,18 @@ in a dictionary.</p>
 <td><code>dict</code></td>          <td>
                 <code>dict</code>
           </td>
-          <td><p>A dictionary containing the SHAP feature importances.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A dictionary containing the SHAP feature importances.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/explainer.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">160</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/explainer.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">160</span>
 <span class="normal">161</span>
 <span class="normal">162</span>
 <span class="normal">163</span>
@@ -1169,7 +1246,7 @@ in a dictionary.</p>
 
     <span class="k">return</span> <span class="n">shap_dict</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>

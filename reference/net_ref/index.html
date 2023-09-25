@@ -6,7 +6,7 @@
 <title>Network - BINN</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<meta name="generator" content="mkdocs-1.4.2, mkdocs-gitbook-1.0.7">
+<meta name="generator" content="mkdocs-1.5.3, mkdocs-gitbook-1.0.7">
 
 <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
 <meta name="HandheldFriendly" content="true"/>
@@ -29,7 +29,7 @@
 </li>
 <li class="divider"></li>
 <li class="chapter" data-path="">
-<a href="../..">Welcome to the BINN documentation</a>
+<a href="../..">Home</a>
 <li class="header">Examples & tutorials</li>
 
 <li>
@@ -108,6 +108,7 @@ Theme by GitBook
 <div class="doc doc-object doc-module">
 
 
+
 <a id="binn.network"></a>
   <div class="doc doc-contents first">
 
@@ -126,8 +127,9 @@ Theme by GitBook
 
 
 
+
 <h2 id="binn.network.Network" class="doc doc-heading">
-        <code>Network</code>
+          <code>Network</code>
 
 
 </h2>
@@ -137,6 +139,8 @@ Theme by GitBook
 
   
       <p>A class for building and analyzing a directed graph network of biological pathways.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -152,9 +156,13 @@ Theme by GitBook
         <tr>
           <td><code>input_data</code></td>
           <td>
-                <code>pandas.<span title="pandas.DataFrame">DataFrame</span></code>
+                <code><span title="pandas.DataFrame">DataFrame</span></code>
           </td>
-          <td><p>A DataFrame containing the input data for the pathways.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A DataFrame containing the input data for the pathways.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -162,9 +170,13 @@ Theme by GitBook
         <tr>
           <td><code>pathways</code></td>
           <td>
-                <code>pandas.<span title="pandas.DataFrame">DataFrame</span></code>
+                <code><span title="pandas.DataFrame">DataFrame</span></code>
           </td>
-          <td><p>A DataFrame containing information on the pathways.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A DataFrame containing information on the pathways.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -172,11 +184,15 @@ Theme by GitBook
         <tr>
           <td><code>mapping</code></td>
           <td>
-                <code>pandas.DataFrame or None</code>
+                <code><span title="pandas.DataFrame">DataFrame</span> or None</code>
           </td>
-          <td><p>A DataFrame containing mapping information.
+          <td>
+            <div class="doc-md-description">
+              <p>A DataFrame containing mapping information.
 If None, then a DataFrame will be constructed from the <code>input_data</code> argument.
-Default is None.</p></td>
+Default is None.</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
@@ -186,8 +202,12 @@ Default is None.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the column in <code>input_data</code> that contains
-the input data. Default is 'Protein'.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the column in <code>input_data</code> that contains
+the input data. Default is 'Protein'.</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;Protein&#39;</code>
           </td>
@@ -197,14 +217,20 @@ the input data. Default is 'Protein'.</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Whether to subset the pathways DataFrame to include
-only those pathways that are relevant to the input data. Default is True.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether to subset the pathways DataFrame to include
+only those pathways that are relevant to the input data. Default is True.</p>
+            </div>
+          </td>
           <td>
                 <code>True</code>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Attributes:</strong></p>
   <table>
@@ -219,45 +245,64 @@ only those pathways that are relevant to the input data. Default is True.</p></t
         <tr>
           <td><code>mapping</code></td>
           <td>
-                <code>pandas.<span title="pandas.DataFrame">DataFrame</span></code>
+                <code><span title="pandas.DataFrame">DataFrame</span></code>
           </td>
-          <td><p>A DataFrame containing the mapping information.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A DataFrame containing the mapping information.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>pathways</code></td>
           <td>
-                <code>pandas.<span title="pandas.DataFrame">DataFrame</span></code>
+                <code><span title="pandas.DataFrame">DataFrame</span></code>
           </td>
-          <td><p>A DataFrame containing information on the pathways.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A DataFrame containing information on the pathways.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>input_data</code></td>
           <td>
-                <code>pandas.<span title="pandas.DataFrame">DataFrame</span></code>
+                <code><span title="pandas.DataFrame">DataFrame</span></code>
           </td>
-          <td><p>A DataFrame containing the input data for the pathways.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A DataFrame containing the input data for the pathways.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>inputs</code></td>
           <td>
                 <code>list</code>
           </td>
-          <td><p>A list of the unique inputs in the mapping DataFrame.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A list of the unique inputs in the mapping DataFrame.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>netx</code></td>
           <td>
-                <code>networkx.<span title="networkx.DiGraph">DiGraph</span></code>
+                <code><span title="networkx.DiGraph">DiGraph</span></code>
           </td>
-          <td><p>A directed graph network of the pathways.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A directed graph network of the pathways.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-
-        <details class="quote">
-          <summary>Source code in <code>binn/network.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 15</span>
+            <details class="quote">
+              <summary>Source code in <code>binn/network.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 15</span>
 <span class="normal"> 16</span>
 <span class="normal"> 17</span>
 <span class="normal"> 18</span>
@@ -553,7 +598,7 @@ only those pathways that are relevant to the input data. Default is True.</p></t
             <span class="n">connectivity_matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">all</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">connectivity_matrices</span>
 </code></pre></div></td></tr></table></div>
-        </details>
+            </details>
 
   
 
@@ -567,12 +612,14 @@ only those pathways that are relevant to the input data. Default is True.</p></t
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.network.Network.build_network" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">build_network</span><span class="p">()</span></code>
+          <code class="highlight language-python"><span class="n">build_network</span><span class="p">()</span></code>
 
 </h3>
 
@@ -580,6 +627,8 @@ only those pathways that are relevant to the input data. Default is True.</p></t
   <div class="doc doc-contents ">
   
       <p>Constructs a networkx DiGraph from the edges in the 'pathways' attribute of the object, with a root node added to the graph to connect all root nodes together.</p>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -593,14 +642,18 @@ only those pathways that are relevant to the input data. Default is True.</p></t
         <tr>
           <td>
           </td>
-          <td><p>A networkx DiGraph object representing the constructed network.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A networkx DiGraph object representing the constructed network.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 83</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/network.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 83</span>
 <span class="normal"> 84</span>
 <span class="normal"> 85</span>
 <span class="normal"> 86</span>
@@ -638,17 +691,19 @@ only those pathways that are relevant to the input data. Default is True.</p></t
 
     <span class="k">return</span> <span class="n">net</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.network.Network.get_connectivity_matrices" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">get_connectivity_matrices</span><span class="p">(</span><span class="n">n_levels</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;root_to_leaf&#39;</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">get_connectivity_matrices</span><span class="p">(</span><span class="n">n_levels</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;root_to_leaf&#39;</span><span class="p">)</span></code>
 
 </h3>
 
@@ -656,6 +711,8 @@ only those pathways that are relevant to the input data. Default is True.</p></t
   <div class="doc doc-contents ">
   
       <p>Returns a list of connectivity matrices for each layer of the completed network, ordered from leaf nodes to root node.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -672,7 +729,11 @@ only those pathways that are relevant to the input data. Default is True.</p></t
           <td><code>n_levels</code></td>
           <td>
           </td>
-          <td><p>The number of levels below the root node to complete the network to.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The number of levels below the root node to complete the network to.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -681,13 +742,19 @@ only those pathways that are relevant to the input data. Default is True.</p></t
           <td><code>direction</code></td>
           <td>
           </td>
-          <td><p>The direction of the layers to return. Must be either "root_to_leaf" or "leaf_to_root". Defaults to "root_to_leaf".</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The direction of the layers to return. Must be either "root_to_leaf" or "leaf_to_root". Defaults to "root_to_leaf".</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;root_to_leaf&#39;</code>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -702,14 +769,18 @@ only those pathways that are relevant to the input data. Default is True.</p></t
           <td>
                 <code>list</code>
           </td>
-          <td><p>A list of pandas DataFrames representing the connectivity matrices for each layer of the completed network.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A list of pandas DataFrames representing the connectivity matrices for each layer of the completed network.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">136</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/network.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">136</span>
 <span class="normal">137</span>
 <span class="normal">138</span>
 <span class="normal">139</span>
@@ -763,17 +834,19 @@ only those pathways that are relevant to the input data. Default is True.</p></t
         <span class="n">connectivity_matrices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">all</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">connectivity_matrices</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.network.Network.get_layers" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">get_layers</span><span class="p">(</span><span class="n">n_levels</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;root_to_leaf&#39;</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">get_layers</span><span class="p">(</span><span class="n">n_levels</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;root_to_leaf&#39;</span><span class="p">)</span></code>
 
 </h3>
 
@@ -781,6 +854,8 @@ only those pathways that are relevant to the input data. Default is True.</p></t
   <div class="doc doc-contents ">
   
       <p>Returns a list of dictionaries where each dictionary contains the pathways at a certain level of the completed network and their inputs.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -797,7 +872,11 @@ only those pathways that are relevant to the input data. Default is True.</p></t
           <td><code>n_levels</code></td>
           <td>
           </td>
-          <td><p>The number of levels below the root node to complete the network to.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The number of levels below the root node to complete the network to.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -806,13 +885,19 @@ only those pathways that are relevant to the input data. Default is True.</p></t
           <td><code>direction</code></td>
           <td>
           </td>
-          <td><p>The direction of the layers to return. Must be either "root_to_leaf" or "leaf_to_root". Defaults to "root_to_leaf".</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The direction of the layers to return. Must be either "root_to_leaf" or "leaf_to_root". Defaults to "root_to_leaf".</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;root_to_leaf&#39;</code>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -827,14 +912,18 @@ only those pathways that are relevant to the input data. Default is True.</p></t
           <td>
                 <code>list</code>
           </td>
-          <td><p>A list of dictionaries, where each dictionary contains pathway names as keys and input lists as values.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A list of dictionaries, where each dictionary contains pathway names as keys and input lists as values.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">103</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/network.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">103</span>
 <span class="normal">104</span>
 <span class="normal">105</span>
 <span class="normal">106</span>
@@ -898,7 +987,7 @@ only those pathways that are relevant to the input data. Default is True.</p></t
     <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">layers</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>

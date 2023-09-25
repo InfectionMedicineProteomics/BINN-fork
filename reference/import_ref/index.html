@@ -6,7 +6,7 @@
 <title>Importance Network & Visualization - BINN</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<meta name="generator" content="mkdocs-1.4.2, mkdocs-gitbook-1.0.7">
+<meta name="generator" content="mkdocs-1.5.3, mkdocs-gitbook-1.0.7">
 
 <link rel="shortcut icon" href="../../images/favicon.ico" type="image/x-icon">
 <meta name="HandheldFriendly" content="true"/>
@@ -29,7 +29,7 @@
 </li>
 <li class="divider"></li>
 <li class="chapter" data-path="">
-<a href="../..">Welcome to the BINN documentation</a>
+<a href="../..">Home</a>
 <li class="header">Examples & tutorials</li>
 
 <li>
@@ -108,6 +108,7 @@ Theme by GitBook
 <div class="doc doc-object doc-module">
 
 
+
 <a id="binn.importance_network"></a>
   <div class="doc doc-contents first">
 
@@ -126,8 +127,9 @@ Theme by GitBook
 
 
 
+
 <h2 id="binn.importance_network.ImportanceNetwork" class="doc doc-heading">
-        <code>ImportanceNetwork</code>
+          <code>ImportanceNetwork</code>
 
 
 </h2>
@@ -137,6 +139,8 @@ Theme by GitBook
 
   
       <p>A class for building and analyzing a directed graph representing the importance network of a system.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -152,10 +156,14 @@ Theme by GitBook
         <tr>
           <td><code>importance_df</code></td>
           <td>
-                <code>pandas.<span title="pandas.DataFrame">DataFrame</span></code>
+                <code><span title="pandas.DataFrame">DataFrame</span></code>
           </td>
-          <td><p>A dataframe with columns for the source node, target node, value flow between nodes,
-and layer for each node. This dataframe should represent the complete importance network of the system.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A dataframe with columns for the source node, target node, value flow between nodes,
+and layer for each node. This dataframe should represent the complete importance network of the system.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -165,8 +173,12 @@ and layer for each node. This dataframe should represent the complete importance
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the column in the DataFrame that represents the value flow between
-nodes. Defaults to "value".</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the column in the DataFrame that represents the value flow between
+nodes. Defaults to "value".</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;value&#39;</code>
           </td>
@@ -176,7 +188,11 @@ nodes. Defaults to "value".</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>Whether or not to normalize the value column. Defaults to True.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>Whether or not to normalize the value column. Defaults to True.</p>
+            </div>
+          </td>
           <td>
                 <code>True</code>
           </td>
@@ -186,15 +202,21 @@ nodes. Defaults to "value".</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>Method to normalie the value column with. Options are 'subgraph' and 'fan'.
+          <td>
+            <div class="doc-md-description">
+              <p>Method to normalie the value column with. Options are 'subgraph' and 'fan'.
 If 'subgraph', normalizes on the log(nodes in subgraph) from each node. If 'fan', normalizes on the
-log(fan in + fan out) for each node.</p></td>
+log(fan in + fan out) for each node.</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;subgraph&#39;</code>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Attributes:</strong></p>
   <table>
@@ -209,45 +231,64 @@ log(fan in + fan out) for each node.</p></td>
         <tr>
           <td><code>importance_df</code></td>
           <td>
-                <code>pandas.<span title="pandas.DataFrame">DataFrame</span></code>
+                <code><span title="pandas.DataFrame">DataFrame</span></code>
           </td>
-          <td><p>The dataframe used for downstream/upstream subgraph construction and plotting.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The dataframe used for downstream/upstream subgraph construction and plotting.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>val_col</code></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the column in the DataFrame that represents the value flow between nodes.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the column in the DataFrame that represents the value flow between nodes.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>G</code></td>
           <td>
-                <code>networkx.<span title="networkx.DiGraph">DiGraph</span></code>
+                <code><span title="networkx.DiGraph">DiGraph</span></code>
           </td>
-          <td><p>A directed graph object representing the importance network of the system.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A directed graph object representing the importance network of the system.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>G_reverse</code></td>
           <td>
-                <code>networkx.<span title="networkx.DiGraph">DiGraph</span></code>
+                <code><span title="networkx.DiGraph">DiGraph</span></code>
           </td>
-          <td><p>A directed graph object representing the importance network of the system in reverse.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>A directed graph object representing the importance network of the system in reverse.</p>
+            </div>
+          </td>
         </tr>
         <tr>
           <td><code>norm_method</code></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The normalization method.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The normalization method.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-
-        <details class="quote">
-          <summary>Source code in <code>binn/importance_network.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  8</span>
+            <details class="quote">
+              <summary>Source code in <code>binn/importance_network.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  8</span>
 <span class="normal">  9</span>
 <span class="normal"> 10</span>
 <span class="normal"> 11</span>
@@ -897,7 +938,7 @@ log(fan in + fan out) for each node.</p></td>
                 <span class="k">return</span> <span class="n">node</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not find node </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-        </details>
+            </details>
 
   
 
@@ -911,12 +952,14 @@ log(fan in + fan out) for each node.</p></td>
 
 
 
+
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.importance_network.ImportanceNetwork.add_normalization" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">add_normalization</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;subgraph&#39;</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">add_normalization</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;subgraph&#39;</span><span class="p">)</span></code>
 
 </h3>
 
@@ -924,6 +967,8 @@ log(fan in + fan out) for each node.</p></td>
   <div class="doc doc-contents ">
   
       <p>Adds normalization to the importance values based on the specified method.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -941,16 +986,22 @@ log(fan in + fan out) for each node.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The normalization method to use. Options are "fan" and "subgraph".
+          <td>
+            <div class="doc-md-description">
+              <p>The normalization method to use. Options are "fan" and "subgraph".
 "fan" normalizes based on fan-in and fan-out values.
 "subgraph" normalizes based on the number of nodes in the upstream and
-downstream subgraphs.</p></td>
+downstream subgraphs.</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;subgraph&#39;</code>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -964,14 +1015,18 @@ downstream subgraphs.</p></td>
         <tr>
           <td>
           </td>
-          <td><p>pd.DataFrame: The importance dataframe with the normalized values added.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>pd.DataFrame: The importance dataframe with the normalized values added.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">293</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/importance_network.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">293</span>
 <span class="normal">294</span>
 <span class="normal">295</span>
 <span class="normal">296</span>
@@ -1039,17 +1094,19 @@ downstream subgraphs.</p></td>
     <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">nr_tot</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_df</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.importance_network.ImportanceNetwork.create_graph" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">create_graph</span><span class="p">()</span></code>
+          <code class="highlight language-python"><span class="n">create_graph</span><span class="p">()</span></code>
 
 </h3>
 
@@ -1057,6 +1114,8 @@ downstream subgraphs.</p></td>
   <div class="doc doc-contents ">
   
       <p>Create a directed graph (DiGraph) from the source and target nodes in the input dataframe.</p>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1070,14 +1129,18 @@ downstream subgraphs.</p></td>
         <tr>
 <td><code>importance_graph</code></td>          <td>
           </td>
-          <td><p>a directed graph (DiGraph) object</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a directed graph (DiGraph) object</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">138</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/importance_network.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">138</span>
 <span class="normal">139</span>
 <span class="normal">140</span>
 <span class="normal">141</span>
@@ -1127,17 +1190,19 @@ downstream subgraphs.</p></td>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">importance_graph</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.importance_network.ImportanceNetwork.get_complete_subgraph" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">get_complete_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">get_complete_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1145,6 +1210,8 @@ downstream subgraphs.</p></td>
   <div class="doc doc-contents ">
   
       <p>Get a subgraph that contains all nodes both upstream and downstream of the query node up to the given depth limit (if provided).</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1162,7 +1229,11 @@ downstream subgraphs.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>a string representing the name of the node from which the complete subgraph is constructed</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a string representing the name of the node from which the complete subgraph is constructed</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1171,13 +1242,19 @@ downstream subgraphs.</p></td>
           <td><code>depth_limit</code></td>
           <td>
           </td>
-          <td><p>an integer representing the maximum depth to which the subgraph is constructed (optional)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>an integer representing the maximum depth to which the subgraph is constructed (optional)</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1191,14 +1268,18 @@ downstream subgraphs.</p></td>
         <tr>
 <td><code>subgraph</code></td>          <td>
           </td>
-          <td><p>a directed graph (DiGraph) object containing all nodes both upstream and downstream of the query node, up to the given depth limit</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a directed graph (DiGraph) object containing all nodes both upstream and downstream of the query node, up to the given depth limit</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">209</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/importance_network.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">209</span>
 <span class="normal">210</span>
 <span class="normal">211</span>
 <span class="normal">212</span>
@@ -1262,17 +1343,19 @@ downstream subgraphs.</p></td>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">subgraph</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.importance_network.ImportanceNetwork.get_downstream_subgraph" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">get_downstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">get_downstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1280,6 +1363,8 @@ downstream subgraphs.</p></td>
   <div class="doc doc-contents ">
   
       <p>Get a subgraph that contains all nodes downstream of the query node up to the given depth limit (if provided).</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1297,7 +1382,11 @@ downstream subgraphs.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>a string representing the name of the node from which the downstream subgraph is constructed</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a string representing the name of the node from which the downstream subgraph is constructed</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1306,13 +1395,19 @@ downstream subgraphs.</p></td>
           <td><code>depth_limit</code></td>
           <td>
           </td>
-          <td><p>an integer representing the maximum depth to which the subgraph is constructed (optional)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>an integer representing the maximum depth to which the subgraph is constructed (optional)</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1326,14 +1421,18 @@ downstream subgraphs.</p></td>
         <tr>
 <td><code>subgraph</code></td>          <td>
           </td>
-          <td><p>a directed graph (DiGraph) object containing all nodes downstream of the query node, up to the given depth limit</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a directed graph (DiGraph) object containing all nodes downstream of the query node, up to the given depth limit</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">164</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/importance_network.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">164</span>
 <span class="normal">165</span>
 <span class="normal">166</span>
 <span class="normal">167</span>
@@ -1393,17 +1492,19 @@ downstream subgraphs.</p></td>
     <span class="n">subgraph</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">importance_graph</span><span class="o">.</span><span class="n">nodes</span><span class="p">()[</span><span class="n">query_node</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">subgraph</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.importance_network.ImportanceNetwork.get_fan_in" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">get_fan_in</span><span class="p">(</span><span class="n">query_node</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">get_fan_in</span><span class="p">(</span><span class="n">query_node</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1411,6 +1512,8 @@ downstream subgraphs.</p></td>
   <div class="doc doc-contents ">
   
       <p>Get the number of incoming edges (fan-in) for the query node.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1428,13 +1531,19 @@ downstream subgraphs.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>a string representing the name of the node</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a string representing the name of the node</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1448,14 +1557,18 @@ downstream subgraphs.</p></td>
         <tr>
           <td>
           </td>
-          <td><p>the number of incoming edges (fan-in) for the query node</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the number of incoming edges (fan-in) for the query node</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">269</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/importance_network.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">269</span>
 <span class="normal">270</span>
 <span class="normal">271</span>
 <span class="normal">272</span>
@@ -1477,17 +1590,19 @@ downstream subgraphs.</p></td>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_graph</span><span class="o">.</span><span class="n">in_edges</span><span class="p">(</span><span class="n">query_node</span><span class="p">)])</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.importance_network.ImportanceNetwork.get_fan_out" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">get_fan_out</span><span class="p">(</span><span class="n">query_node</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">get_fan_out</span><span class="p">(</span><span class="n">query_node</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1495,6 +1610,8 @@ downstream subgraphs.</p></td>
   <div class="doc doc-contents ">
   
       <p>Get the number of outgoing edges (fan-out) for the query node.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1512,13 +1629,19 @@ downstream subgraphs.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>a string representing the name of the node</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a string representing the name of the node</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1532,14 +1655,18 @@ downstream subgraphs.</p></td>
         <tr>
           <td>
           </td>
-          <td><p>the number of outgoing edges (fan-out) for the query node</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the number of outgoing edges (fan-out) for the query node</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">281</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/importance_network.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">281</span>
 <span class="normal">282</span>
 <span class="normal">283</span>
 <span class="normal">284</span>
@@ -1561,17 +1688,19 @@ downstream subgraphs.</p></td>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">importance_graph</span><span class="o">.</span><span class="n">out_edges</span><span class="p">(</span><span class="n">query_node</span><span class="p">)])</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.importance_network.ImportanceNetwork.get_nr_nodes_in_downstream_subgraph" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">get_nr_nodes_in_downstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">get_nr_nodes_in_downstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1579,6 +1708,8 @@ downstream subgraphs.</p></td>
   <div class="doc doc-contents ">
   
       <p>Get the number of nodes in the downstream subgraph of the query node.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1596,13 +1727,19 @@ downstream subgraphs.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>a string representing the name of the node from which the downstream subgraph is constructed</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a string representing the name of the node from which the downstream subgraph is constructed</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1616,14 +1753,18 @@ downstream subgraphs.</p></td>
         <tr>
           <td>
           </td>
-          <td><p>the number of nodes in the downstream subgraph of the query node</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the number of nodes in the downstream subgraph of the query node</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">256</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/importance_network.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">256</span>
 <span class="normal">257</span>
 <span class="normal">258</span>
 <span class="normal">259</span>
@@ -1647,17 +1788,19 @@ downstream subgraphs.</p></td>
     <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_downstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">subgraph</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.importance_network.ImportanceNetwork.get_nr_nodes_in_upstream_subgraph" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">get_nr_nodes_in_upstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">get_nr_nodes_in_upstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1665,6 +1808,8 @@ downstream subgraphs.</p></td>
   <div class="doc doc-contents ">
   
       <p>Get the number of nodes in the upstream subgraph of the query node.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1682,13 +1827,19 @@ downstream subgraphs.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>a string representing the name of the node from which the upstream subgraph is constructed</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a string representing the name of the node from which the upstream subgraph is constructed</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1702,14 +1853,18 @@ downstream subgraphs.</p></td>
         <tr>
           <td>
           </td>
-          <td><p>the number of nodes in the upstream subgraph of the query node</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>the number of nodes in the upstream subgraph of the query node</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">242</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/importance_network.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">242</span>
 <span class="normal">243</span>
 <span class="normal">244</span>
 <span class="normal">245</span>
@@ -1735,17 +1890,19 @@ downstream subgraphs.</p></td>
     <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_upstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">subgraph</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.importance_network.ImportanceNetwork.get_upstream_subgraph" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">get_upstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">get_upstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1753,6 +1910,8 @@ downstream subgraphs.</p></td>
   <div class="doc doc-contents ">
   
       <p>Get a subgraph that contains all nodes upstream of the query node up to the given depth limit (if provided).</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1770,7 +1929,11 @@ downstream subgraphs.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>a string representing the name of the node from which the upstream subgraph is constructed</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a string representing the name of the node from which the upstream subgraph is constructed</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -1779,13 +1942,19 @@ downstream subgraphs.</p></td>
           <td><code>depth_limit</code></td>
           <td>
           </td>
-          <td><p>an integer representing the maximum depth to which the subgraph is constructed (optional)</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>an integer representing the maximum depth to which the subgraph is constructed (optional)</p>
+            </div>
+          </td>
           <td>
                 <code>None</code>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1799,14 +1968,18 @@ downstream subgraphs.</p></td>
         <tr>
 <td><code>subgraph</code></td>          <td>
           </td>
-          <td><p>a directed graph (DiGraph) object containing all nodes upstream of the query node, up to the given depth limit</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>a directed graph (DiGraph) object containing all nodes upstream of the query node, up to the given depth limit</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">195</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/importance_network.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">195</span>
 <span class="normal">196</span>
 <span class="normal">197</span>
 <span class="normal">198</span>
@@ -1832,17 +2005,19 @@ downstream subgraphs.</p></td>
     <span class="n">subgraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_downstream_subgraph</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">depth_limit</span><span class="o">=</span><span class="n">depth_limit</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">subgraph</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.importance_network.ImportanceNetwork.plot_complete_sankey" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">plot_complete_sankey</span><span class="p">(</span><span class="n">multiclass</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_top_n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">node_cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">edge_cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">savename</span><span class="o">=</span><span class="s1">&#39;sankey.png&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1900</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">800</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">plot_complete_sankey</span><span class="p">(</span><span class="n">multiclass</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">show_top_n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">node_cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">edge_cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">savename</span><span class="o">=</span><span class="s1">&#39;sankey.png&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1900</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">800</span><span class="p">)</span></code>
 
 </h3>
 
@@ -1850,6 +2025,8 @@ downstream subgraphs.</p></td>
   <div class="doc doc-contents ">
   
       <p>Plot a complete Sankey diagram for the importance network.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -1866,8 +2043,12 @@ downstream subgraphs.</p></td>
           <td><code>multiclass</code></td>
           <td>
           </td>
-          <td><p>bool, optional
-If True, plot multiclass Sankey diagram. Defaults to False.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>bool, optional
+If True, plot multiclass Sankey diagram. Defaults to False.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -1876,8 +2057,12 @@ If True, plot multiclass Sankey diagram. Defaults to False.</p></td>
           <td><code>show_top_n</code></td>
           <td>
           </td>
-          <td><p>int, optional
-Show only the top N nodes in the Sankey diagram. Defaults to 10.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>int, optional
+Show only the top N nodes in the Sankey diagram. Defaults to 10.</p>
+            </div>
+          </td>
           <td>
                 <code>10</code>
           </td>
@@ -1886,8 +2071,12 @@ Show only the top N nodes in the Sankey diagram. Defaults to 10.</p></td>
           <td><code>node_cmap</code></td>
           <td>
           </td>
-          <td><p>str, optional
-The color map for the nodes. Defaults to "Reds".</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>str, optional
+The color map for the nodes. Defaults to "Reds".</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;Reds&#39;</code>
           </td>
@@ -1896,8 +2085,12 @@ The color map for the nodes. Defaults to "Reds".</p></td>
           <td><code>edge_cmap</code></td>
           <td>
           </td>
-          <td><p>str or list, optional
-The color map for the edges. Defaults to "Reds".</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>str or list, optional
+The color map for the edges. Defaults to "Reds".</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;Reds&#39;</code>
           </td>
@@ -1906,14 +2099,20 @@ The color map for the edges. Defaults to "Reds".</p></td>
           <td><code>savename</code></td>
           <td>
           </td>
-          <td><p>str, optional
-The filename to save the plot. Defaults to "sankey.png".</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>str, optional
+The filename to save the plot. Defaults to "sankey.png".</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;sankey.png&#39;</code>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -1927,14 +2126,18 @@ The filename to save the plot. Defaults to "sankey.png".</p></td>
         <tr>
           <td>
           </td>
-          <td><p>plotly.graph_objs._figure.Figure: The plotly Figure object representing the Sankey diagram.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>plotly.graph_objs._figure.Figure: The plotly Figure object representing the Sankey diagram.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 96</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/importance_network.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 96</span>
 <span class="normal"> 97</span>
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
@@ -2016,17 +2219,19 @@ The filename to save the plot. Defaults to "sankey.png".</p></td>
     <span class="n">fig</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">fig</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
+
 
 <div class="doc doc-object doc-function">
 
 
 
+
 <h3 id="binn.importance_network.ImportanceNetwork.plot_subgraph_sankey" class="doc doc-heading">
-<code class="highlight language-python"><span class="n">plot_subgraph_sankey</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">upstream</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">savename</span><span class="o">=</span><span class="s1">&#39;sankey.png&#39;</span><span class="p">,</span> <span class="n">val_col</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span></code>
+          <code class="highlight language-python"><span class="n">plot_subgraph_sankey</span><span class="p">(</span><span class="n">query_node</span><span class="p">,</span> <span class="n">upstream</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">savename</span><span class="o">=</span><span class="s1">&#39;sankey.png&#39;</span><span class="p">,</span> <span class="n">val_col</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span></code>
 
 </h3>
 
@@ -2034,6 +2239,8 @@ The filename to save the plot. Defaults to "sankey.png".</p></td>
   <div class="doc doc-contents ">
   
       <p>Generate a Sankey diagram using the provided query node.</p>
+
+
 
   <p><strong>Parameters:</strong></p>
   <table>
@@ -2051,7 +2258,11 @@ The filename to save the plot. Defaults to "sankey.png".</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The node to use as the starting point for the Sankey diagram.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The node to use as the starting point for the Sankey diagram.</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
@@ -2061,9 +2272,13 @@ The filename to save the plot. Defaults to "sankey.png".</p></td>
           <td>
                 <code>bool</code>
           </td>
-          <td><p>If True, the Sankey diagram will show the upstream flow of the
+          <td>
+            <div class="doc-md-description">
+              <p>If True, the Sankey diagram will show the upstream flow of the
 query_node. If False (default), the Sankey diagram will show the downstream flow of the
-query_node.</p></td>
+query_node.</p>
+            </div>
+          </td>
           <td>
                 <code>False</code>
           </td>
@@ -2073,7 +2288,11 @@ query_node.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The file name to save the Sankey diagram as. Defaults to "sankey.png".</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The file name to save the Sankey diagram as. Defaults to "sankey.png".</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;sankey.png&#39;</code>
           </td>
@@ -2083,8 +2302,12 @@ query_node.</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The column in the DataFrame that represents the value flow between
-nodes. Defaults to "value".</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The column in the DataFrame that represents the value flow between
+nodes. Defaults to "value".</p>
+            </div>
+          </td>
           <td>
                 <code>&#39;value&#39;</code>
           </td>
@@ -2094,14 +2317,20 @@ nodes. Defaults to "value".</p></td>
           <td>
                 <code>str</code>
           </td>
-          <td><p>The name of the color map to use for the Sankey diagram. Defaults
-to "coolwarm".</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>The name of the color map to use for the Sankey diagram. Defaults
+to "coolwarm".</p>
+            </div>
+          </td>
           <td>
               <em>required</em>
           </td>
         </tr>
     </tbody>
   </table>
+
+
 
   <p><strong>Returns:</strong></p>
   <table>
@@ -2115,14 +2344,18 @@ to "coolwarm".</p></td>
         <tr>
           <td>
           </td>
-          <td><p>plotly.graph_objs._figure.Figure: The plotly Figure object representing the Sankey diagram.</p></td>
+          <td>
+            <div class="doc-md-description">
+              <p>plotly.graph_objs._figure.Figure: The plotly Figure object representing the Sankey diagram.</p>
+            </div>
+          </td>
         </tr>
     </tbody>
   </table>
 
-      <details class="quote">
-        <summary>Source code in <code>binn/importance_network.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">47</span>
+          <details class="quote">
+            <summary>Source code in <code>binn/importance_network.py</code></summary>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">47</span>
 <span class="normal">48</span>
 <span class="normal">49</span>
 <span class="normal">50</span>
@@ -2218,7 +2451,7 @@ to "coolwarm".</p></td>
     <span class="n">fig</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">savename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">fig</span>
 </code></pre></div></td></tr></table></div>
-      </details>
+          </details>
   </div>
 
 </div>
