@@ -504,7 +504,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <!-- End of mermaid configuration --><div class="jupyter-wrapper">
 <div class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=aca83efc">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=15da4a29">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -531,7 +531,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=6104361f">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=22747c95">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -562,7 +562,7 @@ import numpy as np</div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=9bf14c62">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=94bc2632">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -581,33 +581,35 @@ import numpy as np</div>
 </clipboard-copy>
 </div>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="k">def</span> <span class="nf">fit_data_matrix_to_network_input</span><span class="p">(</span><span class="n">data_matrix</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">feature_column</span><span class="o">=</span><span class="s2">"Protein"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-    <span class="n">nr_features_in_matrix</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_matrix</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">dm</span> <span class="o">=</span> <span class="n">data_matrix</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">nr_features_in_matrix</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dm</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">nr_features_in_matrix</span><span class="p">:</span>
         <span class="n">features_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">feature_column</span><span class="p">])</span>
-        <span class="n">data_matrix</span> <span class="o">=</span> <span class="n">data_matrix</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">dm</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
             <span class="n">features_df</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">'right'</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="n">feature_column</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">features</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">data_matrix</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">feature_column</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">data_matrix</span> <span class="o">=</span> <span class="n">data_matrix</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">features</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">data_matrix</span>
+        <span class="n">dm</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="n">feature_column</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">dm</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">features</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">dm</span>
 </pre></div>
 <div class="clipboard-copy-txt" id="cell-3">def fit_data_matrix_to_network_input(data_matrix: pd.DataFrame, features, feature_column="Protein") -&gt; pd.DataFrame:
-    nr_features_in_matrix = len(data_matrix.index)
+    dm = data_matrix.copy()
+    nr_features_in_matrix = len(dm.index)
     if len(features) &gt; nr_features_in_matrix:
         features_df = pd.DataFrame(features, columns=[feature_column])
-        data_matrix = data_matrix.merge(
+        dm = dm.merge(
             features_df, how='right', on=feature_column)
     if len(features) &gt; 0:
-        data_matrix.set_index(feature_column, inplace=True)
-        data_matrix = data_matrix.loc[features]
-    return data_matrix</div>
+        dm.set_index(feature_column, inplace=True)
+        dm = dm.loc[features]
+    return dm</div>
 </div>
 </div>
 </div>
 </div>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=4c8f2bbc">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=47e4e7fc">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>

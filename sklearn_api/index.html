@@ -549,8 +549,7 @@ import pandas as pd
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>/home/erikh/BINN/BINN/test-venv/lib/python3.9/site-packages/tqdm/auto.py:22: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
-  from .autonotebook import tqdm as notebook_tqdm
+<pre>IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
 </pre>
 </div>
 </div>
@@ -640,6 +639,21 @@ binn.clf.features</div>
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
+<pre>Missing logger folder: logs/test/lightning_logs
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>
+BINN is on the device: cpu
+</pre>
+</div>
+</div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[2]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
@@ -720,24 +734,22 @@ binn.fit(X_train, y_train, epochs=5)</div>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>GPU available: True (cuda), used: False
+<pre>GPU available: True (mps), used: True
 TPU available: False, using: 0 TPU cores
 IPU available: False, using: 0 IPUs
 HPU available: False, using: 0 HPUs
-GPU available but not used. Set `accelerator` and `devices` using `Trainer(accelerator='gpu', devices=1)`.
 You defined a `validation_step` but have no `val_dataloader`. Skipping val loop.
 
-  | Name     | Type             | Params
-----------------------------------------------
-0 | layers   | Sequential       | 364 K 
-1 | loss     | CrossEntropyLoss | 0     
-2 | loss_val | CrossEntropyLoss | 0     
-----------------------------------------------
+  | Name   | Type             | Params
+--------------------------------------------
+0 | layers | Sequential       | 364 K 
+1 | loss   | CrossEntropyLoss | 0     
+--------------------------------------------
 364 K     Trainable params
 0         Non-trainable params
 364 K     Total params
 1.457     Total estimated model params size (MB)
-Experiment logs directory logs/test/lightning_logs/version_3 exists and is not empty. Previous log files in this directory will be deleted when the new ones are saved!
+Consider setting `persistent_workers=True` in 'train_dataloader' to speed up the dataloader worker initialization.
 The number of training batches (24) is smaller than the logging interval Trainer(log_every_n_steps=50). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
 </pre>
 </div>
@@ -745,7 +757,7 @@ The number of training batches (24) is smaller than the logging interval Trainer
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Epoch 4: 100%|██████████| 24/24 [00:00&lt;00:00, 57.06it/s, loss=0.75, v_num=3, train_loss=0.773, train_acc=0.556] </pre>
+<pre>Epoch 4: 100%|██████████| 24/24 [00:02&lt;00:00,  9.90it/s, v_num=0, train_loss=0.711, train_acc=0.572]</pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
@@ -758,7 +770,7 @@ The number of training batches (24) is smaller than the logging interval Trainer
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Epoch 4: 100%|██████████| 24/24 [00:09&lt;00:00,  2.66it/s, loss=0.75, v_num=3, train_loss=0.773, train_acc=0.556]
+<pre>Epoch 4: 100%|██████████| 24/24 [00:07&lt;00:00,  3.12it/s, v_num=0, train_loss=0.711, train_acc=0.572]
 </pre>
 </div>
 </div>
@@ -809,16 +821,16 @@ The number of training batches (24) is smaller than the logging interval Trainer
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>tensor([[-0.7593, -0.6118],
-        [ 0.1700, -0.8432],
-        [ 0.0709, -1.0857],
-        [-0.2082, -1.1145],
-        [ 0.1687, -1.3955],
-        [-0.7921,  0.4828],
-        [ 0.0444, -0.1737],
-        [-1.5466,  0.4932],
-        [-0.5567,  1.1309],
-        [ 0.2844,  0.0567]])</pre>
+<pre>tensor([[ 0.6729, -0.2405],
+        [ 0.5627,  0.0713],
+        [-0.3760, -0.7794],
+        [ 0.0175, -0.2304],
+        [-0.4105,  0.2780],
+        [-0.5066, -0.5398],
+        [ 0.1077,  0.3245],
+        [ 0.6781, -0.3180],
+        [-0.0867, -0.2553],
+        [-1.3702,  1.6543]])</pre>
 </div>
 </div>
 </div>
