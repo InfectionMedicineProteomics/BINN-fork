@@ -90,9 +90,9 @@ class BINN(pl.LightningModule):
             self.layers = _generate_residual(
                 layer_sizes,
                 connectivity_matrices=self.connectivity_matrices,
-                activation="tanh",
+                activation=activation,
                 bias=True,
-                n_outputs=2,
+                n_outputs=n_outputs,
             )
         else:
             self.layers = _generate_sequential(
@@ -201,6 +201,7 @@ class BINN(pl.LightningModule):
                 optimizer = torch.optim.Adam(
                     self.parameters(), lr=self.learning_rate, weight_decay=1e-3
                 )
+                self.optimizer = optimizer
         else:
             optimizer = self.optimizer
 
@@ -244,7 +245,6 @@ class BINN(pl.LightningModule):
         Initializes the trainable parameters of the BINN.
         """
         self.apply(_init_weights)
-
 
     def _forward_residual(self, x: torch.tensor):
         x_final = torch.tensor([0, 0], device=self.device)
