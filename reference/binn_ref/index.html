@@ -788,9 +788,9 @@ their website: https://pytorch.org/</p>
             <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">_generate_residual</span><span class="p">(</span>
                 <span class="n">layer_sizes</span><span class="p">,</span>
                 <span class="n">connectivity_matrices</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">connectivity_matrices</span><span class="p">,</span>
-                <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;tanh&quot;</span><span class="p">,</span>
+                <span class="n">activation</span><span class="o">=</span><span class="n">activation</span><span class="p">,</span>
                 <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">n_outputs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                <span class="n">n_outputs</span><span class="o">=</span><span class="n">n_outputs</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">_generate_sequential</span><span class="p">(</span>
@@ -899,6 +899,7 @@ their website: https://pytorch.org/</p>
                 <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">learning_rate</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="mf">1e-3</span>
                 <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">optimizer</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">optimizer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span>
 
@@ -942,7 +943,6 @@ their website: https://pytorch.org/</p>
 <span class="sd">        Initializes the trainable parameters of the BINN.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">_init_weights</span><span class="p">)</span>
-
 
     <span class="k">def</span> <span class="nf">_forward_residual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">):</span>
         <span class="n">x_final</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
@@ -1050,7 +1050,8 @@ their website: https://pytorch.org/</p>
 <span class="normal">219</span>
 <span class="normal">220</span>
 <span class="normal">221</span>
-<span class="normal">222</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">222</span>
+<span class="normal">223</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Configures the optimizer and learning rate scheduler for training the BINN.</span>
 
@@ -1067,6 +1068,7 @@ their website: https://pytorch.org/</p>
             <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">learning_rate</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="mf">1e-3</span>
             <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">optimizer</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">optimizer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span>
 
@@ -1239,14 +1241,14 @@ their website: https://pytorch.org/</p>
 
           <details class="quote">
             <summary>Source code in <code>binn/binn.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">227</span>
-<span class="normal">228</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">228</span>
 <span class="normal">229</span>
 <span class="normal">230</span>
 <span class="normal">231</span>
 <span class="normal">232</span>
 <span class="normal">233</span>
-<span class="normal">234</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_connectivity_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="normal">234</span>
+<span class="normal">235</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_connectivity_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the connectivity matrices underlying the BINN.</span>
 
@@ -1278,11 +1280,11 @@ their website: https://pytorch.org/</p>
 
           <details class="quote">
             <summary>Source code in <code>binn/binn.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">242</span>
-<span class="normal">243</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">243</span>
 <span class="normal">244</span>
 <span class="normal">245</span>
-<span class="normal">246</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">init_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">246</span>
+<span class="normal">247</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">init_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initializes the trainable parameters of the BINN.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1311,11 +1313,11 @@ their website: https://pytorch.org/</p>
 
           <details class="quote">
             <summary>Source code in <code>binn/binn.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">236</span>
-<span class="normal">237</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">237</span>
 <span class="normal">238</span>
 <span class="normal">239</span>
-<span class="normal">240</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">reset_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal">240</span>
+<span class="normal">241</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">reset_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resets the trainable parameters of the BINN.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
